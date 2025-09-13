@@ -7,7 +7,8 @@ import { Menu, X, PhoneCall, Clock, Instagram, MessageCircle, Send } from 'lucid
 import { mainNav } from '@/lib/nav'
 import { companyInfo, socials } from '@/lib/stores'
 import { cn } from '@/lib/utils'
-import Logo from './Logo'
+import { Logo } from './Logo'
+
 
 const socialIcons = {
   Instagram,
@@ -16,7 +17,7 @@ const socialIcons = {
   MessageCircle,
 }
 
-export default function MobileNav() {
+export const MobileNav =()=> {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 

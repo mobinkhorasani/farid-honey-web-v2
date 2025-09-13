@@ -11,11 +11,11 @@ interface SocialLinkProps {
 const iconMap = {
   Instagram,
   X,
-  Send, // Telegram
-  MessageCircle, // WhatsApp
+  Send,
+  MessageCircle, 
 } as const
 
-export default function SocialLink({ href, label, icon, className }: SocialLinkProps) {
+export const SocialLink = ({ href, label, icon, className }: SocialLinkProps) => {
   const IconComponent = iconMap[icon]
 
   return (
