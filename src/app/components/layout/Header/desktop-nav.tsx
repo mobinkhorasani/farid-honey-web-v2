@@ -5,17 +5,16 @@ import { usePathname } from 'next/navigation'
 import { mainNav } from '@/lib/nav'
 import { cn } from '@/lib/utils'
 
-export default function DesktopNav() {
+export const DesktopNav = () => {
   const pathname = usePathname()
 
   return (
-    <nav 
-      className="hidden md:flex items-center space-x-8 space-x-8" 
-      aria-label="هدایت اصلی"
+    <nav
+      className="hidden md:flex items-center space-x-8 space-x-8"
     >
       {mainNav.map((item) => {
         const isActive = pathname === item.href
-        
+
         return (
           <Link
             key={item.href}

@@ -1,8 +1,9 @@
 import './globals.css'
 import { Vazirmatn } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
-import Header from '@/components/site/Header/Header'
-import Footer from '@/components/site/Footer/Footer'
+import { Header } from './components/layout/Header'
+import { Footer } from './components/layout/Footer'
+
 
 // Configure Vazirmatn Persian font
 const vazirmatn = Vazirmatn({

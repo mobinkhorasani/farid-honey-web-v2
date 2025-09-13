@@ -6,22 +6,21 @@ const socialIcons = {
   Instagram,
   X: () => (
     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
   ),
   Send,
   MessageCircle,
 }
 
-export default function Footer() {
+export const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-100" role="contentinfo">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Content */}
+       
         <div className="py-12 lg:py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            
-            {/* Store Locations Column */}
+
             <div>
               <h3 className="text-lg font-bold text-orange-400 mb-6">
                 فروشگاه‌های ما
@@ -42,7 +41,7 @@ export default function Footer() {
                     </div>
                     <div className="flex items-center space-x-2 space-x-2 mr-7">
                       <Phone className="w-4 h-4 text-orange-400" aria-hidden="true" />
-                      <a 
+                      <a
                         href={`tel:${store.phone}`}
                         className="text-sm text-gray-300 hover:text-orange-400 transition-colors duration-200"
                         aria-label={`تماس با فروشگاه ${store.city}`}
@@ -55,7 +54,7 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Quick Links Column */}
+
             <div>
               <h3 className="text-lg font-bold text-orange-400 mb-6">
                 دسترسی سریع
@@ -76,7 +75,7 @@ export default function Footer() {
               </nav>
             </div>
 
-            {/* Social Media Column */}
+
             <div>
               <h3 className="text-lg font-bold text-orange-400 mb-6">
                 شبکه‌های اجتماعی
@@ -103,7 +102,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright Section */}
+
         <div className="border-t border-gray-800 py-6">
           <div className="text-center">
             <p className="text-xs text-gray-500">

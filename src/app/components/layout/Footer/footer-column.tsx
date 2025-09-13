@@ -6,7 +6,7 @@ interface FooterColumnProps {
   className?: string
 }
 
-export default function FooterColumn({ title, children, className }: FooterColumnProps) {
+export const FooterColumn = ({ title, children, className }: FooterColumnProps) => {
   return (
     <div className={cn('space-y-4', className)}>
       <h3 className="text-lg font-bold text-brand">

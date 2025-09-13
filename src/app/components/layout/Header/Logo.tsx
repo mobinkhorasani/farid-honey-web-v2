@@ -9,37 +9,31 @@ interface LogoProps {
   className?: string
   textClassName?: string
   textSize?: 'sm' | 'base' | 'lg' | 'xl'
-  /** مسیر فایل لوگو در public */
   src?: string
   width?: number
   height?: number
   priority?: boolean
-  /** متن برند کنار لوگو را نشان بده */
   showText?: boolean
-  /** متن برند را فقط در دسکتاپ نشان بده */
   hideTextOnMobile?: boolean
-  /** جای متن نسبت به تصویر */
   textPosition?: 'left' | 'right'
-  /** متن برند */
   brandName?: string
-  /** تم متن روی زمینه تیره/روشن */
   variant?: 'light' | 'dark'
 }
 
-export default function Logo({
+export const Logo =({
   className,
   textClassName,
   textSize = 'xl',
-  src = '/images/brand/logo.jpg',       // اگر مسیر شما /image/... است همین را عوض کن
+  src = '/images/brand/logo.jpg',       
   width = 160,
   height = 44,
   priority = true,
   showText = true,
   hideTextOnMobile = false,
-  textPosition = 'left',                 // 'right' اگر می‌خواهی متن سمت راست تصویر باشد
+  textPosition = 'left',                
   brandName = 'عسل فرید',
   variant = 'dark',
-}: LogoProps) {
+}: LogoProps) => {
   const [imgError, setImgError] = useState(false)
 
   const sizeClasses = {
@@ -51,13 +45,12 @@ export default function Logo({
 
   const color = variant === 'light' ? 'text-white' : 'text-gray-900'
 
-  // اگر textPosition='right' شود چیدمان برعکس می‌شود
+
   const directionClass = textPosition === 'right' ? 'flex-row-reverse' : 'flex-row'
 
   return (
     <Link
       href="/"
-      // وقتی متن نشان داده می‌شود دیگر aria-label لازم نیست تا دوبار خوانده نشود
       aria-label={showText ? undefined : 'بازگشت به صفحه اصلی عسل فرید'}
       className={cn('inline-flex items-center gap-3 shrink-0', directionClass, className)}
     >
