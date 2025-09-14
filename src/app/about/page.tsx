@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { aboutData, AboutHero, AboutVideo, Story, Timeline } from './components';
+import { AboutHero, AboutVideo, Story, Timeline } from './components';
+import { aboutText, timeline, video } from '@/constants/about-data';
 
 export const metadata: Metadata = {
   title: 'درباره ما - زنبورستان فرید',
@@ -12,9 +13,9 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#F9F7F2]">
       <AboutHero />
-      <AboutVideo url={aboutData.video.url} poster={aboutData.video.poster} />
-      <Timeline items={aboutData.timeline} />
-      <Story aboutText={aboutData.aboutText} />
+      <AboutVideo url={video.url} poster={video.poster} />
+      <Timeline items={timeline} />
+      <Story aboutText={aboutText} />
     </main>
   );
 }

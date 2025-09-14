@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 import { fadeInUp, scaleIn } from "@/components/motion/variants";
 
-const AboutHero: React.FC = () => {
+export const AboutHero = () => {
   return (
     <section className="relative overflow-hidden pt-10 pb-6 md:pt-14 md:pb-8">
-      {/* هاله‌ی طلایی بسیار لطیف */}
+
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(1200px_600px_at_50%_-10%,#E9B1591a,transparent_60%)]" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.h1
@@ -36,5 +36,3 @@ const AboutHero: React.FC = () => {
     </section>
   );
 };
-
-export default AboutHero;

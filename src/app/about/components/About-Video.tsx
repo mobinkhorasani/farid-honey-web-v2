@@ -4,8 +4,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Play, X } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { VideoProps } from './types';
 import { fadeIn, scaleIn } from '@/components/motion/variants';
+import { VideoProps } from '@/constants/about-data';
 
 const isYouTubeOrVimeo = (url: string) =>
   url.includes('youtube.com') || url.includes('youtu.be') || url.includes('vimeo.com');
@@ -26,7 +26,7 @@ const getEmbedUrl = (url: string) => {
   return url;
 };
 
-const AboutVideo: React.FC<VideoProps> = ({ url, poster }) => {
+export const AboutVideo = ({ url, poster }:VideoProps) => {
   const [playing, setPlaying] = useState(false);
 
   return (
@@ -51,10 +51,8 @@ const AboutVideo: React.FC<VideoProps> = ({ url, poster }) => {
                 />
               )}
 
-              {/* گرادیان برای خوانایی */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
 
-              {/* Ripple سبک */}
               <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full w-28 h-28 border border-[#E9B159]/40 animate-ping" />
               <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full w-20 h-20 border border-[#E9B159]/60 animate-ping [animation-delay:200ms]" />
 
@@ -117,4 +115,3 @@ const AboutVideo: React.FC<VideoProps> = ({ url, poster }) => {
   );
 };
 
-export default AboutVideo;

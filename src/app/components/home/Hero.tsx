@@ -5,15 +5,13 @@ import Link from 'next/link';
 import { motion, cubicBezier } from 'framer-motion';
 import type { TargetAndTransition, Transition } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
+import { fadeInUp, scaleIn, containerVariants } from '@/components/motion/variants';
 
-// واریانت‌ها از فایل جدا
-import { fadeInUp, scaleIn, fadeIn, containerVariants } from '@/components/motion/variants';
 
-// Easingهای یکدست (برای جلوگیری از ارور تایپ ease)
 const easeStd = cubicBezier(0.4, 0, 0.2, 1);
 const easeEnter = cubicBezier(0.22, 1, 0.36, 1);
 
-const Hero: React.FC = () => {
+export const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [viewport, setViewport] = useState({ w: 0, h: 0 });
 
@@ -31,7 +29,7 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // پارالاکس نرم بر اساس موس
+
   const parallax = useMemo(
     () => (f: number) => ({
       x: (mousePosition.x - viewport.w / 2) * f,
@@ -40,7 +38,7 @@ const Hero: React.FC = () => {
     [mousePosition, viewport]
   );
 
-  // انیمیشن‌ها با تایپ صحیح
+ 
   const floatingAnimation: TargetAndTransition = {
     y: [0, -12, 0],
     transition: { duration: 3.2, repeat: Infinity, ease: easeStd } as Transition,
@@ -60,7 +58,7 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#FAF7F0] via-[#F9F7F2] to-[#F5F1E8] min-h-[90vh] lg:min-h-screen flex items-center">
-      {/* Orbs پس‌زمینه */}
+
       <div className="absolute inset-0 pointer-events-none select-none" aria-hidden>
         <motion.div
           className="absolute top-16 right-8 w-[34rem] h-[34rem] bg-gradient-to-br from-[#E9B159]/25 to-[#D4A574]/10 rounded-full blur-3xl will-change-transform"
@@ -76,7 +74,7 @@ const Hero: React.FC = () => {
         />
       </div>
 
-      {/* برگ‌های تزئینی */}
+
       <motion.div className="absolute top-6 left-6 z-10" animate={floatingAnimation} aria-hidden>
         <Leaf className="w-36 h-36 text-gray-300/70" />
       </motion.div>
@@ -88,7 +86,7 @@ const Hero: React.FC = () => {
         <Leaf className="w-48 h-48 text-gray-300/60" />
       </motion.div>
 
-      {/* زنبورها */}
+
       <motion.div className="absolute top-24 left-1/3" animate={getBeeAnimation(0)} aria-hidden>
         <Bee className="w-10 h-10 text-[#E9B159]" />
       </motion.div>
@@ -99,7 +97,7 @@ const Hero: React.FC = () => {
         <Bee className="w-9 h-9 text-[#E9B159]" />
       </motion.div>
 
-      {/* مسیر نقطه‌چین متحرک */}
+
       <svg className="absolute top-16 right-0 w-full h-36 opacity-40" viewBox="0 0 800 200" fill="none" aria-hidden>
         <motion.path
           d="M-100 100 Q 200 50, 400 80 T 900 60"
@@ -119,7 +117,7 @@ const Hero: React.FC = () => {
           animate="show"
           variants={containerVariants}
         >
-          {/* متن */}
+ 
           <div className="order-2 lg:order-1 text-center lg:text-right">
             <motion.div variants={fadeInUp} className="mb-6">
               <motion.div className="inline-flex items-center gap-3 mb-4" whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
@@ -176,7 +174,7 @@ const Hero: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* تصویر */}
+     
           <div className="order-1 lg:order-2 relative">
             <motion.div
               className="relative mx-auto will-change-transform"
@@ -185,7 +183,7 @@ const Hero: React.FC = () => {
               transition={{ duration: 1, delay: 0.45, ease: easeEnter }}
               style={{ perspective: 1000 }}
             >
-              {/* Jar */}
+      
               <motion.div
                 className="relative z-20 mx-auto w-full max-w-[640px] h-[420px] sm:h-[520px] md:h-[560px] lg:h-[640px]"
                 animate={floatingAnimation}
@@ -202,7 +200,6 @@ const Hero: React.FC = () => {
                   priority
                 />
 
-                {/* Glow */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-[#E9B159]/25 to-[#D4A574]/25 rounded-full blur-2xl"
                   animate={{ scale: [1, 1.08, 1], opacity: [0.45, 0.75, 0.45] }}
@@ -210,7 +207,7 @@ const Hero: React.FC = () => {
                 />
               </motion.div>
 
-              {/* Honeycomb */}
+        
               <motion.div
                 className="absolute -bottom-10 -right-16 z-10"
                 initial={{ opacity: 0, y: 60 }}
@@ -230,7 +227,7 @@ const Hero: React.FC = () => {
                 </div>
               </motion.div>
 
-              {/* Dipper */}
+           
               <motion.div
                 className="absolute top-4 -left-10 z-30"
                 initial={{ opacity: 0, rotate: -40 }}
@@ -242,7 +239,7 @@ const Hero: React.FC = () => {
                 <HoneyDipper className="w-24 h-24 text-[#D4A574]" />
               </motion.div>
 
-              {/* نوشته تزئینی */}
+
               <motion.div
                 className="absolute -top-6 -right-10 text-right"
                 initial={{ opacity: 0, x: 50 }}
@@ -263,7 +260,7 @@ const Hero: React.FC = () => {
                 </motion.p>
               </motion.div>
 
-              {/* جرقه‌ها */}
+  
               {[...Array(7)].map((_, i) => (
                 <motion.div
                   key={i}
@@ -281,7 +278,6 @@ const Hero: React.FC = () => {
   );
 };
 
-export default Hero;
 
 /* ---------- SVG Components ---------- */
 function Bee({ className = '' }: { className?: string }) {

@@ -1,5 +1,5 @@
-import { Category, Product } from './types';
-import { Droplet, Hexagon, FlaskConical, Flower2, Grid2X2 } from 'lucide-react';
+import { Category } from '@/types/d.type';
+import { Droplet, Hexagon, FlaskConical, Flower2 } from 'lucide-react';
 
 export const categories: Category[] = [
   { id: 'honey', title: 'عسل', href: '/products?honey', icon: Droplet },

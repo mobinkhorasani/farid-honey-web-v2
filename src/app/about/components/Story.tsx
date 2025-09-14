@@ -9,14 +9,14 @@ import {
   useTransform,
   useReducedMotion,
 } from 'framer-motion';
-import { StoryProps } from './types';
 import { fadeInUp, scaleIn, stagger } from '@/components/motion/variants';
+import { StoryProps } from '@/constants/about-data';
 
-const Story: React.FC<StoryProps> = ({ aboutText }) => {
+export const Story = ({ aboutText } : StoryProps) => {
   const paragraphs = aboutText.split('\n\n');
 
-  // ===== Tilt (3D) =====
-  const prefersReduced = useReducedMotion(); // فقط برای شدت/props؛ در DOM شاخه شرطی نداریم
+  
+  const prefersReduced = useReducedMotion();
   const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -26,7 +26,7 @@ const Story: React.FC<StoryProps> = ({ aboutText }) => {
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = cardRef.current;
     if (!el) return;
-    if (prefersReduced) return; // رفتار، نه DOM
+    if (prefersReduced) return;
     const rect = el.getBoundingClientRect();
     const px = (e.clientX - rect.left) / rect.width;
     const py = (e.clientY - rect.top) / rect.height;
@@ -38,12 +38,12 @@ const Story: React.FC<StoryProps> = ({ aboutText }) => {
     y.set(0);
   };
 
-  // ===== Fallback for image case-sensitive names =====
+  
   const [imgSrc, setImgSrc] = useState('/images/about/brand-jar.JPG');
 
   return (
     <section className="relative py-12 md:py-16">
-      {/* پس‌زمینه لطیف برند (همیشه رندر می‌شود) */}
+
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -58,7 +58,7 @@ const Story: React.FC<StoryProps> = ({ aboutText }) => {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
+        
         <div className="text-center mb-10 md:mb-12">
           <h2 className="relative inline-block text-2xl md:text-3xl font-bold text-gray-900">
             داستان برند
@@ -67,7 +67,7 @@ const Story: React.FC<StoryProps> = ({ aboutText }) => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          {/* متن با استگر */}
+
           <motion.div
             variants={stagger}
             initial="hidden"
@@ -91,7 +91,6 @@ const Story: React.FC<StoryProps> = ({ aboutText }) => {
             ))}
           </motion.div>
 
-          {/* تصویر با Tilt + Shine (DOM ثابت؛ رفتار با motion-reduce و props کنترل می‌شود) */}
           <motion.div
             variants={scaleIn}
             initial="hidden"
@@ -125,13 +124,13 @@ const Story: React.FC<StoryProps> = ({ aboutText }) => {
                   priority={false}
                 />
 
-                {/* گرادیان پایین برای عمق */}
+ 
                 <div
                   aria-hidden="true"
                   className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/25 via-black/10 to-transparent pointer-events-none"
                 />
 
-                {/* Shine همیشه رندر می‌شود؛ با CSS غیرفعال می‌گردد */}
+         
                 <motion.div
                   aria-hidden="true"
                   initial={{ x: '-120%' }}
@@ -140,7 +139,7 @@ const Story: React.FC<StoryProps> = ({ aboutText }) => {
                   className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 skew-x-12 bg-gradient-to-r from-white/5 via-white/40 to-white/5 mix-blend-screen motion-reduce:hidden"
                 />
 
-                {/* حلقه‌ی طلایی ظریف هنگام هاور (همیشه رندر؛ فقط استایل تغییر می‌کند) */}
+
                 <motion.div
                   aria-hidden="true"
                   className="absolute inset-0 rounded-2xl ring-1 ring-transparent"
@@ -155,5 +154,3 @@ const Story: React.FC<StoryProps> = ({ aboutText }) => {
     </section>
   );
 };
-
-export default Story;

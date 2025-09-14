@@ -2,19 +2,20 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { categories } from './data';
-import { stagger, scaleIn } from '@/components/motion/variants';
 
-const Categories: React.FC = () => {
+import { stagger, scaleIn } from '@/components/motion/variants';
+import { categories } from '@/constants/home-data';
+
+export const Categories = () => {
   return (
     <section className="py-10 md:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* عنوان */}
+
         <div className="text-center mb-6 md:mb-8">
           <h2 className="text-xl md:text-2xl font-bold text-gray-900">دسته‌بندی محصولات</h2>
         </div>
 
-        {/* گرید وسط‌چین با کارت‌های مربع */}
+      
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -47,4 +48,3 @@ const Categories: React.FC = () => {
   );
 };
 
-export default Categories;
