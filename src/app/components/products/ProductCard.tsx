@@ -20,7 +20,7 @@ interface ProductCardProps {
 
 const formatPrice = (price: number) => `${price.toLocaleString('fa-IR')} تومان`;
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product }: ProductCardProps) => {
   const isCollage = product.images.length === 4;
 
   return (
