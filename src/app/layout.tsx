@@ -3,9 +3,9 @@ import { Vazirmatn } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
 import { Header } from './components/layout/Header'
 import { Footer } from './components/layout/Footer'
+import ReactQueryProvider from '@/providers/ReactQueryProvider'
 
 
-// Configure Vazirmatn Persian font
 const vazirmatn = Vazirmatn({
   subsets: ['latin', 'arabic'],
   weight: ['400', '500', '700'],
@@ -54,7 +54,9 @@ export default function RootLayout({
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-1">
-            {children}
+            <ReactQueryProvider>
+              {children}
+            </ReactQueryProvider>
           </main>
           <Footer />
         </div>
