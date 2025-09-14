@@ -34,6 +34,9 @@ export const metadata: Metadata = {
     title: 'عسل فرید - بهترین عسل طبیعی ایران',
     description: 'فروشگاه عسل فرید، تولید و فروش بهترین انواع عسل طبیعی و خالص ایرانی',
   },
+   icons: {
+    icon: "/favicon/logo.png",
+  },
 }
 
 export const viewport: Viewport = {
