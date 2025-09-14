@@ -20,17 +20,17 @@ interface LogoProps {
   variant?: 'light' | 'dark'
 }
 
-export const Logo =({
+export const Logo = ({
   className,
   textClassName,
   textSize = 'xl',
-  src = '/images/brand/logo.jpg',       
+  src = '/images/brand/logo.jpg',
   width = 160,
   height = 44,
   priority = true,
   showText = true,
   hideTextOnMobile = false,
-  textPosition = 'left',                
+  textPosition = 'left',
   brandName = 'عسل فرید',
   variant = 'dark',
 }: LogoProps) => {
@@ -43,15 +43,21 @@ export const Logo =({
     xl: 'text-2xl md:text-3xl',
   }
 
-  const color = variant === 'light' ? 'text-white' : 'text-gray-900'
+  // تقسیم نام برند به دو بخش: (همهٔ کلمات به جز آخری) + (آخرین کلمه)
+  const parts = brandName.trim().split(/\s+/)
+  const mainText = parts.length > 1 ? parts.slice(0, -1).join(' ') : brandName
+  const lastWord = parts.length > 1 ? parts[parts.length - 1] : ''
 
+  const darkText = variant === 'light' ? 'text-white' : 'text-[#0B1321]' // مشکی متمایل به سرمه‌ای
+  const goldText = 'text-[#F6D27A]' // طلایی مطابق خواست شما
 
-  const directionClass = textPosition === 'right' ? 'flex-row-reverse' : 'flex-row'
+  const directionClass =
+    textPosition === 'right' ? 'flex-row-reverse' : 'flex-row'
 
   return (
     <Link
       href="/"
-      aria-label={showText ? undefined : 'بازگشت به صفحه اصلی عسل فرید'}
+      aria-label={showText ? undefined : `بازگشت به صفحه اصلی ${brandName}`}
       className={cn('inline-flex items-center gap-3 shrink-0', directionClass, className)}
     >
       {!imgError && (
@@ -69,22 +75,28 @@ export const Logo =({
 
       {showText && (
         <span
+          dir="rtl"
           className={cn(
-            'font-extrabold tracking-tight leading-none',
-            color,
+            'font-extrabold tracking-tight leading-none whitespace-nowrap',
             sizeClasses[textSize],
             hideTextOnMobile && 'hidden sm:inline',
             textClassName
           )}
         >
-          {brandName}
+          <span className={darkText}>{mainText}</span>
+          {lastWord && <> {' '}<span className={goldText}>{lastWord}</span></>}
         </span>
       )}
 
       {!showText && !imgError && <span className="sr-only">{brandName}</span>}
+
       {imgError && !showText && (
-        <span className={cn('font-extrabold tracking-tight', color, sizeClasses[textSize])}>
-          {brandName}
+        <span
+          dir="rtl"
+          className={cn('font-extrabold tracking-tight leading-none whitespace-nowrap', sizeClasses[textSize])}
+        >
+          <span className={darkText}>{mainText}</span>
+          {lastWord && <> {' '}<span className={goldText}>{lastWord}</span></>}
         </span>
       )}
     </Link>

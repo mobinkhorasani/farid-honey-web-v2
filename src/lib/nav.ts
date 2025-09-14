@@ -4,4 +4,5 @@ export const mainNav = [
   { title: "محصولات", href: "/products" },
   { title: "درباره ما", href: "/about" },
   { title: "تماس", href: "/contact" },
+  { title: "ورود", href: "/login" },
 ];
