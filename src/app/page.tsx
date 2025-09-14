@@ -1,4 +1,4 @@
-import { Hero, Categories, FeaturedProducts } from '@/components/pages/home';
+import { Hero, Categories, FeaturedProducts } from '@/app/components/home';
 
 export default function HomePage() {
   return (

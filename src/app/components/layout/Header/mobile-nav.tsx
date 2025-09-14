@@ -4,11 +4,10 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X, PhoneCall, Clock, Instagram, MessageCircle, Send } from 'lucide-react'
-import { mainNav } from '@/lib/nav'
+import { mainNav, actionNav } from '@/lib/nav'
 import { companyInfo, socials } from '@/lib/stores'
 import { cn } from '@/lib/utils'
 import { Logo } from './Logo'
-
 
 const socialIcons = {
   Instagram,
@@ -17,35 +16,28 @@ const socialIcons = {
   MessageCircle,
 }
 
-export const MobileNav =()=> {
+export const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
-  // Close menu on route change
+  // بستن منو بعد از تغییر مسیر
   useEffect(() => {
     setIsOpen(false)
   }, [pathname])
 
-  // Handle keyboard navigation
+  // بستن با Escape
   useEffect(() => {
-    if (isOpen) {
-      const handleEscape = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          setIsOpen(false)
-        }
-      }
-      document.addEventListener('keydown', handleEscape)
-      return () => document.removeEventListener('keydown', handleEscape)
+    if (!isOpen) return
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false)
     }
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
   }, [isOpen])
 
-  // Prevent body scroll when menu is open
+  // قفل اسکرول بدنه هنگام باز بودن منو
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
+    document.body.style.overflow = isOpen ? 'hidden' : ''
     return () => {
       document.body.style.overflow = ''
     }
@@ -53,10 +45,10 @@ export const MobileNav =()=> {
 
   return (
     <div className="md:hidden">
-      {/* Menu Toggle Button */}
+      {/* دکمه باز/بستن منو — بدون رینگ/بوردر نارنجی */}
       <button
         type="button"
-        className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors"
+        className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none focus-visible:outline-none"
         aria-expanded={isOpen}
         aria-controls="mobile-menu"
         aria-label={isOpen ? 'بستن منوی موبایل' : 'باز کردن منوی موبایل'}
@@ -69,17 +61,17 @@ export const MobileNav =()=> {
         )}
       </button>
 
-      {/* Mobile Menu Drawer */}
+      {/* محتوای منوی موبایل */}
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* پس‌زمینه تار */}
           <div
-            className="fixed inset-0 z-40 bg-black bg-opacity-50"
+            className="fixed inset-0 z-40 bg-black/50"
             aria-hidden="true"
             onClick={() => setIsOpen(false)}
           />
 
-          {/* Drawer */}
+          {/* کشوی منو */}
           <div
             id="mobile-menu"
             className="fixed inset-y-0 right-0 z-50 w-80 max-w-sm bg-white shadow-xl"
@@ -88,17 +80,40 @@ export const MobileNav =()=> {
             aria-label="منوی موبایل"
           >
             <div className="flex h-full flex-col p-6">
-              {/* Logo in drawer */}
-              <div className="mb-8">
+              {/* لوگو */}
+              <div className="mb-4">
                 <Logo textSize="lg" />
               </div>
 
-              {/* Navigation Links */}
+              {/* اکشن‌های آیکنی — بدون بردر دور آیکن‌ها */}
+              <div className="mb-6 flex items-center gap-3">
+                {actionNav.map(({ href, title, icon: Icon }) => {
+                  const isActive = pathname === href
+                  return (
+                    <Link
+                      key={href}
+                      href={href}
+                      aria-label={title}
+                      className={cn(
+                        'inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors',
+                        'focus:outline-none focus-visible:outline-none',
+                        isActive
+                          ? 'bg-orange-50 text-orange-600'
+                          : 'text-gray-700 hover:bg-gray-50 hover:text-orange-600'
+                      )}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span className="sr-only">{title}</span>
+                    </Link>
+                  )
+                })}
+              </div>
+
+              {/* لینک‌های متنی */}
               <nav className="flex-1">
                 <ul className="space-y-1">
                   {mainNav.map((item) => {
                     const isActive = pathname === item.href
-                    
                     return (
                       <li key={item.href}>
                         <Link
@@ -119,12 +134,12 @@ export const MobileNav =()=> {
                 </ul>
               </nav>
 
-              {/* Contact Info */}
+              {/* اطلاعات تماس و شبکه‌های اجتماعی */}
               <div className="mt-8 pt-6 border-t border-gray-200">
                 <div className="space-y-4">
                   <div className="flex items-center text-sm text-gray-600">
                     <PhoneCall className="w-4 h-4 text-orange-600 ml-3" aria-hidden="true" />
-                    <a 
+                    <a
                       href={`tel:${companyInfo.supportPhone}`}
                       className="hover:text-orange-600 transition-colors"
                     >
@@ -138,7 +153,6 @@ export const MobileNav =()=> {
                   </div>
                 </div>
 
-                {/* Social Media Icons */}
                 <div className="flex items-center justify-center gap-4 mt-6">
                   {socials.map((social) => {
                     const IconComponent = socialIcons[social.icon as keyof typeof socialIcons]
@@ -164,3 +178,5 @@ export const MobileNav =()=> {
     </div>
   )
 }
+
+export default MobileNav
