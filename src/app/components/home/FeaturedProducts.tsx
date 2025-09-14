@@ -13,14 +13,14 @@ type FeaturedProductsProps = {
   ctaLabel?: string;
 };
 
-const formatPrice = (price: number) => `${price.toLocaleString('fa-IR')} تومان`;
+// const formatPrice = (price: number) => `${price.toLocaleString('fa-IR')} تومان`;
 
-export default function FeaturedProducts({
+export const  FeaturedProducts = ({
   title = 'محصولات ویژه',
   ctaHref = '/products',
   ctaLabel = 'مشاهده همه',
   products = SAMPLE_PRODUCTS,
-}: FeaturedProductsProps) {
+}: FeaturedProductsProps) => {
   return (
     <section className="relative py-14 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

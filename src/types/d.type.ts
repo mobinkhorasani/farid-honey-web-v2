@@ -8,7 +8,7 @@ export type Category = {
 export type Product = {
   id: string;
   title: string;
-  price: number; // تومان
+  price: number;
   image: string;
   badge?: string;
 };
