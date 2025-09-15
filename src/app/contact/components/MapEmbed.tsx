@@ -1,5 +1,4 @@
-// app/contact/components/MapEmbed.tsx
-export default function MapEmbed() {
+export const MapEmbed = () => {
   return (
     <div className="bg-white rounded-xl border border-[#EFEFEF] shadow-sm overflow-hidden">
       <div className="h-72 md:h-96 bg-gray-100 flex items-center justify-center">

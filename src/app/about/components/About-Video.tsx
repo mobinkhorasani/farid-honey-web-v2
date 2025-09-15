@@ -48,6 +48,7 @@ export const AboutVideo = ({ url, poster }:VideoProps) => {
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+                  loading='lazy'
                 />
               )}
 
