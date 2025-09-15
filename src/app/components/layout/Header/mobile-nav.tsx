@@ -1,57 +1,70 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { Menu, X, PhoneCall, Clock, Instagram, MessageCircle, Send } from 'lucide-react'
-import { mainNav, actionNav } from '@/lib/nav'
-import { companyInfo, socials } from '@/lib/stores'
-import { cn } from '@/lib/utils'
-import { Logo } from './Logo'
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  Menu,
+  X,
+  PhoneCall,
+  Clock,
+  Instagram,
+  MessageCircle,
+  Send,
+  ShoppingCart,
+} from "lucide-react";
+import { mainNav, actionNav } from "@/lib/nav";
+import { companyInfo, socials } from "@/lib/stores";
+import { cn } from "@/lib/utils";
+import { Logo } from "./Logo";
 
 const socialIcons = {
   Instagram,
   X,
   Send,
   MessageCircle,
-}
+};
 
 export const MobileNav = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
-  // بستن منو بعد از تغییر مسیر
   useEffect(() => {
-    setIsOpen(false)
-  }, [pathname])
+    setIsOpen(false);
+  }, [pathname]);
 
-  // بستن با Escape
   useEffect(() => {
-    if (!isOpen) return
+    if (!isOpen) return;
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsOpen(false)
-    }
-    document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
-  }, [isOpen])
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isOpen]);
 
-  // قفل اسکرول بدنه هنگام باز بودن منو
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : ''
+    document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
-      document.body.style.overflow = ''
-    }
-  }, [isOpen])
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
-    <div className="md:hidden">
-      {/* دکمه باز/بستن منو — بدون رینگ/بوردر نارنجی */}
+    <div className="md:hidden flex items-center gap-2">
+      <Link
+        href="/cart"
+        aria-label="سبد خرید"
+        className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none focus-visible:outline-none"
+      >
+        <ShoppingCart className="w-6 h-6" aria-hidden="true" />
+      </Link>
+
       <button
         type="button"
         className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none focus-visible:outline-none"
         aria-expanded={isOpen}
         aria-controls="mobile-menu"
-        aria-label={isOpen ? 'بستن منوی موبایل' : 'باز کردن منوی موبایل'}
+        aria-label={isOpen ? "بستن منوی موبایل" : "باز کردن منوی موبایل"}
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? (
@@ -61,17 +74,14 @@ export const MobileNav = () => {
         )}
       </button>
 
-      {/* محتوای منوی موبایل */}
       {isOpen && (
         <>
-          {/* پس‌زمینه تار */}
           <div
             className="fixed inset-0 z-40 bg-black/50"
             aria-hidden="true"
             onClick={() => setIsOpen(false)}
           />
 
-          {/* کشوی منو */}
           <div
             id="mobile-menu"
             className="fixed inset-y-0 right-0 z-50 w-80 max-w-sm bg-white shadow-xl"
@@ -80,65 +90,66 @@ export const MobileNav = () => {
             aria-label="منوی موبایل"
           >
             <div className="flex h-full flex-col p-6">
-              {/* لوگو */}
               <div className="mb-4">
                 <Logo textSize="lg" />
               </div>
 
-              {/* اکشن‌های آیکنی — بدون بردر دور آیکن‌ها */}
               <div className="mb-6 flex items-center gap-3">
-                {actionNav.map(({ href, title, icon: Icon }) => {
-                  const isActive = pathname === href
-                  return (
-                    <Link
-                      key={href}
-                      href={href}
-                      aria-label={title}
-                      className={cn(
-                        'inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors',
-                        'focus:outline-none focus-visible:outline-none',
-                        isActive
-                          ? 'bg-orange-50 text-orange-600'
-                          : 'text-gray-700 hover:bg-gray-50 hover:text-orange-600'
-                      )}
-                    >
-                      <Icon className="w-5 h-5" />
-                      <span className="sr-only">{title}</span>
-                    </Link>
-                  )
-                })}
+                {actionNav
+                  .filter((item) => item.title !== "سبد خرید")
+                  .map(({ href, title, icon: Icon }) => {
+                    const isActive = pathname === href;
+                    return (
+                      <Link
+                        key={href}
+                        href={href}
+                        aria-label={title}
+                        className={cn(
+                          "inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors",
+                          "focus:outline-none focus-visible:outline-none",
+                          isActive
+                            ? "bg-orange-50 text-orange-600"
+                            : "text-gray-700 hover:bg-gray-50 hover:text-orange-600"
+                        )}
+                      >
+                        <Icon className="w-5 h-5" />
+                        <span className="sr-only">{title}</span>
+                      </Link>
+                    );
+                  })}
               </div>
 
-              {/* لینک‌های متنی */}
               <nav className="flex-1">
                 <ul className="space-y-1">
                   {mainNav.map((item) => {
-                    const isActive = pathname === item.href
+                    const isActive = pathname === item.href;
                     return (
                       <li key={item.href}>
                         <Link
                           href={item.href}
                           className={cn(
-                            'block text-lg font-medium py-3 px-4 -mx-4 rounded-lg transition-colors duration-200',
+                            "block text-lg font-medium py-3 px-4 -mx-4 rounded-lg transition-colors duration-200",
                             isActive
-                              ? 'text-orange-600 bg-orange-50'
-                              : 'text-gray-700 hover:text-orange-600 hover:bg-gray-50'
+                              ? "text-orange-600 bg-orange-50"
+                              : "text-gray-700 hover:text-orange-600 hover:bg-gray-50"
                           )}
-                          aria-current={isActive ? 'page' : undefined}
+                          aria-current={isActive ? "page" : undefined}
                         >
                           {item.title}
                         </Link>
                       </li>
-                    )
+                    );
                   })}
                 </ul>
               </nav>
 
-              {/* اطلاعات تماس و شبکه‌های اجتماعی */}
               <div className="mt-8 pt-6 border-t border-gray-200">
                 <div className="space-y-4">
                   <div className="flex items-center text-sm text-gray-600">
-                    <PhoneCall className="w-4 h-4 text-orange-600 ml-3" aria-hidden="true" />
+                    <PhoneCall
+                      className="w-4 h-4 text-orange-600 ml-3"
+                      aria-hidden="true"
+                    />
                     <a
                       href={`tel:${companyInfo.supportPhone}`}
                       className="hover:text-orange-600 transition-colors"
@@ -148,14 +159,18 @@ export const MobileNav = () => {
                   </div>
 
                   <div className="flex items-center text-sm text-gray-600">
-                    <Clock className="w-4 h-4 text-orange-600 ml-3" aria-hidden="true" />
+                    <Clock
+                      className="w-4 h-4 text-orange-600 ml-3"
+                      aria-hidden="true"
+                    />
                     <span>ساعات کاری: ۹–۲۱</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-center gap-4 mt-6">
                   {socials.map((social) => {
-                    const IconComponent = socialIcons[social.icon as keyof typeof socialIcons]
+                    const IconComponent =
+                      socialIcons[social.icon as keyof typeof socialIcons];
                     return (
                       <a
                         key={social.label}
@@ -167,8 +182,16 @@ export const MobileNav = () => {
                       >
                         <IconComponent className="w-5 h-5" aria-hidden="true" />
                       </a>
-                    )
+                    );
                   })}
+
+                  <Link
+                    href="/cart"
+                    aria-label="سبد خرید"
+                    className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors"
+                  >
+                    <ShoppingCart className="w-5 h-5" aria-hidden="true" />
+                  </Link>
                 </div>
               </div>
             </div>
@@ -176,7 +199,7 @@ export const MobileNav = () => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default MobileNav
+export default MobileNav;
