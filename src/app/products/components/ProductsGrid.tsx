@@ -2,16 +2,16 @@
 
 import { motion } from 'framer-motion';
 import { containerStagger } from '@/components/motion/variants';
-import ProductSkeleton from './ProductSkeleton';
-import { ProductCard } from '@/app/components/products';
 import type { ProductCardData } from '@/types/d.type';
+import { ProductSkeleton } from './ProductSkeleton';
+import { ProductCard } from './ProductCard';
 
 interface ProductsGridProps {
   products: ProductCardData[];
   isLoading?: boolean;
 }
 
-const ProductsGrid = ({ products, isLoading }: ProductsGridProps) => {
+export const ProductsGrid = ({ products, isLoading }: ProductsGridProps) => {
   if (isLoading) {
     return (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -44,5 +44,3 @@ const ProductsGrid = ({ products, isLoading }: ProductsGridProps) => {
     </motion.div>
   );
 };
-
-export default ProductsGrid;

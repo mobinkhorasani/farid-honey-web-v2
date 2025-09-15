@@ -5,7 +5,6 @@ export default function HomePage() {
     <main className="min-h-screen bg-[#F9F7F2]">
       <Hero />
       <Categories />
-      {/* بخش «درباره عسل فرید» عمداً حذف شد طبق درخواست شما */}
       <FeaturedProducts />
     </main>
   );

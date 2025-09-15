@@ -38,7 +38,7 @@ interface SmartDropdownProps {
   compact?: boolean;
 }
 
-export default function SmartDropdown({
+export const SmartDropdown = ({
   label,
   items,
   selected,
@@ -47,7 +47,7 @@ export default function SmartDropdown({
   activeWhen,
   className,
   compact,
-}: SmartDropdownProps) {
+}: SmartDropdownProps) => {
   const dd = useDropdown();
   const isActive = activeWhen ? activeWhen(selected) : selected !== label;
 

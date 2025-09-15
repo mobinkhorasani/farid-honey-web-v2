@@ -3,19 +3,50 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { fadeInUp, containerVariants, scaleIn } from '@/components/motion/variants';
-import ProductCard, { Product } from '@/app/components/products/ProductCard';
+import { ProductCardData } from '@/types/d.type';
+import { ProductCard } from '@/app/products/components';
+
 
 
 type FeaturedProductsProps = {
-  products?: Product[];
+  products?: ProductCardData[];
   title?: string;
   ctaHref?: string;
   ctaLabel?: string;
 };
 
-// const formatPrice = (price: number) => `${price.toLocaleString('fa-IR')} تومان`;
 
-export const  FeaturedProducts = ({
+const SAMPLE_PRODUCTS: ProductCardData[] = [
+  {
+    id: '1',
+    name: 'گِرده گل طبیعی',
+    price: 390000,
+    image_url: '/images/products/pollen-jar.png',
+    tag: 'جدید',
+  },
+  {
+    id: '2',
+    name: 'عسل طبیعی کوهستان',
+    price: 320000,
+    image_url: '/images/products/honey.png',
+  },
+  {
+    id: '3',
+    name: 'ژل رویال خالص',
+    price: 650000,
+    image_url: '/images/products/royal-jar.png',
+    tag: 'ویژه',
+  },
+  {
+    id: '4',
+    name: 'عسل بر موم',
+    price: 450000,
+    image_url: '/images/products/flower-jar.png',
+  },
+];
+
+
+export const FeaturedProducts = ({
   title = 'محصولات ویژه',
   ctaHref = '/products',
   ctaLabel = 'مشاهده همه',
@@ -24,7 +55,7 @@ export const  FeaturedProducts = ({
   return (
     <section className="relative py-14 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+
         <div className="mb-8 sm:mb-10 flex items-center justify-between">
           <motion.h2
             className="text-2xl sm:text-3xl font-extrabold text-gray-900"
@@ -46,7 +77,6 @@ export const  FeaturedProducts = ({
           </motion.div>
         </div>
 
-        {/* Grid: موبایل 2 ستون، تبلت 3 ستون، دسکتاپ 4 ستون */}
         <motion.div
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
           initial="hidden"
@@ -61,33 +91,3 @@ export const  FeaturedProducts = ({
     </section>
   );
 }
-
-/* ---------------- Sample data ---------------- */
-const SAMPLE_PRODUCTS: Product[] = [
-  {
-    id: '1',
-    title: 'گِرده گل طبیعی',
-    price: 390000,
-    images: ['/images/products/pollen-jar.png'],
-    tag: 'جدید',
-  },
-  {
-    id: '2',
-    title: 'عسل طبیعی کوهستان',
-    price: 320000,
-    images: ['/images/products/honey.png'],
-  },
-  {
-    id: '3',
-    title: 'ژل رویال خالص',
-    price: 650000,
-    images: ['/images/products/royal-jar.png'],
-    tag: 'ویژه',
-  },
-  {
-    id: '4',
-    title: 'عسل بر موم',
-    price: 450000,
-    images: ['/images/products/flower-jar.png'],
-  },
-];

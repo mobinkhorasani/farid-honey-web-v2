@@ -1,23 +1,23 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 type Size = 'sm' | 'md';
 
 interface SearchFieldProps {
-  value?: string;                     // کنترل‌شده
-  defaultValue?: string;              // نکنترل‌شده
-  onChange?: (v: string) => void;     // تغییر فوری
-  onDebouncedChange?: (v: string) => void; // تغییر با تاخیر
-  delay?: number;                     // پیش‌فرض 300ms
+  value?: string;                    
+  defaultValue?: string;            
+  onChange?: (v: string) => void;  
+  onDebouncedChange?: (v: string) => void; 
+  delay?: number;                 
   placeholder?: string;
   size?: Size;
   className?: string;
-  onSubmit?: (v: string) => void;     // Enter
+  onSubmit?: (v: string) => void;    
 }
 
-export default function SearchField({
+export const  SearchField =({
   value,
   defaultValue = '',
   onChange,
@@ -27,13 +27,12 @@ export default function SearchField({
   size = 'md',
   className,
   onSubmit,
-}: SearchFieldProps) {
+}: SearchFieldProps) => {
   const isControlled = typeof value === 'string';
   const [internal, setInternal] = useState(defaultValue);
   const v = isControlled ? (value as string) : internal;
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // debounce
   useEffect(() => {
     if (!onDebouncedChange) return;
     const t = setTimeout(() => onDebouncedChange(v), delay);
@@ -55,12 +54,12 @@ export default function SearchField({
 
   return (
     <div className={`relative ${className ?? ''}`}>
-      {/* search icon */}
+
       <MagnifyingGlassIcon
         className={`absolute right-3 top-1/2 -translate-y-1/2 ${iconSize} text-amber-600`}
         aria-hidden
       />
-      {/* input */}
+ 
       <input
         ref={inputRef}
         dir="rtl"
@@ -78,7 +77,7 @@ export default function SearchField({
           if (e.key === 'Enter') onSubmit?.(v);
         }}
       />
-      {/* clear */}
+    
       {v?.length > 0 && (
         <button
           type="button"

@@ -1,4 +1,4 @@
-const ProductSkeleton = () => (
+export const ProductSkeleton = () => (
   <div className="group relative rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm animate-pulse">
     <div className="relative bg-gray-200">
       <div className="relative aspect-[4/3] sm:aspect-[5/4] overflow-hidden">
@@ -15,5 +15,3 @@ const ProductSkeleton = () => (
     </div>
   </div>
 );
-
-export default ProductSkeleton;
