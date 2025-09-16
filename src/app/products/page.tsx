@@ -90,7 +90,7 @@ const ProductsPage = () => {
           onPriceRangeChange={handlePriceRangeChange}
           // initialSort="جدیدترین"               // فعلا غیر فعال
           // initialCategory="محبوب‌ترین"         // فعلا غیر فعال
-          initialPriceRange="دسته‌بندی"
+          initialPriceRange="فیلتر بر اساس قیمت"
         />
 
         <ProductsGrid products={productsToShow} isLoading={isLoading || isFetching} />

@@ -1,18 +1,31 @@
 import type { ProductCardData } from "@/types/d.type";
 
-export const inPriceRange = (price = 0, range: string) => {
+export const inPriceRange = (price: string | number = 0, range: string) => {
+  let numPrice: number;
+  if (typeof price === "number") {
+    numPrice = price;
+  } else {
+    numPrice = parseInt(
+      price
+        .replace(/٬/g, '') 
+        .replace(/,/g, '') 
+        .replace(/[۰-۹]/g, (d) => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d).toString()) 
+    ) || 0;
+  }
+
   switch (range) {
     case "زیر ۲۰۰ هزار":
-      return price < 200_000;
+      return numPrice < 200_000;
     case "۲۰۰-۴۰۰ هزار":
-      return price >= 200_000 && price <= 400_000;
+      return numPrice >= 200_000 && numPrice <= 400_000;
     case "بالای ۴۰۰ هزار":
-      return price > 400_000;
-    case "دسته‌بندی":
+      return numPrice > 400_000;
+    case "فیلتر بر اساس قیمت":
     default:
       return true;
   }
 };
+
 
 export const filterProducts = (
   items: ProductCardData[],
@@ -55,7 +68,7 @@ export const sortProducts = (items: ProductCardData[], sortBy: string) => {
     case "محبوب‌ترین":
       return list.sort((a, b) => a.name.localeCompare(b.name, "fa"));
     case "پرفروش‌ترین":
-      return list; 
+      return list;
     case "جدیدترین":
     default:
       return list.sort((a, b) => Number(b.id) - Number(a.id));
