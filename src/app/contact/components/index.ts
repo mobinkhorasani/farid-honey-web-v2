@@ -1,5 +1,4 @@
 // app/contact/components/index.ts
-export { ContactForm } from './ContactForm';
-export { ContactInfo } from './ContactInfo';
-export { MapEmbed } from './MapEmbed';
+export { ContactInfo } from './contact-info';
+export { MapEmbed } from './map-embed';
 export { FAQ } from './FAQ';

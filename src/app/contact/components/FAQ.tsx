@@ -4,6 +4,7 @@
 
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 const faqData = [
   {
@@ -34,7 +35,7 @@ interface FAQItemProps {
 function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
   return (
     <div className="bg-white rounded-xl border border-[#EFEFEF] shadow-sm">
-      <button
+      <Button
         className="w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 rounded-xl"
         onClick={onToggle}
         aria-expanded={isOpen}
@@ -45,7 +46,7 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
             isOpen ? 'rotate-180' : ''
           }`}
         />
-      </button>
+      </Button>
       
       <div
         className={`overflow-hidden transition-all duration-200 ${
