@@ -11,7 +11,7 @@ export const signUp = async (Data: any) => {
 
 
 export const login = async (Data: any) => {
-    const res = await Instance.post(`/users/login`, Data, {
+    const res = await Instance.post(`/auth/login`, Data, {
         headers: {
             "Content-Type": "application/json",
         },

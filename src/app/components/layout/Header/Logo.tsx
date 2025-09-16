@@ -24,7 +24,7 @@ export const Logo = ({
   className,
   textClassName,
   textSize = 'xl',
-  src = '/images/brand/logo.jpg',
+  src = '/images/brand/logo.png',
   width = 160,
   height = 44,
   priority = true,

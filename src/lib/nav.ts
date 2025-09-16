@@ -15,6 +15,6 @@ export const mainNav: NavItem[] = [
 
 // اکشن‌های آیکنی (جایگزین ورود و سبد خرید)
 export const actionNav: NavActionItem[] = [
-  { title: "ورود", href: "/login", icon: User  },
+  { title: "ورود", href: "/register", icon: User  },
   { title: "سبد خرید", href: "/cart", icon: ShoppingCart },
 ];

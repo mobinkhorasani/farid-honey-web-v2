@@ -1,4 +1,6 @@
-// src/types/d.type.ts
+import { LoginFormValues } from "@/app/login/components/login-schema";
+import { RegisterFormValues } from "@/app/register/components/register-validation";
+import { UseFormRegister } from "react-hook-form";
 import type { ComponentType } from "react";
 
 export type Category = {
@@ -8,28 +10,61 @@ export type Category = {
   icon?: ComponentType<{ className?: string }>;
 };
 
-/**
- * شکل داده‌ای که از API می‌آید
- * توجه: price اختیاری است تا با بک‌اند فعلی (که ممکن است قیمت ندهد) سازگار باشد.
- */
-// export interface ApiProduct {
-//   id: string;
-//   name: string;
-//   image_url: string | null;
-//   price?: number | null;     // ← اضافه شد تا خطای "price وجود ندارد" رفع شود
-// }
+export type Product = {
+  id: string;
+  title: string;
+  price: number;
+  image: string;
+  badge?: string;
+};
 
-/**
- * پاسخ لیست محصولات از API
- */
+export interface PasswordFieldProps {
+  id?: string
+  label?: string
+  placeholder?: string
+  error?: string
+  showPassword: boolean
+  onToggleShow: () => void
+  registration: ReturnType<UseFormRegister<LoginFormValues>>
+}
+
+export interface PhoneFieldProps {
+  id?: string
+  label?: string
+  hint?: string
+  error?: string
+  registration: ReturnType<UseFormRegister<LoginFormValues>>
+}
+
+export interface PasswordFieldProps {
+  id?: string
+  label?: string
+  placeholder?: string
+  error?: string
+  showPassword: boolean
+  onToggleShow: () => void
+}
+
+export interface PhoneFieldProps {
+  id?: string
+  label?: string
+  hint?: string
+  error?: string
+  autoComplete?: string
+}
+
+export interface NameFieldProps {
+  id?: string
+  label?: string
+  hint?: string
+  error?: string
+  registration: ReturnType<UseFormRegister<RegisterFormValues>>
+}
+
 export interface ProductsResponse {
   products: any[];
 }
 
-/**
- * داده‌ی موردنیاز کامپوننت کارت (ProductCard)
- * این همانی است که به ProductCard پاس می‌دهیم.
- */
 export interface ProductCardData {
   id: string | number;
   name: string;             
