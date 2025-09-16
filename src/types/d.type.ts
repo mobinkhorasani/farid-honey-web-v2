@@ -1,12 +1,13 @@
 import { LoginFormValues } from "@/app/login/components/login-schema";
 import { RegisterFormValues } from "@/app/register/components/register-validation";
 import { UseFormRegister } from "react-hook-form";
+import type { ComponentType } from "react";
 
 export type Category = {
   id: string;
   title: string;
   href: string;
-  icon?: React.ComponentType<{ className?: string }>;
+  icon?: ComponentType<{ className?: string }>;
 };
 
 export type Product = {
@@ -58,4 +59,16 @@ export interface NameFieldProps {
   hint?: string
   error?: string
   registration: ReturnType<UseFormRegister<RegisterFormValues>>
+}
+
+export interface ProductsResponse {
+  products: any[];
+}
+
+export interface ProductCardData {
+  id: string | number;
+  name: string;             
+  price: number;           
+  image_url: string;
+  tag?: string;
 }

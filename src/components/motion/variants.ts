@@ -135,3 +135,10 @@ export const slideOut: Variants = {
     transition: { duration: 0.4, ease: easeStd },
   },
 };
+
+export const containerStagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06, delayChildren: 0.04 } },
+};
+
+

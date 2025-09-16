@@ -60,7 +60,7 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
   )
 }
 
-export default function FAQ() {
+export const FAQ =()=> {
   const [openItems, setOpenItems] = useState<number[]>([])
 
   const toggleItem = (index: number) => {

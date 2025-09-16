@@ -29,7 +29,7 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>
 
-export default function ContactForm() {
+export const ContactForm =()=> {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState<{
     type: 'success' | 'error'
@@ -67,7 +67,7 @@ export default function ContactForm() {
     } catch (error) {
       setSubmitMessage({
         type: 'error',
-        text: 'متأسفانه خطایی رخ داد. لطفاً دوباره تلاش کنید.'
+        text: `${error}متأسفانه خطایی رخ داد. لطفاً دوباره تلاش کنید.`
       })
     } finally {
       setIsSubmitting(false)

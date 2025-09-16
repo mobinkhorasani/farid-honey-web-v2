@@ -122,6 +122,7 @@ export const Story = ({ aboutText } : StoryProps) => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                   onError={() => setImgSrc('/images/about/brand-jar.jpg')}
                   priority={false}
+                  loading='lazy'
                 />
 
  
