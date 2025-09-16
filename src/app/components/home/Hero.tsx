@@ -2,16 +2,15 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, cubicBezier } from 'framer-motion';
-import type { TargetAndTransition, Transition } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
 import { fadeInUp, scaleIn, containerVariants } from '@/components/motion/variants';
 
-// ✅ آیکون جدید زنبور
-import { BeeIcon } from '@/components/icons/BeeIcon';
+import { BeeIcon } from '@/components/icons/bee-icon';
+import { easeEnter, easeStd, floatingAnimation, getBeeAnimation } from './hero/animations';
+import { Leaf } from './hero/leaf';
+import { HoneyDipper } from './hero/honey-dipper';
 
-const easeStd = cubicBezier(0.4, 0, 0.2, 1);
-const easeEnter = cubicBezier(0.22, 1, 0.36, 1);
 
 export const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -39,23 +38,6 @@ export const Hero = () => {
     [mousePosition, viewport]
   );
 
-  const floatingAnimation: TargetAndTransition = {
-    y: [0, -12, 0],
-    transition: { duration: 3.2, repeat: Infinity, ease: easeStd } as Transition,
-  };
-
-  const getBeeAnimation = (custom: number): TargetAndTransition => ({
-    x: [0, 24, -12, 18, 0],
-    y: [0, -18, 6, -10, 0],
-    rotate: [0, 10, -6, 8, 0],
-    transition: {
-      duration: 4.5 + custom,
-      repeat: Infinity,
-      ease: easeStd,
-      delay: custom * 0.45,
-    } as Transition,
-  });
-
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#FAF7F0] via-[#F9F7F2] to-[#F5F1E8] min-h-[90vh] lg:min-h-screen flex items-center">
       {/* پس‌زمینه‌های گرادیانی */}
@@ -80,13 +62,13 @@ export const Hero = () => {
       </motion.div>
       <motion.div
         className="absolute bottom-10 right-10 z-10 rotate-45"
-        animate={{ ...floatingAnimation, transition: { ...(floatingAnimation.transition as Transition), delay: 1.4 } }}
+        animate={{ ...floatingAnimation, transition: { ...(floatingAnimation.transition as any), delay: 1.4 } }}
         aria-hidden
       >
         <Leaf className="w-48 h-48 text-gray-300/60" />
       </motion.div>
 
-      {/* ✅ زنبورهای متحرک با BeeIcon جدید */}
+      {/* زنبورهای متحرک */}
       <motion.div className="absolute top-24 left-1/3" animate={getBeeAnimation(0)} aria-hidden>
         <BeeIcon className="w-10 h-10 text-[#E9B159]" />
       </motion.div>
@@ -240,7 +222,7 @@ export const Hero = () => {
                 <HoneyDipper className="w-24 h-24 text-[#D4A574]" />
               </motion.div>
 
-              {/* تیتر شناور کنار تصویر (در صورت نیاز متن اضافه کن) */}
+              {/* تیتر شناور کنار تصویر */}
               <motion.div
                 className="absolute -top-6 -right-10 text-right"
                 initial={{ opacity: 0, x: 50 }}
@@ -251,14 +233,12 @@ export const Hero = () => {
                   className="text-5xl sm:text-7xl font-black text-gray-800/90"
                   animate={{ rotate: [0, 2, 0, -2, 0] }}
                   transition={{ duration: 6, repeat: Infinity, ease: easeStd }}
-                >
-                </motion.h2>
+                />
                 <motion.p
                   className="text-2xl text-gray-600 italic mt-1"
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 4, repeat: Infinity, ease: easeStd, delay: 1 }}
-                >
-                </motion.p>
+                />
               </motion.div>
 
               {/* نقطه‌های تزئینی */}
@@ -278,29 +258,3 @@ export const Hero = () => {
     </section>
   );
 };
-
-/* ---------- SVG Components ---------- */
-
-function Leaf({ className = '' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 120 120" className={className} aria-hidden>
-      <g fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M10 110C48 82 54 42 50 10" />
-        <path d="M38 72c12-4 22-2 28 4M30 88c10-1 18 1 24 6M20 98c7 0 12 2 17 6" />
-        <path d="M60 50c9-6 18-8 26-6M54 60c10-4 18-3 24 2" />
-      </g>
-    </svg>
-  );
-}
-
-function HoneyDipper({ className = '' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden>
-      <path d="M12 2L12 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="12" cy="20" r="2" fill="currentColor" />
-      <path d="M8 18L16 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path d="M9 16L15 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M10 14L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
