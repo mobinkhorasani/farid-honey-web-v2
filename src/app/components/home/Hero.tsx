@@ -7,6 +7,8 @@ import type { TargetAndTransition, Transition } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
 import { fadeInUp, scaleIn, containerVariants } from '@/components/motion/variants';
 
+// ✅ آیکون جدید زنبور
+import { BeeIcon } from '@/components/icons/BeeIcon';
 
 const easeStd = cubicBezier(0.4, 0, 0.2, 1);
 const easeEnter = cubicBezier(0.22, 1, 0.36, 1);
@@ -29,7 +31,6 @@ export const Hero = () => {
     };
   }, []);
 
-
   const parallax = useMemo(
     () => (f: number) => ({
       x: (mousePosition.x - viewport.w / 2) * f,
@@ -38,7 +39,6 @@ export const Hero = () => {
     [mousePosition, viewport]
   );
 
- 
   const floatingAnimation: TargetAndTransition = {
     y: [0, -12, 0],
     transition: { duration: 3.2, repeat: Infinity, ease: easeStd } as Transition,
@@ -58,7 +58,7 @@ export const Hero = () => {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#FAF7F0] via-[#F9F7F2] to-[#F5F1E8] min-h-[90vh] lg:min-h-screen flex items-center">
-
+      {/* پس‌زمینه‌های گرادیانی */}
       <div className="absolute inset-0 pointer-events-none select-none" aria-hidden>
         <motion.div
           className="absolute top-16 right-8 w-[34rem] h-[34rem] bg-gradient-to-br from-[#E9B159]/25 to-[#D4A574]/10 rounded-full blur-3xl will-change-transform"
@@ -74,7 +74,7 @@ export const Hero = () => {
         />
       </div>
 
-
+      {/* تزئینات برگ */}
       <motion.div className="absolute top-6 left-6 z-10" animate={floatingAnimation} aria-hidden>
         <Leaf className="w-36 h-36 text-gray-300/70" />
       </motion.div>
@@ -86,18 +86,18 @@ export const Hero = () => {
         <Leaf className="w-48 h-48 text-gray-300/60" />
       </motion.div>
 
-
+      {/* ✅ زنبورهای متحرک با BeeIcon جدید */}
       <motion.div className="absolute top-24 left-1/3" animate={getBeeAnimation(0)} aria-hidden>
-        <Bee className="w-10 h-10 text-[#E9B159]" />
+        <BeeIcon className="w-10 h-10 text-[#E9B159]" />
       </motion.div>
       <motion.div className="absolute top-32 right-1/4" animate={getBeeAnimation(1)} aria-hidden>
-        <Bee className="w-8 h-8 text-[#D4A574]" />
+        <BeeIcon className="w-8 h-8 text-[#D4A574]" />
       </motion.div>
       <motion.div className="absolute bottom-40 left-1/4" animate={getBeeAnimation(2)} aria-hidden>
-        <Bee className="w-9 h-9 text-[#E9B159]" />
+        <BeeIcon className="w-9 h-9 text-[#E9B159]" />
       </motion.div>
 
-
+      {/* مسیر نقطه‌چین */}
       <svg className="absolute top-16 right-0 w-full h-36 opacity-40" viewBox="0 0 800 200" fill="none" aria-hidden>
         <motion.path
           d="M-100 100 Q 200 50, 400 80 T 900 60"
@@ -110,6 +110,7 @@ export const Hero = () => {
         />
       </svg>
 
+      {/* کانتینر اصلی */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
         <motion.div
           className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center"
@@ -117,7 +118,7 @@ export const Hero = () => {
           animate="show"
           variants={containerVariants}
         >
- 
+          {/* ستون متن */}
           <div className="order-2 lg:order-1 text-center lg:text-right">
             <motion.div variants={fadeInUp} className="mb-6">
               <motion.div className="inline-flex items-center gap-3 mb-4" whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
@@ -174,7 +175,7 @@ export const Hero = () => {
             </motion.div>
           </div>
 
-     
+          {/* ستون تصویر */}
           <div className="order-1 lg:order-2 relative">
             <motion.div
               className="relative mx-auto will-change-transform"
@@ -183,7 +184,7 @@ export const Hero = () => {
               transition={{ duration: 1, delay: 0.45, ease: easeEnter }}
               style={{ perspective: 1000 }}
             >
-      
+              {/* شیشه عسل */}
               <motion.div
                 className="relative z-20 mx-auto w-full max-w-[640px] h-[420px] sm:h-[520px] md:h-[560px] lg:h-[640px]"
                 animate={floatingAnimation}
@@ -207,7 +208,7 @@ export const Hero = () => {
                 />
               </motion.div>
 
-        
+              {/* شان عسل */}
               <motion.div
                 className="absolute -bottom-10 -right-16 z-10"
                 initial={{ opacity: 0, y: 60 }}
@@ -227,7 +228,7 @@ export const Hero = () => {
                 </div>
               </motion.div>
 
-           
+              {/* مَغ‌عسل */}
               <motion.div
                 className="absolute top-4 -left-10 z-30"
                 initial={{ opacity: 0, rotate: -40 }}
@@ -239,7 +240,7 @@ export const Hero = () => {
                 <HoneyDipper className="w-24 h-24 text-[#D4A574]" />
               </motion.div>
 
-
+              {/* تیتر شناور کنار تصویر (در صورت نیاز متن اضافه کن) */}
               <motion.div
                 className="absolute -top-6 -right-10 text-right"
                 initial={{ opacity: 0, x: 50 }}
@@ -260,7 +261,7 @@ export const Hero = () => {
                 </motion.p>
               </motion.div>
 
-  
+              {/* نقطه‌های تزئینی */}
               {[...Array(7)].map((_, i) => (
                 <motion.div
                   key={i}
@@ -278,27 +279,7 @@ export const Hero = () => {
   );
 };
 
-
 /* ---------- SVG Components ---------- */
-function Bee({ className = '' }: { className?: string }) {
-  return (
-    <motion.svg
-      viewBox="0 0 24 24"
-      className={className}
-      fill="none"
-      animate={{ rotate: [0, 10, -10, 0] }}
-      transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }}
-      aria-hidden
-    >
-      <ellipse cx="12" cy="12" rx="6" ry="4" fill="currentColor" />
-      <path d="M8 9c-2-2-4-3-4-1.5S8 10 8 10" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      <path d="M16 9c2-2 4-3 4-1.5S16 10 16 10" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      <path d="M6 12h12" stroke="#fff" strokeWidth="1.5" />
-      <path d="M6 14h12" stroke="#fff" strokeWidth="1" />
-      <circle cx="18.5" cy="12" r="1.2" fill="currentColor" />
-    </motion.svg>
-  );
-}
 
 function Leaf({ className = '' }: { className?: string }) {
   return (
