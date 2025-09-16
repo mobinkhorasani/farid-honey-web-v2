@@ -13,14 +13,14 @@ interface ProductsToolbarProps {
   initialPriceRange?: string;
 }
 
-const priceRanges = ['دسته‌بندی', 'زیر ۲۰۰ هزار', '۲۰۰-۴۰۰ هزار', 'بالای ۴۰۰ هزار'];
+const priceRanges = [ "فیلتر بر اساس قیمت", 'زیر ۲۰۰ هزار', '۲۰۰-۴۰۰ هزار', 'بالای ۴۰۰ هزار'];
 
 export const ProductsToolbar = ({
   query,
   onQueryChange,
   onQueryDebouncedChange,
   onPriceRangeChange,
-  initialPriceRange = 'دسته‌بندی',
+  initialPriceRange =  "فیلتر بر اساس قیمت",
 }: ProductsToolbarProps) => {
   const [activePriceRange, setActivePriceRange] = useState(initialPriceRange);
 
