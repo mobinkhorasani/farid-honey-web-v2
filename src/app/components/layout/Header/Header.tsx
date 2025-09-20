@@ -1,3 +1,4 @@
+import { AuthActions } from "../AuthActions";
 import { DesktopNav } from "./desktop-nav";
 import { Logo } from "./Logo";
 import { MobileNav } from "./mobile-nav";
@@ -14,6 +15,7 @@ export const Header = () => {
           <Logo />
           <DesktopNav />
           <MobileNav />
+          <AuthActions />
         </div>
       </div>
     </header>

@@ -1,9 +1,12 @@
 import './globals.css'
 import { Vazirmatn } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
-import { Header } from './components/layout/Header'
+
 import { Footer } from './components/layout/Footer'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
+import { AuthProvider } from '@/context/auth-context'
+import { Header } from './components/layout/Header'
+
 
 
 const vazirmatn = Vazirmatn({
@@ -46,23 +49,19 @@ export const viewport: Viewport = {
   colorScheme: 'light',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fa" dir="rtl" className={vazirmatn.variable}>
       <body className={`${vazirmatn.className} font-sans antialiased bg-gray-50 text-gray-900`}>
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-1">
-            <ReactQueryProvider>
-              {children}
-            </ReactQueryProvider>
-          </main>
-          <Footer />
-        </div>
+        <AuthProvider>
+          <ReactQueryProvider>
+            <div className="min-h-screen flex flex-col">
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+          </ReactQueryProvider>
+        </AuthProvider>
       </body>
     </html>
   )
