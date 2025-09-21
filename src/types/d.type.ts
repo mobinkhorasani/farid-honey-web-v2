@@ -72,3 +72,25 @@ export interface ProductCardData {
   image_url: string;
   tag?: string;
 }
+
+export type CartItem = {
+  id: string | number
+  title: string
+  subtitle?: string
+  price: number
+  originalPrice?: number
+  image: string
+  qty: number
+  stock: number
+  category?: string
+  brand?: string
+  weightKg?: number
+}
+
+export type ShippingMethod = 'pishtaz' | 'tipax' | 'snappbox'
+
+export type ShippingState = {
+  method: ShippingMethod
+  region: 'intra' | 'inter'
+  distanceKm: number
+}
