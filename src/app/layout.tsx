@@ -1,9 +1,11 @@
 import './globals.css'
 import { Vazirmatn } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
-import { Header } from './components/layout/Header'
+import { Header, HeaderWrapper } from './components/layout/Header'
 import { Footer } from './components/layout/Footer'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
+import { Toaster } from '@/components/ui/sonner'
+import { AuthProvider } from '@/context/authContext'
 
 
 const vazirmatn = Vazirmatn({
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
     title: 'عسل فرید - بهترین عسل طبیعی ایران',
     description: 'فروشگاه عسل فرید، تولید و فروش بهترین انواع عسل طبیعی و خالص ایرانی',
   },
-   icons: {
+  icons: {
     icon: "/favicon/logo.png",
   },
 }
@@ -55,14 +57,17 @@ export default function RootLayout({
     <html lang="fa" dir="rtl" className={vazirmatn.variable}>
       <body className={`${vazirmatn.className} font-sans antialiased bg-gray-50 text-gray-900`}>
         <div className="min-h-screen flex flex-col">
-          <Header />
+          <HeaderWrapper/>
           <main className="flex-1">
             <ReactQueryProvider>
-              {children}
+              <AuthProvider>
+                {children}
+              </AuthProvider>
             </ReactQueryProvider>
           </main>
           <Footer />
         </div>
+        <Toaster />
       </body>
     </html>
   )

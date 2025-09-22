@@ -4,8 +4,6 @@ import { getProductsInfo } from "@/api/products/productsServices";
 import { useQuery } from "@tanstack/react-query";
 import {
   Star,
-  ShoppingCart,
-  Heart,
   Shield,
   Truck,
   Award,
@@ -17,6 +15,7 @@ import {
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { AddToCartButton } from "../components";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -77,9 +76,24 @@ export default function ProductDetail() {
       .replace(/۷/g, '7')
       .replace(/۸/g, '8')
       .replace(/۹/g, '9')
-      .replace(/٬/g, '') 
-      .replace(/,/g, ''); 
+      .replace(/٬/g, '')
+      .replace(/,/g, '');
     return parseInt(englishNumbers);
+  };
+
+
+  const toEnglishNumbers = (str: string) => {
+    return str
+      .replace(/۰/g, '0')
+      .replace(/۱/g, '1')
+      .replace(/۲/g, '2')
+      .replace(/۳/g, '3')
+      .replace(/۴/g, '4')
+      .replace(/۵/g, '5')
+      .replace(/۶/g, '6')
+      .replace(/۷/g, '7')
+      .replace(/۸/g, '8')
+      .replace(/۹/g, '9');
   };
 
   const formatPrice = (price: string) => {
@@ -268,16 +282,12 @@ export default function ProductDetail() {
               )}
 
               <div className="flex gap-3">
-                <button
+                <AddToCartButton
                   disabled={!currentSize}
-                  className={`flex-1 py-4 rounded-2xl font-medium shadow-lg transition flex items-center justify-center gap-2 ${currentSize
-                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:shadow-xl transform hover:-translate-y-0.5'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
-                >
-                  <ShoppingCart className="w-5 h-5" />
-                  افزودن به سبد خرید
-                </button>
+                  product_id={product.id}
+                  size={currentSize ? toEnglishNumbers(currentSize.size) : ''}
+                  quantity={quantity}
+                />
                 <button
                   disabled={!currentSize}
                   className={`px-6 border-2 rounded-2xl font-medium transition ${currentSize

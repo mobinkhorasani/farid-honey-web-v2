@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { fadeInUp } from '@/components/motion/variants';
 import { ProductCardData } from '@/types/d.type';
+import { Button } from '@/components/ui/button';
 
 
 interface ProductCardProps {
@@ -56,12 +57,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               {formatPrice(product.price)}
             </div>
 
-            <button
+            <Button
               // href={`/products/${product.id}`}
               className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#E9B159] to-[#D4A574] text-white text-[11px] sm:text-sm font-bold px-3 py-1.5 sm:px-3.5 sm:py-2 hover:opacity-95 transition"
             >
-              افزودن به سبد
-            </button>
+              مشاهده جزییات
+            </Button>
           </div>
         </div>
       </motion.article>
