@@ -35,9 +35,9 @@ export const deleteItem = async (id: string, token?: string) => {
 
 
 
-export const editCart = async (updatedData: any, token?: string) => {
+export const editCart = async (updatedData: any, token?: string , productId ?: string) => {
   const res = await Instance.patch(
-    `/cart/update-item`,
+    `/cart/update-item/${productId}`,
     updatedData,
     {
       headers: {

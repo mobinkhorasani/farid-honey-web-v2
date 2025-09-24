@@ -57,14 +57,14 @@ export default function RootLayout({
     <html lang="fa" dir="rtl" className={vazirmatn.variable}>
       <body className={`${vazirmatn.className} font-sans antialiased bg-gray-50 text-gray-900`}>
         <div className="min-h-screen flex flex-col">
-          <HeaderWrapper/>
-          <main className="flex-1">
-            <ReactQueryProvider>
-              <AuthProvider>
+          <ReactQueryProvider>
+            <AuthProvider>
+              <HeaderWrapper />
+              <main className="flex-1">
                 {children}
-              </AuthProvider>
-            </ReactQueryProvider>
-          </main>
+              </main>
+            </AuthProvider>
+          </ReactQueryProvider>
           <Footer />
         </div>
         <Toaster />
