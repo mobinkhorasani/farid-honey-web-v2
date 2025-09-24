@@ -1,7 +1,7 @@
-import { Instance } from '@/lib/axiosInstance';
+import { Instance, InstanceAuth } from '@/lib/axiosInstance';
 
 export const signUp = async (Data: any) => {
-    const res = await Instance.post(`/users/register`, Data, {
+    const res = await Instance.post(`/user/register`, Data, {
         headers: {
             "Content-Type": "application/json",
         },
@@ -11,7 +11,7 @@ export const signUp = async (Data: any) => {
 
 
 export const login = async (Data: any) => {
-    const res = await Instance.post(`/auth/login`, Data, {
+    const res = await InstanceAuth.post(`/auth/login`, Data, {
         headers: {
             "Content-Type": "application/json",
         },
@@ -21,14 +21,14 @@ export const login = async (Data: any) => {
 
 
 export const getUserInfo = async () => {
-  const res = await Instance.get('/users/me');
+  const res = await Instance.get('/user/me');
   return res.data;
 };
 
 
 export const editUser = async (updatedData: any) => {
   const res = await Instance.patch(
-    `/users/edit`,
+    `/user/edit`,
     updatedData,
     {
       headers: {

@@ -21,7 +21,6 @@ export default function RegisterPage() {
       setServerError(null)
       setServerSuccess(null)
 
-      // بدنه‌ی مطابق با API بک‌اند شما
       const payload = {
         name: values.name,
         phone_number: values.phone_number,
@@ -69,7 +68,7 @@ export default function RegisterPage() {
         {/* فوتر کوتاه با لینک لاگین */}
         <div className="mt-6 text-center">
           <span className="text-slate-600 text-sm">قبلاً حساب دارید؟ </span>
-          <Link href="/login" className="text-amber-600 hover:text-amber-700 font-semibold hover:underline">
+          <Link href="/auth/login" className="text-amber-600 hover:text-amber-700 font-semibold hover:underline">
             ورود
           </Link>
         </div>
