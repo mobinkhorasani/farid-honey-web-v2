@@ -1,11 +1,11 @@
-// Store locations data
+
 export const stores = [
-  { city: "تهران", address: "خیابان ولیعصر، پلاک ۱۲۵", phone: "021-88776590" },
-  { city: "اصفهان", address: "خیابان چهارباغ، پاسار، طبقه ۲", phone: "031-33334455" },
-  { city: "کرج", address: "محمدشهر، بلوار دشت بهشت، خیابان نصیریه", phone: "026-36210882" },
+  { city: "فروشگاه ما ", address:" کرج ، بلوار طالقانی جنوبی ،ابتدای خیابان قیام، فروشگاه عسل فرید", phone: "026-32701015" },
+  { city: "اموزشگاه ما ", address: " کرج ، بلوار طالقانی جنوبی ،خیابان قیام، پلاک،26 ساختمان اموزشگاه فنی ", phone:"026-32708434" },
+  { city: " کارگاه ما ", address: " کرج ، محمد شهر، بلوار دشت بهشت ،خیابان نصیریه، فروشگاه و کارگاه عسل فرید", phone:"026-36210882"},
 ];
 
-// Quick links for footer
+
 export const quickLinks = [
   { title: "خانه", href: "/" },
   { title: "محصولات", href: "/products" },
@@ -13,7 +13,7 @@ export const quickLinks = [
   { title: "تماس", href: "/contact" },
 ];
 
-// Social media links
+
 export const socials = [
   { label: "Instagram", href: "#", icon: "Instagram" as const },
   { label: "X", href: "#", icon: "X" as const },
@@ -21,7 +21,7 @@ export const socials = [
   { label: "WhatsApp", href: "#", icon: "MessageCircle" as const },
 ];
 
-// Company information
+
 export const companyInfo = {
   name: 'عسل فرید',
   establishedYear: '۱۴۰۲',
