@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const tel = (s: string) => s.replace(/\D/g, ''); // فقط اعداد برای tel:
+const tel = (s: string) => s.replace(/\D/g, '');
 
 export const ContactInfo = () => {
   const [copied, setCopied] = useState<string | null>(null);
@@ -19,7 +19,7 @@ export const ContactInfo = () => {
     }
   };
 
-  // نمایش (فارسی) vs لینک (لاتین)
+  
   const phones = [
     { display: '۰۲۶-۳۲۷۰۱۰۱۵', link: '02632701015' },
     { display: '۰۲۶-۳۲۷۰۸۴۳۴', link: '02632708434' },
@@ -31,7 +31,7 @@ export const ContactInfo = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-      {/* آدرس */}
+     
       <div className="group bg-white rounded-xl border border-[#EFEFEF] hover:border-amber-200 transition-shadow shadow-sm hover:shadow-md p-6 md:p-7">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center ring-1 ring-amber-100">
@@ -65,7 +65,7 @@ export const ContactInfo = () => {
         </div>
       </div>
 
-      {/* تلفن‌ها */}
+     
       <div className="group bg-white rounded-xl border border-[#EFEFEF] hover:border-amber-200 transition-shadow shadow-sm hover:shadow-md p-6 md:p-7">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center ring-1 ring-amber-100">
@@ -99,7 +99,7 @@ export const ContactInfo = () => {
         </div>
       </div>
 
-      {/* ایمیل */}
+      
       <div className="group bg-white rounded-xl border border-[#EFEFEF] hover:border-amber-200 transition-shadow shadow-sm hover:shadow-md p-6 md:p-7">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center ring-1 ring-amber-100">
@@ -129,7 +129,7 @@ export const ContactInfo = () => {
         </div>
       </div>
 
-      {/* ساعات کاری */}
+     
       <div className="group bg-white rounded-xl border border-[#EFEFEF] hover:border-amber-200 transition-shadow shadow-sm hover:shadow-md p-6 md:p-7">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center ring-1 ring-amber-100">

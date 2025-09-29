@@ -3,17 +3,30 @@
 import { useMemo, useState } from 'react'
 import {
   StatsCards,
-  SalesChart,
-  TopProducts,
   OrdersTable,
   type DashboardOrder,
   type SalesPoint,
   type TopProduct
 } from './components/dashboard'
 import { ShoppingCart } from 'lucide-react'
+import { useAuth } from '@/context/authContext';
+import { useQuery } from '@tanstack/react-query';
+import { getOrders } from '@/api/admin/adminSevices';
 
 export default function AdminDashboardPage() {
+  const { token } = useAuth();
   const [q, setQ] = useState('')
+
+
+  const { data, isLoading, isError, refetch, isFetching } = useQuery({
+    queryKey: ["Cart"],
+    queryFn: () => getOrders(token ?? undefined),
+    enabled: !!token
+  });
+
+  console.log(data);
+  
+
 
   const orders: DashboardOrder[] = useMemo(() => [
     {
@@ -99,15 +112,6 @@ export default function AdminDashboardPage() {
         {/* کارت‌های آماری */}
         <StatsCards orders={filtered} />
 
-        {/* نمودار فروش هفتگی – یک ردیف کامل */}
-        <section>
-          <SalesChart data={salesWeekly} />
-        </section>
-
-        {/* محصولات پرفروش (زیر نمودار) */}
-        <section className="space-y-6" dir="rtl">
-          <TopProducts items={topProducts} />
-        </section>
 
         {/* جدول سفارش‌ها */}
         <section className="space-y-4 sm:space-y-6" dir="rtl">

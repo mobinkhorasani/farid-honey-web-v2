@@ -8,7 +8,7 @@ import { containerStagger, fadeInUp } from "@/components/motion/variants";
 import type { ProductsResponse, ProductCardData } from "@/types/d.type";
 import { ProductsToolbar } from "./components/toolbar";
 import { ProductsGrid } from "./components";
-import { filterProducts, sortProducts } from "./utils/filterAndSort";
+import { filterProducts } from "./utils/filterAndSort";
 
 const ProductsPage = () => {
   // Stateهای مربوط به sort و category فعلا کامنت شدند

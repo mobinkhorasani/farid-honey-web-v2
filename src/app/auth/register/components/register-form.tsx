@@ -118,19 +118,6 @@ export const RegisterForm = ({ onSubmit, isSubmitting, serverError, serverSucces
           )}
         </Button>
       </motion.div>
-
-      {/* زیر فرم */}
-      <motion.div variants={fadeInUp} className="text-center">
-        <p className="text-slate-700 text-sm">
-          حساب دارید؟{' '}
-          <Link
-            href="/login"
-            className="text-amber-600 hover:text-amber-700 font-semibold hover:underline underline-offset-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:rounded"
-          >
-            وارد شوید
-          </Link>
-        </p>
-      </motion.div>
     </motion.form>
   )
 }

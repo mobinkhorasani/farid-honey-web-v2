@@ -4,8 +4,6 @@ import { getProductsInfo } from "@/api/products/productsServices";
 import { useQuery } from "@tanstack/react-query";
 import {
   Star,
-  ShoppingCart,
-  Heart,
   Shield,
   Truck,
   Award,
@@ -17,13 +15,16 @@ import {
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { AddToCartButton } from "../components";
+import { LoadingPage } from "@/app/components/loading-page";
+import { ErrorHandler } from "@/app/components/error-handler";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(0);
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["product", id],
     queryFn: () => getProductsInfo(id!),
     enabled: !!id,
@@ -31,31 +32,13 @@ export default function ProductDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 flex justify-center items-center">
-        <div className="text-center">
-          <div className="relative">
-            <div className="w-20 h-20 border-4 border-amber-200 rounded-full animate-pulse"></div>
-            <div className="w-20 h-20 border-4 border-t-amber-500 rounded-full animate-spin absolute top-0"></div>
-          </div>
-          <p className="mt-4 text-amber-700 font-medium">در حال بارگذاری...</p>
-        </div>
-      </div>
+      <LoadingPage />
     );
   }
 
   if (isError || !data?.product) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 flex justify-center items-center">
-        <div className="text-center bg-white/80 backdrop-blur p-8 rounded-3xl shadow-xl">
-          <p className="text-red-500 text-xl mb-4">محصول پیدا نشد</p>
-          <button
-            onClick={() => window.history.back()}
-            className="px-6 py-2 bg-amber-500 text-white rounded-full hover:bg-amber-600 transition"
-          >
-            بازگشت
-          </button>
-        </div>
-      </div>
+      <ErrorHandler text="مشکلی در بارگذاری پیش آمده" onRetry={refetch} />
     );
   }
 
@@ -77,9 +60,24 @@ export default function ProductDetail() {
       .replace(/۷/g, '7')
       .replace(/۸/g, '8')
       .replace(/۹/g, '9')
-      .replace(/٬/g, '') 
-      .replace(/,/g, ''); 
+      .replace(/٬/g, '')
+      .replace(/,/g, '');
     return parseInt(englishNumbers);
+  };
+
+
+  const toEnglishNumbers = (str: string) => {
+    return str
+      .replace(/۰/g, '0')
+      .replace(/۱/g, '1')
+      .replace(/۲/g, '2')
+      .replace(/۳/g, '3')
+      .replace(/۴/g, '4')
+      .replace(/۵/g, '5')
+      .replace(/۶/g, '6')
+      .replace(/۷/g, '7')
+      .replace(/۸/g, '8')
+      .replace(/۹/g, '9');
   };
 
   const formatPrice = (price: string) => {
@@ -268,16 +266,12 @@ export default function ProductDetail() {
               )}
 
               <div className="flex gap-3">
-                <button
+                <AddToCartButton
                   disabled={!currentSize}
-                  className={`flex-1 py-4 rounded-2xl font-medium shadow-lg transition flex items-center justify-center gap-2 ${currentSize
-                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:shadow-xl transform hover:-translate-y-0.5'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
-                >
-                  <ShoppingCart className="w-5 h-5" />
-                  افزودن به سبد خرید
-                </button>
+                  product_id={product.id}
+                  size={currentSize ? toEnglishNumbers(currentSize.size) : ''}
+                  quantity={quantity}
+                />
                 <button
                   disabled={!currentSize}
                   className={`px-6 border-2 rounded-2xl font-medium transition ${currentSize
@@ -285,7 +279,7 @@ export default function ProductDetail() {
                     : 'bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed'
                     }`}
                 >
-                  خرید فوری
+                  خرید عمده
                 </button>
               </div>
             </div>

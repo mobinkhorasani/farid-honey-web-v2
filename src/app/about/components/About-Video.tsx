@@ -5,30 +5,30 @@ import Image from 'next/image';
 import { Play, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { fadeIn, scaleIn } from '@/components/motion/variants';
-import { VideoProps } from '@/constants/about-data';
 
-const isYouTubeOrVimeo = (url: string) =>
-  url.includes('youtube.com') || url.includes('youtu.be') || url.includes('vimeo.com');
+const isYouTubeOrVimeoOrAparat = (url: string) =>
+
+  url.includes('aparat.com');
 
 const getEmbedUrl = (url: string) => {
   if (url.includes('youtube.com/watch?v=')) {
     const id = url.split('v=')[1]?.split('&')[0];
     return `https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`;
   }
-  if (url.includes('youtu.be/')) {
-    const id = url.split('youtu.be/')[1]?.split('?')[0];
-    return `https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`;
-  }
-  if (url.includes('vimeo.com/')) {
-    const id = url.split('vimeo.com/')[1]?.split('?')[0];
-    return `https://player.vimeo.com/video/${id}?autoplay=1`;
+
+  if (url.includes('aparat.com/v/')) {
+    const id = url.split('aparat.com/v/')[1]?.split('/')[0];
+    return `https://www.aparat.com/video/video/embed/videohash/${id}/vt/frame`;
   }
   return url;
 };
 
-export const AboutVideo = ({ url, poster }:VideoProps) => {
+export const AboutVideo = () => {
   const [playing, setPlaying] = useState(false);
 
+  
+  const url = "https://www.aparat.com/v/lpf3b5q";
+  const poster = "/images/about-video-poster.jpg"; 
   return (
     <section className="relative py-8 md:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,7 +48,7 @@ export const AboutVideo = ({ url, poster }:VideoProps) => {
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
-                  loading='lazy'
+                  loading="lazy"
                 />
               )}
 
@@ -66,7 +66,9 @@ export const AboutVideo = ({ url, poster }:VideoProps) => {
               </button>
 
               <div className="absolute bottom-6 left-6 right-6 text-white">
-                <h3 className="text-xl md:text-2xl font-bold mb-2 opacity-90">🍯 ویدئوی معرفی زنبورستان فرید</h3>
+                <h3 className="text-xl md:text-2xl font-bold mb-2 opacity-90">
+                  🍯 ویدئوی معرفی زنبورستان فرید
+                </h3>
                 <p className="text-sm md:text-base opacity-70">داستان ما از نزدیک ببینید</p>
               </div>
             </div>
@@ -77,7 +79,7 @@ export const AboutVideo = ({ url, poster }:VideoProps) => {
               variants={scaleIn}
               className="relative w-full h-full"
             >
-              {isYouTubeOrVimeo(url) ? (
+              {isYouTubeOrVimeoOrAparat(url) ? (
                 <iframe
                   src={getEmbedUrl(url)}
                   title="ویدئوی معرفی"
@@ -115,4 +117,3 @@ export const AboutVideo = ({ url, poster }:VideoProps) => {
     </section>
   );
 };
-

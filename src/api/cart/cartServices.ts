@@ -1,40 +1,47 @@
 import { Instance } from '@/lib/axiosInstance';
 
-export const getCartInfo = async () => {
-  const res = await Instance.get('/carts/get-cart');
+export const getCartInfo = async (token?: string) => {
+  const res = await Instance.get('/cart/get-cart',
+    {
+      headers: {
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+    }
+  );
   return res.data;
 };
 
 
-export const addToCart = async (Data: any) => {
-    const res = await Instance.post(`/carts/add-cart`, Data, {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-    return res.data;
+export const addToCart = async (data: any, token?: string) => {
+  const res = await Instance.post("/cart/add-cart", data, {
+    headers: {
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  })
+  return res.data
+}
+
+
+export const deleteItem = async (id: string, token?: string) => {
+  const res = await Instance.delete(`/cart/delete-item/${id}`, {
+    headers: {
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+  return res.data;
 };
 
 
-export const deleteItem = async (id:string) => {
-    const res = await Instance.delete(`/carts/delete-item/${id}`, {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-    return res.data;
-};
 
 
-
-
-export const editCart= async (updatedData: any) => {
+export const editCart = async (updatedData: any, token?: string , productId ?: string) => {
   const res = await Instance.patch(
-    `/carts/update-item`,
+    `/cart/update-item/${productId}`,
     updatedData,
     {
       headers: {
-        "Content-Type": "application/json",
+        ...(token && { Authorization: `Bearer ${token}` }),
       },
     }
   );

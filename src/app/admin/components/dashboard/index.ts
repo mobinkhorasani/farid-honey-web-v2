@@ -1,5 +1,4 @@
 export * from "@/types/d.type"
 export { StatsCards } from './StatsCards'
 export { SalesChart } from './SalesChart'
-export { TopProducts } from './TopProducts'
 export { OrdersTable } from './OrdersTable'
