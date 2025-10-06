@@ -23,7 +23,7 @@ export const getOrderDeteil = async (token?: string , id?:string) => {
 };
 
 export const deleteOrder = async (id: string, token?: string) => {
-  const res = await InstanceAdmin.delete(`/cart/delete-item/${id}`, {
+  const res = await InstanceAdmin.delete(`/order/delete-order/${id}`, {
     headers: {
       ...(token && { Authorization: `Bearer ${token}` }),
     },
