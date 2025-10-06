@@ -72,3 +72,27 @@ export interface ProductCardData {
   image_url: string;
   tag?: string;
 }
+
+export type DashboardOrder = {
+  order_id: string
+  total_price: number
+  created_at: string
+  address?: {
+    province: string
+    city: string
+    address: string
+    receiver: string
+    phone_number: string
+  }
+  items: Array<{
+    order_item_id: string
+    product_id: string
+    name: string
+    price: number
+    quantity: number
+  }>
+}
+
+export type SalesPoint = { day: string; revenue: number; orders: number }
+export type CityPoint = { city: string; revenue: number }
+export type TopProduct = { name: string; qty: number; revenue: number }
