@@ -1,8 +1,9 @@
 'use client';
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { useSearchParams } from "next/navigation"; // ✨ اضافه شد
 import { getProductsList } from "@/api/products/productsServices";
 import { containerStagger, fadeInUp } from "@/components/motion/variants";
 import type { ProductsResponse, ProductCardData } from "@/types/d.type";
@@ -11,13 +12,21 @@ import { ProductsGrid } from "./components";
 import { filterProducts } from "./utils/filterAndSort";
 
 const ProductsPage = () => {
-  // Stateهای مربوط به sort و category فعلا کامنت شدند
-  // const [sortBy, setSortBy] = useState<string>("جدیدترین");
-  // const [category, setCategory] = useState<string>("محبوب‌ترین");
-  const [priceRange, setPriceRange] = useState<string>("دسته‌بندی");
-
+  const searchParams = useSearchParams(); // ✨ اضافه شد
+  
+  // ✨ خواندن category از URL
+  const categoryFromUrl = searchParams.get('category') || 'همه محصولات';
+  
+  const [category, setCategory] = useState<string>(categoryFromUrl);
+  const [priceRange, setPriceRange] = useState<string>("فیلتر بر اساس قیمت");
+  
   const [query, setQuery] = useState<string>("");
   const [debouncedQuery, setDebouncedQuery] = useState<string>("");
+
+  // ✨ وقتی URL تغییر کرد، category رو به‌روز کن
+  useEffect(() => {
+    setCategory(categoryFromUrl);
+  }, [categoryFromUrl]);
 
   const { data, isLoading, isError, refetch, isFetching } = useQuery<ProductsResponse>({
     queryKey: ["products"],
@@ -26,9 +35,8 @@ const ProductsPage = () => {
 
   const filtered = useMemo(() => {
     const products: ProductCardData[] = (data?.products as ProductCardData[]) ?? [];
-    // category فعلا استفاده نمی‌شود، فقط priceRange اعمال می‌شود
-    return filterProducts(products, "همه", priceRange);
-  }, [data?.products, priceRange]);
+    return filterProducts(products, category, priceRange);
+  }, [data?.products, category, priceRange]);
 
   const filteredByQuery = useMemo(() => {
     const q = debouncedQuery.trim();
@@ -37,17 +45,9 @@ const ProductsPage = () => {
     return filtered.filter((p) => p.name.toLowerCase().includes(norm));
   }, [filtered, debouncedQuery]);
 
-  // sortBy فعلا کامنت شد، مرتب‌سازی پیش‌فرض
-  // const sorted = useMemo(
-  //   () => sortProducts(filteredByQuery, sortBy),
-  //   [filteredByQuery, sortBy]
-  // );
+  const productsToShow = filteredByQuery;
 
-  const productsToShow = filteredByQuery; // بدون مرتب‌سازی فعلا
-
-  // Handlers مربوط به sort و category فعلا کامنت شدند
-  // const handleSortChange = (v: string) => setSortBy(v);
-  // const handleCategoryChange = (v: string) => setCategory(v);
+  const handleCategoryChange = (v: string) => setCategory(v);
   const handlePriceRangeChange = (v: string) => setPriceRange(v);
 
   if (isError) {
@@ -85,11 +85,9 @@ const ProductsPage = () => {
           query={query}
           onQueryChange={setQuery}
           onQueryDebouncedChange={setDebouncedQuery}
-          // onSortChange={handleSortChange}       // فعلا غیر فعال
-          // onCategoryChange={handleCategoryChange} // فعلا غیر فعال
+          onCategoryChange={handleCategoryChange}
           onPriceRangeChange={handlePriceRangeChange}
-          // initialSort="جدیدترین"               // فعلا غیر فعال
-          // initialCategory="محبوب‌ترین"         // فعلا غیر فعال
+          initialCategory={category} // ✨ تغییر یافت - از state می‌خونه
           initialPriceRange="فیلتر بر اساس قیمت"
         />
 

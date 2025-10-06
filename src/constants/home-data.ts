@@ -1,9 +1,33 @@
-import { Category } from '@/types/d.type';
-import { Droplet, Hexagon, FlaskConical, Flower2 } from 'lucide-react';
+import { 
+  Droplet, 
+  Sparkles, 
+  Flower2, 
+  Package 
+} from 'lucide-react';
 
-export const categories: Category[] = [
-  { id: 'honey', title: 'عسل', href: '/products?honey', icon: Droplet },
-  { id: 'royal', title: 'ژل رویال', href: '/products?royal', icon: FlaskConical },
-  { id: 'pollen', title: 'گرده گل', href: '/products?pollen', icon: Flower2 },
-  { id: 'wax', title: 'موم', href: '/products?wax', icon: Hexagon },
+export const categories = [
+  {
+    id: 1,
+    title: 'همه محصولات',
+    href: '/products',
+    icon: Package,
+  },
+  {
+    id: 2,
+    title: 'عسل طبیعی',
+    href: '/products?category=عسل طبیعی', // ✨ اضافه شد
+    icon: Droplet,
+  },
+  {
+    id: 3,
+    title: 'ژل رویال',
+    href: '/products?category=ژل رویال', // ✨ اضافه شد
+    icon: Sparkles,
+  },
+  {
+    id: 4,
+    title: 'گرده گل',
+    href: '/products?category=گرده گل', // ✨ اضافه شد
+    icon: Flower2,
+  },
 ];

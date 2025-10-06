@@ -17,7 +17,7 @@ interface SearchFieldProps {
   onSubmit?: (v: string) => void;    
 }
 
-export const  SearchField =({
+export const SearchField = ({
   value,
   defaultValue = '',
   onChange,
@@ -39,7 +39,7 @@ export const  SearchField =({
     return () => clearTimeout(t);
   }, [v, delay, onDebouncedChange]);
 
-  const padding = size === 'sm' ? 'h-9 px-9 pr-10 text-sm' : 'h-11 px-10 pr-12';
+  const padding = size === 'sm' ? 'h-9 px-9 pr-10 text-sm' : 'h-12 px-10 pr-12 text-sm';
   const iconSize = size === 'sm' ? 'w-4 h-4' : 'w-5 h-5';
 
   const setVal = (next: string) => {
@@ -49,27 +49,24 @@ export const  SearchField =({
 
   const clear = () => setVal('');
 
-  const ringClasses =
-    'focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-300';
-
   return (
     <div className={`relative ${className ?? ''}`}>
-
       <MagnifyingGlassIcon
-        className={`absolute right-3 top-1/2 -translate-y-1/2 ${iconSize} text-amber-600`}
+        className={`absolute right-3.5 top-1/2 -translate-y-1/2 ${iconSize} text-gray-400`}
         aria-hidden
       />
  
       <input
         ref={inputRef}
         dir="rtl"
-        className={[
-          'w-full rounded-xl border border-gray-200 bg-white text-black',
-          'placeholder:text-gray-400',
-          'transition-colors',
-          padding,
-          ringClasses,
-        ].join(' ')}
+        className={`
+          w-full rounded-xl border border-gray-200/80 bg-white/80 backdrop-blur-sm text-gray-900
+          placeholder:text-gray-400
+          transition-all duration-200
+          focus:outline-none focus:ring-2 focus:ring-amber-200 focus:border-amber-300 focus:bg-white
+          hover:border-gray-300
+          ${padding}
+        `}
         value={v}
         onChange={(e) => setVal(e.target.value)}
         placeholder={placeholder}
@@ -82,7 +79,11 @@ export const  SearchField =({
         <button
           type="button"
           onClick={clear}
-          className={`absolute left-2 top-1/2 -translate-y-1/2 ${iconSize} text-gray-400 hover:text-gray-600 transition-colors`}
+          className={`
+            absolute left-3 top-1/2 -translate-y-1/2 ${iconSize} 
+            text-gray-400 hover:text-gray-600 
+            transition-colors rounded-full hover:bg-gray-100 p-1
+          `}
           aria-label="پاک کردن جستجو"
           title="پاک کردن"
         >
@@ -91,4 +92,4 @@ export const  SearchField =({
       )}
     </div>
   );
-}
+};
