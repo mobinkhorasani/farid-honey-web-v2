@@ -45,10 +45,8 @@ export default function ProductDetail() {
   const product = data.product;
   const currentSize = product.sizes?.[selectedSize];
 
-  // تبدیل قیمت فارسی به عدد برای محاسبات
   const convertPersianPrice = (price: string) => {
     if (!price) return 0;
-    // حذف کاما و تبدیل اعداد فارسی به انگلیسی
     const englishNumbers = price
       .replace(/۰/g, '0')
       .replace(/۱/g, '1')

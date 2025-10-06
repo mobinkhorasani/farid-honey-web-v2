@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Sparkles, Droplet, Flower2, Grid3x3 } from 'lucide-react';
-import { useRouter } from 'next/navigation'; // ✨ اضافه شد
+import { useRouter } from 'next/navigation';
 
 interface Category {
   id: string;
@@ -23,12 +23,11 @@ interface CategoryTabsProps {
 }
 
 export const CategoryTabs = ({ selected, onSelect }: CategoryTabsProps) => {
-  const router = useRouter(); // ✨ اضافه شد
+  const router = useRouter();
 
   const handleSelect = (categoryId: string) => {
     onSelect(categoryId);
     
-    // ✨ به‌روزرسانی URL
     if (categoryId === 'همه محصولات') {
       router.push('/products', { scroll: false });
     } else {
@@ -38,7 +37,6 @@ export const CategoryTabs = ({ selected, onSelect }: CategoryTabsProps) => {
 
   return (
     <div className="w-full">
-      {/* نسخه دسکتاپ */}
       <div className="hidden sm:flex bg-white/80 backdrop-blur-sm rounded-2xl p-1.5 border border-gray-100/50 shadow-sm gap-1.5">
         {categories.map((category) => {
           const isActive = selected === category.id;
@@ -47,7 +45,7 @@ export const CategoryTabs = ({ selected, onSelect }: CategoryTabsProps) => {
           return (
             <button
               key={category.id}
-              onClick={() => handleSelect(category.id)} // ✨ تغییر یافت
+              onClick={() => handleSelect(category.id)}
               className="relative flex-1 group"
             >
               <div
@@ -80,8 +78,6 @@ export const CategoryTabs = ({ selected, onSelect }: CategoryTabsProps) => {
           );
         })}
       </div>
-
-      {/* نسخه موبایل - 2x2 Grid */}
       <div className="sm:hidden grid grid-cols-2 gap-2">
         {categories.map((category) => {
           const isActive = selected === category.id;
@@ -90,7 +86,7 @@ export const CategoryTabs = ({ selected, onSelect }: CategoryTabsProps) => {
           return (
             <button
               key={category.id}
-              onClick={() => handleSelect(category.id)} // ✨ تغییر یافت
+              onClick={() => handleSelect(category.id)}
               className={`
                 relative px-4 py-3 rounded-xl font-medium text-sm
                 transition-all duration-300

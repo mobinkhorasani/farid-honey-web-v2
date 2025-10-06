@@ -12,9 +12,8 @@ import { ProductsGrid } from "./components";
 import { filterProducts } from "./utils/filterAndSort";
 
 const ProductsPage = () => {
-  const searchParams = useSearchParams(); // ✨ اضافه شد
+  const searchParams = useSearchParams();
   
-  // ✨ خواندن category از URL
   const categoryFromUrl = searchParams.get('category') || 'همه محصولات';
   
   const [category, setCategory] = useState<string>(categoryFromUrl);
@@ -23,7 +22,7 @@ const ProductsPage = () => {
   const [query, setQuery] = useState<string>("");
   const [debouncedQuery, setDebouncedQuery] = useState<string>("");
 
-  // ✨ وقتی URL تغییر کرد، category رو به‌روز کن
+
   useEffect(() => {
     setCategory(categoryFromUrl);
   }, [categoryFromUrl]);
@@ -87,7 +86,7 @@ const ProductsPage = () => {
           onQueryDebouncedChange={setDebouncedQuery}
           onCategoryChange={handleCategoryChange}
           onPriceRangeChange={handlePriceRangeChange}
-          initialCategory={category} // ✨ تغییر یافت - از state می‌خونه
+          initialCategory={category}
           initialPriceRange="فیلتر بر اساس قیمت"
         />
 

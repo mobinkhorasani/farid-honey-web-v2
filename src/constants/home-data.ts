@@ -15,19 +15,19 @@ export const categories = [
   {
     id: 2,
     title: 'عسل طبیعی',
-    href: '/products?category=عسل طبیعی', // ✨ اضافه شد
+    href: '/products?category=عسل طبیعی',
     icon: Droplet,
   },
   {
     id: 3,
     title: 'ژل رویال',
-    href: '/products?category=ژل رویال', // ✨ اضافه شد
+    href: '/products?category=ژل رویال',
     icon: Sparkles,
   },
   {
     id: 4,
     title: 'گرده گل',
-    href: '/products?category=گرده گل', // ✨ اضافه شد
+    href: '/products?category=گرده گل',
     icon: Flower2,
   },
 ];

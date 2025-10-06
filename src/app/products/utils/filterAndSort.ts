@@ -26,7 +26,6 @@ export const inPriceRange = (price: string | number = 0, range: string) => {
   }
 };
 
-// ✨ تابع جدید برای چک کردن دسته‌بندی
 export const matchesCategory = (productName: string, category: string): boolean => {
   if (category === "همه محصولات") return true;
   
@@ -48,7 +47,6 @@ export const matchesCategory = (productName: string, category: string): boolean 
   }
 };
 
-// ✨ تابع اصلاح‌شده filterProducts
 export const filterProducts = (
   items: ProductCardData[],
   category: string,

@@ -40,7 +40,6 @@ export const ProductsToolbar = ({
 
   return (
     <div className="flex flex-col gap-4 mb-8">
-      {/* Category Tabs */}
       <CategoryTabs
         selected={activeCategory}
         onSelect={(v) => {
@@ -49,9 +48,7 @@ export const ProductsToolbar = ({
         }}
       />
 
-      {/* Search & Filter Row - موبایل: 2 ردیف / دسکتاپ: 1 ردیف */}
       <div className="grid grid-cols-1 sm:grid-cols-[1fr,auto] gap-3">
-        {/* Search Field */}
         <SearchField
           value={query}
           onChange={onQueryChange}
@@ -61,7 +58,6 @@ export const ProductsToolbar = ({
           className="w-full"
         />
 
-        {/* Price Filter */}
         <SmartDropdown
           className="w-full sm:w-auto sm:min-w-[200px]"
           label="فیلتر قیمت"
