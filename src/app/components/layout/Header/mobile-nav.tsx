@@ -12,6 +12,7 @@ import {
   MessageCircle,
   Send,
   ShoppingCart,
+  User,
 } from "lucide-react";
 import { mainNav, actionNav } from "@/lib/nav";
 import { companyInfo, socials } from "@/lib/stores";
@@ -51,6 +52,7 @@ export const MobileNav = () => {
 
   return (
     <div className="md:hidden flex items-center gap-2">
+      {/* آیکون سبد خرید */}
       <Link
         href="/cart"
         aria-label="سبد خرید"
@@ -59,6 +61,16 @@ export const MobileNav = () => {
         <ShoppingCart className="w-6 h-6" aria-hidden="true" />
       </Link>
 
+      {/* آیکون یوزر / پروفایل */}
+      <Link
+        href="/auth/register"
+        aria-label="پروفایل"
+        className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none focus-visible:outline-none"
+      >
+        <User className="w-6 h-6" aria-hidden="true" />
+      </Link>
+
+      {/* دکمه باز و بستن منوی موبایل */}
       <button
         type="button"
         className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none focus-visible:outline-none"
@@ -94,9 +106,12 @@ export const MobileNav = () => {
                 <Logo textSize="lg" />
               </div>
 
+              {/* آیکون‌های اکشن — حذف یوزر و سبد خرید از منو */}
               <div className="mb-6 flex items-center gap-3">
                 {actionNav
-                  .filter((item) => item.title !== "سبد خرید")
+                  .filter(
+                    (item) => item.title !== "سبد خرید" && item.title !== "ورود"
+                  )
                   .map(({ href, title, icon: Icon }) => {
                     const isActive = pathname === href;
                     return (
@@ -119,6 +134,7 @@ export const MobileNav = () => {
                   })}
               </div>
 
+              {/* لینک‌های اصلی */}
               <nav className="flex-1">
                 <ul className="space-y-1">
                   {mainNav.map((item) => {
@@ -143,6 +159,7 @@ export const MobileNav = () => {
                 </ul>
               </nav>
 
+              {/* اطلاعات تماس و شبکه‌های اجتماعی */}
               <div className="mt-8 pt-6 border-t border-gray-200">
                 <div className="space-y-4">
                   <div className="flex items-center text-sm text-gray-600">
@@ -184,14 +201,6 @@ export const MobileNav = () => {
                       </a>
                     );
                   })}
-
-                  <Link
-                    href="/cart"
-                    aria-label="سبد خرید"
-                    className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-orange-100 hover:text-orange-600 transition-colors"
-                  >
-                    <ShoppingCart className="w-5 h-5" aria-hidden="true" />
-                  </Link>
                 </div>
               </div>
             </div>
