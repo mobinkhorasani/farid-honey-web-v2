@@ -26,6 +26,26 @@ export const inPriceRange = (price: string | number = 0, range: string) => {
   }
 };
 
+export const matchesCategory = (productName: string, category: string): boolean => {
+  if (category === "همه محصولات") return true;
+  
+  const name = productName.toLowerCase();
+  
+  switch (category) {
+    case "ژل رویال":
+      return name.includes("ژل رویال") || name.includes("ژل‌رویال");
+    case "گرده گل":
+      return name.includes("گرده گل") || name.includes("گرده‌گل");
+    case "عسل طبیعی":
+      return (
+        name.includes("عسل") && 
+        !name.includes("ژل رویال") && 
+        !name.includes("گرده گل")
+      );
+    default:
+      return true;
+  }
+};
 
 export const filterProducts = (
   items: ProductCardData[],
@@ -33,26 +53,7 @@ export const filterProducts = (
   priceRange: string
 ): ProductCardData[] => {
   return items.filter((p) => {
-    if (category !== "محبوب‌ترین" && category !== "همه") {
-      const t = p.name.toLowerCase();
-      switch (category) {
-        case "عسل‌های گل‌دار":
-          if (!(t.includes("شوید") || t.includes("اکالیپتوس") || t.includes("یونجه"))) return false;
-          break;
-        case "عسل‌های درختی":
-          if (!(t.includes("کنار") || t.includes("زردآلو") || t.includes("سنجد"))) return false;
-          break;
-        case "عسل‌های کوهستانی":
-          if (!(t.includes("کوهستان") || t.includes("آویشن") || t.includes("اسپند"))) return false;
-          break;
-        case "محصولات زنبور":
-          if (!(t.includes("ژل رویال") || t.includes("گرده گل") || t.includes("موم"))) return false;
-          break;
-        default:
-          break;
-      }
-    }
-
+    if (!matchesCategory(p.name, category)) return false;
     if (!inPriceRange(p.price ?? 0, priceRange)) return false;
     return true;
   });
@@ -74,5 +75,3 @@ export const sortProducts = (items: ProductCardData[], sortBy: string) => {
       return list.sort((a, b) => Number(b.id) - Number(a.id));
   }
 };
-
-

@@ -2,7 +2,11 @@ import './globals.css'
 import { Vazirmatn } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
 import { HeaderWrapper } from './components/layout/Header'
+<<<<<<< HEAD
 import { Footer } from './components/layout/Footer'
+=======
+import { FooterWrapper } from './components/layout/FooterWrapper'
+>>>>>>> 26b2d0c35b0e3717a9501efd6b66c33dacfd9295
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 import { Toaster } from '@/components/ui/sonner'
 import { AuthProvider } from '@/context/authContext'
@@ -65,7 +69,7 @@ export default function RootLayout({
               </main>
             </AuthProvider>
           </ReactQueryProvider>
-          <Footer />
+          <FooterWrapper />
         </div>
         <Toaster />
       </body>

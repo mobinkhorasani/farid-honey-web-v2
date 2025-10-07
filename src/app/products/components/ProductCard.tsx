@@ -58,7 +58,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             </div>
 
             <Button
-              // href={`/products/${product.id}`}
               className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#E9B159] to-[#D4A574] text-white text-[11px] sm:text-sm font-bold px-3 py-1.5 sm:px-3.5 sm:py-2 hover:opacity-95 transition"
             >
               مشاهده جزییات
