@@ -18,7 +18,7 @@ import { useState } from "react";
 import { AddToCartButton } from "../components";
 import { LoadingPage } from "@/app/components/loading-page";
 import { ErrorHandler } from "@/app/components/error-handler";
-import { companyInfo } from "@/constants/whats-app";
+import { companyInfo } from "@/lib/stores";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
