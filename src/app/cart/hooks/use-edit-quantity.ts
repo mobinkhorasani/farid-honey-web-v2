@@ -8,14 +8,13 @@ interface EditQuantityParams {
   updatedData: any;
 }
 
-export const useEditQuantity = (refetch?: () => void) => {
+export const useEditQuantity = () => {
   const { token } = useAuth();
 
   return useMutation({
     mutationFn: ({ productId, updatedData }: EditQuantityParams) =>
       editCart(updatedData, token ?? undefined , productId),
     onSuccess: () => {
-    //   refetch?.();
       toast.success("مقدار با موفقیت ویرایش شد");
     },
     onError: (error: any) => {

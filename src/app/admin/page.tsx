@@ -12,7 +12,7 @@ import { ErrorHandler } from '../components/error-handler';
 export default function AdminDashboardPage() {
   const { token } = useAuth();
 
-  const { data, isLoading, isError, refetch, isFetching } = useQuery({
+  const { data, isLoading, isError, isFetching } = useQuery({
     queryKey: ["Cart"],
     queryFn: () => getOrders(token ?? undefined),
     enabled: !!token

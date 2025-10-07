@@ -1,7 +1,7 @@
 import './globals.css'
 import { Vazirmatn } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
-import { Header, HeaderWrapper } from './components/layout/Header'
+import { HeaderWrapper } from './components/layout/Header'
 import { Footer } from './components/layout/Footer'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 import { Toaster } from '@/components/ui/sonner'

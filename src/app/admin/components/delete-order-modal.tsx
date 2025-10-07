@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { 
   Trash2, 
-  AlertTriangle, 
   Package, 
   User, 
   Phone, 

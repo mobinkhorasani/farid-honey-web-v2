@@ -7,7 +7,6 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import { User } from 'lucide-react'
 
 import type { RegisterFormValues } from './register-validation'

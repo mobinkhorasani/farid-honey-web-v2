@@ -1,7 +1,7 @@
 'use client'
 
 import { Skeleton } from '@/components/ui/skeleton'
-import { Delete, DeleteIcon, ShoppingCart, Trash2 } from 'lucide-react'
+import { ShoppingCart } from 'lucide-react'
 import { DeleteOrderModal } from '../delete-order-modal'
 
 export interface Order {
