@@ -1,7 +1,8 @@
-import { LoginFormValues } from "@/app/login/components/login-schema";
-import { RegisterFormValues } from "@/app/register/components/register-validation";
+
 import { UseFormRegister } from "react-hook-form";
 import type { ComponentType } from "react";
+import { LoginFormValues } from "@/app/auth/login/schema/login-schema";
+import { RegisterFormValues } from "@/app/auth/register/components/register-validation";
 
 export type Category = {
   id: string;

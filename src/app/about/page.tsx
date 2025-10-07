@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { AboutHero, AboutVideo, Story, Timeline } from './components';
-import { aboutText, timeline, video } from '@/constants/about-data';
+import { AboutHero,Story, Timeline } from './components';
+import { aboutText, timeline} from '@/constants/about-data';
 
 export const metadata: Metadata = {
   title: 'درباره ما - زنبورستان فرید',

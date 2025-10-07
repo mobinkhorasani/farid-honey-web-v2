@@ -7,7 +7,8 @@ import { login } from '@/api/users/userServices'
 import { fadeInUp, stagger } from '@/components/motion/variants'
 import { LoginForm } from './components'
 import { useAuth } from '@/context/authContext'
-import { LoginFormValues } from './components/login-schema'
+import { LoginFormValues } from './schema/login-schema'
+
 
 export default function LoginPage() {
   const router = useRouter()
