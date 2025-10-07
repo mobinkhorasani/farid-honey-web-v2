@@ -13,7 +13,7 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#F9F7F2]">
       <AboutHero />
-      <AboutVideo url={video.url} poster={video.poster} />
+      {/* <AboutVideo url={video.url} poster={video.poster} /> */}
       <Timeline items={timeline} />
       <Story aboutText={aboutText} />
     </main>

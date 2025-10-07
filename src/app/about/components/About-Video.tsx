@@ -6,29 +6,26 @@ import { Play, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { fadeIn, scaleIn } from '@/components/motion/variants';
 
-const isYouTubeOrVimeoOrAparat = (url: string) =>
+interface AboutVideoProps {
+  url: string;
+  poster: string;
+}
 
-  url.includes('aparat.com');
-
-const getEmbedUrl = (url: string) => {
-  if (url.includes('youtube.com/watch?v=')) {
-    const id = url.split('v=')[1]?.split('&')[0];
-    return `https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`;
-  }
-
-  if (url.includes('aparat.com/v/')) {
-    const id = url.split('aparat.com/v/')[1]?.split('/')[0];
-    return `https://www.aparat.com/video/video/embed/videohash/${id}/vt/frame`;
-  }
-  return url;
-};
-
-export const AboutVideo = () => {
+export const AboutVideo = ({ url, poster }: AboutVideoProps) => {
   const [playing, setPlaying] = useState(false);
 
-  
-  const url = "https://www.aparat.com/v/lpf3b5q";
-  const poster = "/images/about-video-poster.jpg"; 
+  const isYouTubeOrVimeoOrAparat = (url: string) => url.includes('aparat.com');
+  const getEmbedUrl = (url: string) => {
+    if (url.includes('youtube.com/watch?v=')) {
+      const id = url.split('v=')[1]?.split('&')[0];
+      return `https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`;
+    }
+    if (url.includes('aparat.com/v/')) {
+      const id = url.split('aparat.com/v/')[1]?.split('/')[0];
+      return `https://www.aparat.com/video/video/embed/videohash/${id}/vt/frame`;
+    }
+    return url;
+  };
   return (
     <section className="relative py-8 md:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
