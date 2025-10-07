@@ -10,7 +10,7 @@ import {
   Check,
   Sparkles,
   Zap,
-  Package
+  Package,
 } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -18,6 +18,7 @@ import { useState } from "react";
 import { AddToCartButton } from "../components";
 import { LoadingPage } from "@/app/components/loading-page";
 import { ErrorHandler } from "@/app/components/error-handler";
+import { companyInfo } from "@/constants/whats-app";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -31,15 +32,11 @@ export default function ProductDetail() {
   });
 
   if (isLoading) {
-    return (
-      <LoadingPage />
-    );
+    return <LoadingPage />;
   }
 
   if (isError || !data?.product) {
-    return (
-      <ErrorHandler text="مشکلی در بارگذاری پیش آمده" onRetry={refetch} />
-    );
+    return <ErrorHandler text="مشکلی در بارگذاری پیش آمده" onRetry={refetch} />;
   }
 
   const product = data.product;
@@ -48,39 +45,38 @@ export default function ProductDetail() {
   const convertPersianPrice = (price: string) => {
     if (!price) return 0;
     const englishNumbers = price
-      .replace(/۰/g, '0')
-      .replace(/۱/g, '1')
-      .replace(/۲/g, '2')
-      .replace(/۳/g, '3')
-      .replace(/۴/g, '4')
-      .replace(/۵/g, '5')
-      .replace(/۶/g, '6')
-      .replace(/۷/g, '7')
-      .replace(/۸/g, '8')
-      .replace(/۹/g, '9')
-      .replace(/٬/g, '')
-      .replace(/,/g, '');
+      .replace(/۰/g, "0")
+      .replace(/۱/g, "1")
+      .replace(/۲/g, "2")
+      .replace(/۳/g, "3")
+      .replace(/۴/g, "4")
+      .replace(/۵/g, "5")
+      .replace(/۶/g, "6")
+      .replace(/۷/g, "7")
+      .replace(/۸/g, "8")
+      .replace(/۹/g, "9")
+      .replace(/٬/g, "")
+      .replace(/,/g, "");
     return parseInt(englishNumbers);
   };
 
-
   const toEnglishNumbers = (str: string) => {
     return str
-      .replace(/۰/g, '0')
-      .replace(/۱/g, '1')
-      .replace(/۲/g, '2')
-      .replace(/۳/g, '3')
-      .replace(/۴/g, '4')
-      .replace(/۵/g, '5')
-      .replace(/۶/g, '6')
-      .replace(/۷/g, '7')
-      .replace(/۸/g, '8')
-      .replace(/۹/g, '9');
+      .replace(/۰/g, "0")
+      .replace(/۱/g, "1")
+      .replace(/۲/g, "2")
+      .replace(/۳/g, "3")
+      .replace(/۴/g, "4")
+      .replace(/۵/g, "5")
+      .replace(/۶/g, "6")
+      .replace(/۷/g, "7")
+      .replace(/۸/g, "8")
+      .replace(/۹/g, "9");
   };
 
   const formatPrice = (price: string) => {
     const numPrice = convertPersianPrice(price);
-    return numPrice.toLocaleString('fa-IR');
+    return numPrice.toLocaleString("fa-IR");
   };
 
   return (
@@ -90,9 +86,13 @@ export default function ProductDetail() {
 
       <div className="max-w-7xl mx-auto px-4 py-8 relative">
         <nav className="flex items-center gap-2 text-sm mb-8">
-          <span className="text-amber-600 hover:text-amber-700 cursor-pointer">خانه</span>
+          <span className="text-amber-600 hover:text-amber-700 cursor-pointer">
+            خانه
+          </span>
           <span className="text-amber-400">/</span>
-          <span className="text-amber-600 hover:text-amber-700 cursor-pointer">محصولات</span>
+          <span className="text-amber-600 hover:text-amber-700 cursor-pointer">
+            محصولات
+          </span>
           <span className="text-amber-400">/</span>
           <span className="text-amber-800 font-medium">{product.name}</span>
         </nav>
@@ -105,7 +105,7 @@ export default function ProductDetail() {
                 <div className="relative bg-white rounded-3xl overflow-hidden shadow-2xl">
                   <div className="relative w-full h-[500px]">
                     <Image
-                      src={product.image_url || '/default-honey.jpg'}
+                      src={product.image_url || "/default-honey.jpg"}
                       alt={product.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
@@ -157,7 +157,9 @@ export default function ProductDetail() {
 
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-100 to-orange-100 px-4 py-2 rounded-full">
                 <Sparkles className="w-4 h-4 text-orange-600" />
-                <span className="text-sm font-medium text-orange-700">محصول ویژه</span>
+                <span className="text-sm font-medium text-orange-700">
+                  محصول ویژه
+                </span>
               </div>
             </div>
 
@@ -167,7 +169,8 @@ export default function ProductDetail() {
                 ویژگی‌های محصول
               </h3>
               <p className="text-gray-600 leading-relaxed mb-4">
-                {product.description || "عسل طبیعی با کیفیت برتر، برداشت شده از بهترین مناطق کشور"}
+                {product.description ||
+                  "عسل طبیعی با کیفیت برتر، برداشت شده از بهترین مناطق کشور"}
               </p>
 
               <div className="space-y-2 mt-4">
@@ -177,7 +180,9 @@ export default function ProductDetail() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-700">بدون افزودنی و مواد نگهدارنده</span>
+                  <span className="text-gray-700">
+                    بدون افزودنی و مواد نگهدارنده
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-500" />
@@ -197,18 +202,23 @@ export default function ProductDetail() {
                     <button
                       key={size.id}
                       onClick={() => setSelectedSize(index)}
-                      className={`relative p-4 rounded-xl border-2 transition-all ${selectedSize === index
-                        ? 'border-amber-500 bg-amber-50 shadow-lg scale-105'
-                        : 'border-gray-200 hover:border-amber-300 bg-white/50'
-                        }`}
+                      className={`relative p-4 rounded-xl border-2 transition-all ${
+                        selectedSize === index
+                          ? "border-amber-500 bg-amber-50 shadow-lg scale-105"
+                          : "border-gray-200 hover:border-amber-300 bg-white/50"
+                      }`}
                     >
                       {selectedSize === index && (
                         <div className="absolute top-2 right-2">
                           <Check className="w-5 h-5 text-amber-600" />
                         </div>
                       )}
-                      <p className="font-medium text-gray-800 mb-1">{size.size}</p>
-                      <p className="text-sm text-amber-600 font-bold">{size.price} تومان</p>
+                      <p className="font-medium text-gray-800 mb-1">
+                        {size.size}
+                      </p>
+                      <p className="text-sm text-amber-600 font-bold">
+                        {size.price} تومان
+                      </p>
                     </button>
                   ))}
                 </div>
@@ -221,7 +231,7 @@ export default function ProductDetail() {
                   <p className="text-sm text-gray-500 mb-1">قیمت نهایی</p>
                   <div className="flex items-baseline gap-2">
                     <span className="text-3xl font-bold text-gray-800">
-                      {currentSize ? formatPrice(currentSize.price) : '---'}
+                      {currentSize ? formatPrice(currentSize.price) : "---"}
                     </span>
                     <span className="text-gray-600">تومان</span>
                   </div>
@@ -242,7 +252,9 @@ export default function ProductDetail() {
                   >
                     -
                   </button>
-                  <span className="w-12 text-center font-medium">{quantity}</span>
+                  <span className="w-12 text-center font-medium">
+                    {quantity}
+                  </span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
                     className="w-10 h-10 rounded-lg hover:bg-amber-100 transition flex items-center justify-center text-xl font-medium"
@@ -255,9 +267,14 @@ export default function ProductDetail() {
               {currentSize && (
                 <div className="bg-white/70 backdrop-blur rounded-xl p-4 mb-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">قیمت کل ({quantity} عدد):</span>
+                    <span className="text-gray-600">
+                      قیمت کل ({quantity} عدد):
+                    </span>
                     <span className="text-2xl font-bold text-amber-600">
-                      {(convertPersianPrice(currentSize.price) * quantity).toLocaleString('fa-IR')} تومان
+                      {(
+                        convertPersianPrice(currentSize.price) * quantity
+                      ).toLocaleString("fa-IR")}{" "}
+                      تومان
                     </span>
                   </div>
                 </div>
@@ -267,18 +284,25 @@ export default function ProductDetail() {
                 <AddToCartButton
                   disabled={!currentSize}
                   product_id={product.id}
-                  size={currentSize ? toEnglishNumbers(currentSize.size) : ''}
+                  size={currentSize ? toEnglishNumbers(currentSize.size) : ""}
                   quantity={quantity}
                 />
-                <button
-                  disabled={!currentSize}
-                  className={`px-6 border-2 rounded-2xl font-medium transition ${currentSize
-                    ? 'bg-white border-amber-400 text-amber-600 hover:bg-amber-50'
-                    : 'bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed'
-                    }`}
+                <a
+                  href={`https://wa.me/${toEnglishNumbers(
+                    companyInfo.whatsapp || "989359558289"
+                  )}?text=${encodeURIComponent(
+                    `سلام ، من می‌خوام سفارش عمده محصول "${product.name}" با سایز "${currentSize?.size}" ثبت کنم`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`px-6 border-2 rounded-2xl font-medium transition text-center ${
+                    currentSize
+                      ? "bg-white border-amber-400 text-amber-600 hover:bg-amber-50"
+                      : "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed pointer-events-none"
+                  }`}
                 >
                   خرید عمده
-                </button>
+                </a>
               </div>
             </div>
 
