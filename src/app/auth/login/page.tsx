@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { login } from '@/api/users/userServices'
-import type { LoginFormValues } from './components/login-schema'
 import { fadeInUp, stagger } from '@/components/motion/variants'
 import { LoginForm } from './components'
 import { useAuth } from '@/context/authContext'
+import { LoginFormValues } from './components/login-schema'
 
 export default function LoginPage() {
   const router = useRouter()
