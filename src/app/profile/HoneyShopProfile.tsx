@@ -2,13 +2,10 @@
 
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-
 import { useAuth } from '@/context/authContext';
 import { getUserInfo, editUser } from '@/api/users/userServices';
-
 import { ErrorHandler } from '../components/error-handler';
 import { LoadingPage } from '../components/loading-page';
-
 import { HeaderCard } from './HeaderCard';
 import { SidebarMenu } from './SidebarMenu';
 import { ProfileTab } from './tabs/ProfileTab';
@@ -16,7 +13,6 @@ import { AddressesTab } from './tabs/AddressesTab';
 import { OrdersTab } from './tabs/OrdersTab';
 import { FavoritesTab } from './tabs/FavoritesTab';
 import { EditProfileModal } from './components/EditProfileModal';
-
 import { toast } from 'sonner';
 
 type TabId = 'profile' | 'addresses' | 'orders' | 'favorites';
@@ -91,7 +87,7 @@ export const HoneyShopProfile: React.FC = () => {
               <ProfileTab
                 name={userData?.name ?? ''}
                 phoneNumber={userData?.phone_number ?? ''}
-                onEditClick={() => setEditOpen(true)} // دکمه‌های کنار فیلد این را می‌زنند
+                onEditClick={() => setEditOpen(true)}
               />
             )}
 

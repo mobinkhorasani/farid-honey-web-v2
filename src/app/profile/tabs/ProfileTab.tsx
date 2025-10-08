@@ -20,7 +20,6 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({ name, phoneNumber, onEdi
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* نام و نام خانوادگی */}
         <div className="relative">
           <label className="block text-sm mb-2">نام و نام خانوادگی</label>
           <div className="relative">
@@ -28,7 +27,6 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({ name, phoneNumber, onEdi
               type="text"
               readOnly
               value={name}
-              // فضای کافی برای دکمه‌ی ویرایش در سمت راست
               className="pr-12 bg-amber-50/50 border border-amber-200 rounded-xl focus-visible:ring-0 focus:border-amber-400"
             />
             <Button
@@ -44,8 +42,6 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({ name, phoneNumber, onEdi
             </Button>
           </div>
         </div>
-
-        {/* شماره موبایل */}
         <div className="relative">
           <label className="block text-sm mb-2">شماره موبایل</label>
           <div className="relative">
@@ -55,7 +51,6 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({ name, phoneNumber, onEdi
               value={phoneNumber}
               dir="ltr"
               inputMode="tel"
-              // فضای کافی برای دکمه‌ی ویرایش در سمت راست
               className="pr-12 bg-amber-50/50 border border-amber-200 rounded-xl focus-visible:ring-0 focus:border-amber-400"
             />
             <Button

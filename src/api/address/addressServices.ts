@@ -12,7 +12,7 @@ export interface Address {
   isDefault?: boolean;
 }
 
-// دریافت لیست تمام آدرس‌های کاربر
+
 export const getMyAddresses = async (token?: string) => {
   const res = await Instance.get('/address/my-addresses', {
     headers: {
@@ -23,7 +23,7 @@ export const getMyAddresses = async (token?: string) => {
   return res.data.addresses || res.data;
 };
 
-// افزودن آدرس جدید
+
 export const addAddress = async (addressData: Address, token?: string) => {
   const res = await Instance.post('/address/add-address', addressData, {
     headers: {
@@ -34,7 +34,7 @@ export const addAddress = async (addressData: Address, token?: string) => {
   return res.data.address || res.data;
 };
 
-// ویرایش آدرس
+
 export const editAddress = async (
   addressId: number,
   updatedData: Partial<Address>,
@@ -53,7 +53,7 @@ export const editAddress = async (
   return res.data.address || res.data;
 };
 
-// حذف آدرس
+
 export const deleteAddress = async (addressId: number, token?: string) => {
   const res = await Instance.delete(`/address/delete-address/${addressId}`, {
     headers: {

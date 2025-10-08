@@ -29,20 +29,17 @@ export const getUserInfo = async (token?: string) => {
   return res.data.user || res.data;
 };
 
-// @/api/users/userServices.ts
 export type UpdateUserPayload = {
   name: string;
-  phone_number: string; // ← مطمئن شو فرم هم همین کلید رو می‌فرسته
+  phone_number: string;
 };
 
 export type UserDto = {
   id: number;
   name: string;
   phone_number: string;
-  // هر فیلد دیگری که API برمی‌گرداند...
 };
 
-// همانی که دادی + تایپ خروجی
 export const editUser = async (updatedData: UpdateUserPayload, token?: string): Promise<UserDto> => {
   const res = await Instance.patch('/user/edit', updatedData, {
     headers: {
@@ -50,6 +47,5 @@ export const editUser = async (updatedData: UpdateUserPayload, token?: string): 
       ...(token && { Authorization: `Bearer ${token}` }),
     },
   });
-  // API تو گفتی res.data.user یا res.data
   return res.data.user || res.data;
 };

@@ -14,7 +14,7 @@ type EditProfileModalProps = {
   submitting?: boolean;
 };
 
-const phoneRegex = /^(\+?\d{7,15}|0\d{9,11})$/; // ساده و انعطاف‌پذیر
+const phoneRegex = /^(\+?\d{7,15}|0\d{9,11})$/;
 
 export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   open,
@@ -28,7 +28,6 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   const [phone, setPhone] = useState(initialPhone);
   const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
 
-  // همگام‌سازی مقدار اولیه هنگام باز شدن
   useEffect(() => {
     if (open) {
       setName(initialName);
@@ -37,7 +36,6 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
     }
   }, [open, initialName, initialPhone]);
 
-  // جلوگیری از اسکرول پس‌زمینه
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;
@@ -47,7 +45,6 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
     };
   }, [open]);
 
-  // بستن با ESC
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -56,7 +53,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, submitting, name, phone]); // deps شامل state برای Enter
+  }, [open, submitting, name, phone]);
 
   const validate = useCallback(() => {
     const e: { name?: string; phone?: string } = {};
@@ -82,14 +79,12 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
       role="dialog"
       aria-labelledby="edit-profile-title"
     >
-      {/* Overlay */}
       <div
         className="absolute inset-0 bg-black/40"
         onClick={() => !submitting && onClose()}
         aria-hidden="true"
       />
 
-      {/* Dialog */}
       <div className="relative z-[1001] w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl text-black">
         <div className="flex items-center justify-between mb-4">
           <h3 id="edit-profile-title" className="text-lg font-semibold">
