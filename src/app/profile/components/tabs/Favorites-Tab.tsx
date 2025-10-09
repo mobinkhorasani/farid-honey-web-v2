@@ -1,3 +1,6 @@
+// ============================================
+// File: components/tabs/Favorites-Tab.tsx
+// ============================================
 'use client';
 
 import React from 'react';

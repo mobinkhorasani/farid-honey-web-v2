@@ -1,6 +1,10 @@
+
+// ============================================
+// File: components/tabs/Profile-Tab.tsx
+// ============================================
 'use client';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { User, Edit2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,7 +15,15 @@ export type ProfileTabProps = {
   onEditClick?: () => void;
 };
 
-export const ProfileTab: React.FC<ProfileTabProps> = ({ name, phoneNumber, onEditClick }) => {
+export const ProfileTab: React.FC<ProfileTabProps> = ({
+  name,
+  phoneNumber,
+  onEditClick,
+}) => {
+  const handleEdit = useCallback(() => {
+    onEditClick?.();
+  }, [onEditClick]);
+
   return (
     <div className="bg-white/80 backdrop-blur rounded-2xl shadow-lg p-6 text-black">
       <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
@@ -31,7 +43,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({ name, phoneNumber, onEdi
             />
             <Button
               type="button"
-              onClick={onEditClick}
+              onClick={handleEdit}
               variant="ghost"
               size="icon"
               title="ویرایش نام"
@@ -55,7 +67,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({ name, phoneNumber, onEdi
             />
             <Button
               type="button"
-              onClick={onEditClick}
+              onClick={handleEdit}
               variant="ghost"
               size="icon"
               title="ویرایش شماره موبایل"

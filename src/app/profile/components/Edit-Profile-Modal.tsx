@@ -1,9 +1,16 @@
+
+
+// ============================================
+// File: components/Edit-Profile-Modal.tsx
+// ============================================
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
+import { validateName, validatePhone, digitsFaToEn } from '../utils/validation';
 
 type EditProfileModalProps = {
   open: boolean;
@@ -13,8 +20,6 @@ type EditProfileModalProps = {
   onSubmit: (payload: { name: string; phone_number: string }) => void;
   submitting?: boolean;
 };
-
-const phoneRegex = /^(\+?\d{7,15}|0\d{9,11})$/;
 
 export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   open,
@@ -38,37 +43,64 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
 
   useEffect(() => {
     if (!open) return;
+    
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    
     return () => {
       document.body.style.overflow = prev;
     };
   }, [open]);
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !submitting) onClose();
-      if (e.key === 'Enter' && !submitting) handleSubmit();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open, submitting, name, phone]);
-
   const validate = useCallback(() => {
-    const e: { name?: string; phone?: string } = {};
-    if (!name?.trim()) e.name = 'نام الزامی است';
-    if (!phone?.trim()) e.phone = 'شماره موبایل الزامی است';
-    else if (!phoneRegex.test(phone.trim())) e.phone = 'فرمت شماره صحیح نیست';
-    setErrors(e);
-    return Object.keys(e).length === 0;
+    const nameError = validateName(name);
+    const phoneError = validatePhone(phone);
+    
+    const newErrors: { name?: string; phone?: string } = {};
+    
+    if (nameError) newErrors.name = nameError;
+    if (phoneError) newErrors.phone = phoneError;
+    
+    setErrors(newErrors);
+
+    if (nameError || phoneError) {
+      toast.error('خطای اعتبارسنجی', {
+        description: nameError ?? phoneError,
+      });
+    }
+
+    return Object.keys(newErrors).length === 0;
   }, [name, phone]);
 
   const handleSubmit = useCallback(() => {
     if (submitting) return;
     if (!validate()) return;
-    onSubmit({ name: name.trim(), phone_number: phone.trim() });
+
+    const payload = {
+      name: name.trim(),
+      phone_number: digitsFaToEn(phone.trim()),
+    };
+
+    onSubmit(payload);
   }, [validate, submitting, name, phone, onSubmit]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !submitting) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  }, [submitting, handleSubmit]);
+
+  useEffect(() => {
+    if (!open) return;
+    
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !submitting) onClose();
+    };
+    
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open, submitting, onClose]);
 
   if (!open) return null;
 
@@ -100,7 +132,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4" onKeyDown={handleKeyDown}>
           <div>
             <label htmlFor="profile-name" className="block text-sm mb-2">
               نام و نام خانوادگی
@@ -111,13 +143,15 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
               value={name}
               onChange={(e) => setName(e.target.value)}
               autoFocus
-              className={`border ${errors.name ? 'border-red-400 focus:border-red-400' : 'border-amber-200 focus:border-amber-400'} rounded-lg`}
+              className={`border ${
+                errors.name
+                  ? 'border-red-400 focus:border-red-400'
+                  : 'border-amber-200 focus:border-amber-400'
+              } rounded-lg`}
               placeholder="مثلاً علی رضایی"
               disabled={submitting}
             />
-            {errors.name && (
-              <p className="mt-1 text-xs text-red-600">{errors.name}</p>
-            )}
+            {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
           </div>
 
           <div>
@@ -130,13 +164,15 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               inputMode="tel"
-              className={`border ${errors.phone ? 'border-red-400 focus:border-red-400' : 'border-amber-200 focus:border-amber-400'} rounded-lg`}
+              className={`border ${
+                errors.phone
+                  ? 'border-red-400 focus:border-red-400'
+                  : 'border-amber-200 focus:border-amber-400'
+              } rounded-lg`}
               placeholder="مثلاً 0912xxxxxxx"
               disabled={submitting}
             />
-            {errors.phone && (
-              <p className="mt-1 text-xs text-red-600">{errors.phone}</p>
-            )}
+            {errors.phone && <p className="mt-1 text-xs text-red-600">{errors.phone}</p>}
           </div>
         </div>
 

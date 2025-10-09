@@ -1,10 +1,24 @@
+
+// ============================================
+// File: components/Address-Form.tsx
+// ============================================
 'use client';
 
-import React from 'react';
-import type { Address } from '@/api/address/addressServices';
+import React, { useCallback } from 'react';
 import { X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { validationPatterns } from '../utils/validation';
+
+type Address = {
+  province: string;
+  city: string;
+  address: string;
+  plate: string;
+  unit: string;
+  Postal_code: string;
+  receiver: string;
+};
 
 type AddressFormProps = {
   title: string;
@@ -25,7 +39,32 @@ export const AddressForm: React.FC<AddressFormProps> = ({
   submitting,
   showClose = true,
 }) => {
-  const set = (patch: Partial<Address>) => onChange({ ...form, ...patch });
+  const set = useCallback(
+    (patch: Partial<Address>) => onChange({ ...form, ...patch }),
+    [form, onChange]
+  );
+
+  const handleInputChange = useCallback(
+    (field: keyof Address, value: string) => {
+      const patternKey = field === 'Postal_code' ? 'postal_code' : field;
+      const pattern = validationPatterns[patternKey];
+
+      if (value === '' || pattern.test(value)) {
+        set({ [field]: value });
+      }
+    },
+    [set]
+  );
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' && !submitting) {
+        e.preventDefault();
+        onSubmit();
+      }
+    },
+    [submitting, onSubmit]
+  );
 
   return (
     <div className="mb-4 p-5 rounded-xl border-2 border-amber-300 bg-amber-50/50">
@@ -36,60 +75,68 @@ export const AddressForm: React.FC<AddressFormProps> = ({
             onClick={onCancel}
             className="p-1 hover:bg-amber-100 rounded"
             title="بستن"
+            disabled={submitting}
           >
             <X className="w-5 h-5 text-black/60" />
           </button>
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4" onKeyDown={handleKeyDown}>
         <Input
           type="text"
           placeholder="استان *"
           value={form.province}
-          onChange={(e) => set({ province: e.target.value })}
+          onChange={(e) => handleInputChange('province', e.target.value)}
+          disabled={submitting}
           className="px-4 py-2 border border-amber-200 rounded-lg focus:outline-none focus:border-amber-400"
         />
         <Input
           type="text"
           placeholder="شهر *"
           value={form.city}
-          onChange={(e) => set({ city: e.target.value })}
+          onChange={(e) => handleInputChange('city', e.target.value)}
+          disabled={submitting}
           className="px-4 py-2 border border-amber-200 rounded-lg focus:outline-none focus:border-amber-400"
         />
         <Input
           type="text"
           placeholder="آدرس کامل *"
           value={form.address}
-          onChange={(e) => set({ address: e.target.value })}
+          onChange={(e) => handleInputChange('address', e.target.value)}
+          disabled={submitting}
           className="px-4 py-2 border border-amber-200 rounded-lg focus:outline-none focus:border-amber-400 md:col-span-2"
         />
         <Input
           type="text"
           placeholder="پلاک"
           value={form.plate}
-          onChange={(e) => set({ plate: e.target.value })}
+          onChange={(e) => handleInputChange('plate', e.target.value)}
+          disabled={submitting}
           className="px-4 py-2 border border-amber-200 rounded-lg focus:outline-none focus:border-amber-400"
         />
         <Input
           type="text"
           placeholder="واحد"
           value={form.unit}
-          onChange={(e) => set({ unit: e.target.value })}
+          onChange={(e) => handleInputChange('unit', e.target.value)}
+          disabled={submitting}
           className="px-4 py-2 border border-amber-200 rounded-lg focus:outline-none focus:border-amber-400"
         />
         <Input
           type="text"
           placeholder="کد پستی *"
           value={form.Postal_code}
-          onChange={(e) => set({ Postal_code: e.target.value })}
+          onChange={(e) => handleInputChange('Postal_code', e.target.value)}
+          disabled={submitting}
           className="px-4 py-2 border border-amber-200 rounded-lg focus:outline-none focus:border-amber-400"
         />
         <Input
           type="text"
           placeholder="نام گیرنده *"
           value={form.receiver}
-          onChange={(e) => set({ receiver: e.target.value })}
+          onChange={(e) => handleInputChange('receiver', e.target.value)}
+          disabled={submitting}
           className="px-4 py-2 border border-amber-200 rounded-lg focus:outline-none focus:border-amber-400"
         />
       </div>
