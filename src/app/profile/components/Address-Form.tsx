@@ -1,4 +1,3 @@
-
 // ============================================
 // File: components/Address-Form.tsx
 // ============================================
@@ -8,7 +7,7 @@ import React, { useCallback } from 'react';
 import { X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { validationPatterns } from '../utils/validation';
+import { validationPatterns, digitsFaToEn } from '../utils/validation';
 
 type Address = {
   province: string;
@@ -40,7 +39,9 @@ export const AddressForm: React.FC<AddressFormProps> = ({
   showClose = true,
 }) => {
   const set = useCallback(
-    (patch: Partial<Address>) => onChange({ ...form, ...patch }),
+    (patch: Partial<Address>) => {
+      onChange({ ...form, ...patch });
+    },
     [form, onChange]
   );
 
@@ -49,8 +50,13 @@ export const AddressForm: React.FC<AddressFormProps> = ({
       const patternKey = field === 'Postal_code' ? 'postal_code' : field;
       const pattern = validationPatterns[patternKey];
 
-      if (value === '' || pattern.test(value)) {
-        set({ [field]: value });
+      let processedValue = value;
+      if (field === 'plate' || field === 'unit' || field === 'Postal_code') {
+        processedValue = digitsFaToEn(value);
+      }
+
+      if (processedValue === '' || pattern.test(processedValue)) {
+        set({ [field]: processedValue });
       }
     },
     [set]
@@ -125,10 +131,11 @@ export const AddressForm: React.FC<AddressFormProps> = ({
         />
         <Input
           type="text"
-          placeholder="کد پستی *"
+          placeholder="کد پستی * (10 رقم)"
           value={form.Postal_code}
           onChange={(e) => handleInputChange('Postal_code', e.target.value)}
           disabled={submitting}
+          maxLength={10}
           className="px-4 py-2 border border-amber-200 rounded-lg focus:outline-none focus:border-amber-400"
         />
         <Input

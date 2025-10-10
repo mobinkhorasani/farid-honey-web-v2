@@ -6,14 +6,31 @@ export const validationPatterns = {
   unit: /^[0-9]{0,5}$/,
   province: /^[\u0600-\u06FF\s]{1,100}$/,
   city: /^[\u0600-\u06FF\s]{1,50}$/,
-  postal_code: /^[0-9]{1,20}$/,
+  postal_code: /^[0-9]{0,10}$/,
   receiver: /^[\u0600-\u06FFa-zA-Z\s]{1,50}$/,
 };
 
 export const digitsFaToEn = (str: string): string => {
-  return str
-    .replace(/[۰-۹]/g, (d) => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))
-    .replace(/[٠-٩]/g, (d) => String('٠١٢٣٤٥٦٧٨٩'.indexOf(d)));
+  if (!str) return '';
+  
+  const strValue = String(str);
+  
+  return strValue
+    .replace(/[۰-۹]/g, (d) => {
+      const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
+      return persianDigits.indexOf(d).toString();
+    })
+    .replace(/[٠-٩]/g, (d) => {
+      const arabicDigits = '٠١٢٣٤٥٦٧٨٩';
+      return arabicDigits.indexOf(d).toString();
+    });
+};
+
+export const digitsEnToFa = (str: string): string => {
+  if (!str) return '';
+  
+  const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return str.replace(/[0-9]/g, (d) => persianDigits[parseInt(d)]);
 };
 
 export const validateName = (name: string): string | null => {
@@ -51,11 +68,14 @@ export const validateAddress = (address: {
   receiver: string;
   Postal_code: string;
 }): boolean => {
+  const postalCode = digitsFaToEn(address.Postal_code?.trim() || '');
+  
   return !!(
     address.province?.trim() &&
     address.city?.trim() &&
     address.address?.trim() &&
     address.receiver?.trim() &&
-    address.Postal_code?.trim()
+    postalCode &&
+    postalCode.length === 10
   );
 };

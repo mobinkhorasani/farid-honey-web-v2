@@ -1,6 +1,5 @@
 'use client';
 
-
 import React, { useState, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@/context/authContext';
@@ -39,6 +38,7 @@ export const HoneyShopProfile: React.FC = () => {
   });
 
   const editMut = useEditUser(token ?? undefined, {
+    refetch: refetchUser,
     onSuccess: () => {
       setEditOpen(false);
     },

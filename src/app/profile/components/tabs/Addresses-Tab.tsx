@@ -11,12 +11,14 @@ import { MapPin, Home, Edit2, Trash2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ErrorHandler } from '@/app/components/error-handler';
 import { AddressForm } from '../Address-Form';
+import { DeleteConfirmModal } from '../Delete-Confirm-Modal';
 import {
   useAddAddress,
   useDeleteAddress,
   useEditAddress,
 } from '../../hooks/use-Address-Mutations';
-import { validateAddress } from '../../utils/validation';
+import { validateAddress, digitsFaToEn } from '../../utils/validation';
+import { toast } from 'sonner';
 
 const EMPTY_ADDRESS: Address = {
   province: '',
@@ -34,6 +36,8 @@ export const AddressesTab: React.FC = () => {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [form, setForm] = useState<Address>(EMPTY_ADDRESS);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [addressToDelete, setAddressToDelete] = useState<number | null>(null);
 
   const {
     data: addresses = [],
@@ -59,42 +63,62 @@ export const AddressesTab: React.FC = () => {
 
   const addMut = useAddAddress(token ?? undefined, {
     onSuccess: () => {
+      toast.success('آدرس با موفقیت اضافه شد');
       cancelAll();
     },
     onError: (error: any) => {
-      console.error('Error adding address:', error);
+      const msg = error?.response?.data?.message || error?.message || 'خطایی نامشخص';
+      toast.error(`خطا در افزودن آدرس: ${msg}`);
     },
   });
 
   const editMut = useEditAddress(token ?? undefined, {
     onSuccess: () => {
+      toast.success('آدرس با موفقیت ویرایش شد');
       cancelAll();
     },
     onError: (error: any) => {
-      console.error('Error editing address:', error);
+      if (error?.response?.data?.errors) {
+        const errorMessages = error.response.data.errors
+          .map((e: any) => e.message || e)
+          .join(', ');
+        toast.error(`خطا در ویرایش: ${errorMessages}`);
+      } else {
+        const msg = error?.response?.data?.message || error?.message || 'خطایی نامشخص';
+        toast.error(`خطا در ویرایش آدرس: ${msg}`);
+      }
     },
   });
 
   const delMut = useDeleteAddress(token ?? undefined, {
     onSuccess: () => {
+      toast.success('آدرس با موفقیت حذف شد');
+      setDeleteModalOpen(false);
+      setAddressToDelete(null);
     },
     onError: (error: any) => {
-      console.error('Error deleting address:', error);
+      const msg = error?.response?.data?.message || error?.message || 'خطایی نامشخص';
+      toast.error(`خطا در حذف آدرس: ${msg}`);
     },
   });
 
   const startEdit = useCallback((address: any) => {
     setEditingId(address.id);
     setIsAdding(false);
-    setForm({
+    
+    const postalCode = address.Postal_code || address.postal_code || '';
+    
+    const editForm: Address = {
       province: address.province || '',
       city: address.city || '',
       address: address.address || '',
-      plate: address.plate || '',
-      unit: address.unit || '',
-      Postal_code: address.Postal_code || '',
+      plate: digitsFaToEn(String(address.plate || '')),
+      unit: digitsFaToEn(String(address.unit || '')),
+      Postal_code: digitsFaToEn(String(postalCode)),
       receiver: address.receiver || '',
-    });
+    };
+    
+    setForm(editForm);
   }, []);
 
   const startAdding = useCallback(() => {
@@ -105,29 +129,60 @@ export const AddressesTab: React.FC = () => {
 
   const handleAdd = useCallback(() => {
     if (!validateAddress(form)) {
+      toast.error('لطفا تمام فیلدهای الزامی را پر کنید');
       return;
     }
-    addMut.mutate(form);
+    
+    const cleanData: Address = {
+      province: form.province.trim(),
+      city: form.city.trim(),
+      address: form.address.trim(),
+      plate: digitsFaToEn(form.plate?.trim() || ''),
+      unit: digitsFaToEn(form.unit?.trim() || ''),
+      Postal_code: digitsFaToEn(form.Postal_code.trim()),
+      receiver: form.receiver.trim(),
+    };
+    
+    addMut.mutate(cleanData);
   }, [form, addMut]);
 
   const handleEdit = useCallback(
     (id: number) => () => {
       if (!validateAddress(form)) {
+        toast.error('لطفا تمام فیلدهای الزامی را پر کنید');
         return;
       }
-      editMut.mutate({ id, data: form });
+      
+      const cleanData: Partial<Address> = {
+        province: form.province.trim(),
+        city: form.city.trim(),
+        address: form.address.trim(),
+        plate: digitsFaToEn(form.plate?.trim() || ''),
+        unit: digitsFaToEn(form.unit?.trim() || ''),
+        Postal_code: digitsFaToEn(form.Postal_code.trim()),
+        receiver: form.receiver.trim(),
+      };
+      
+      editMut.mutate({ id, data: cleanData });
     },
     [form, editMut]
   );
 
-  const handleDelete = useCallback(
-    (id: number) => () => {
-      if (window.confirm('آیا از حذف این آدرس اطمینان دارید؟')) {
-        delMut.mutate(id);
-      }
-    },
-    [delMut]
-  );
+  const openDeleteModal = useCallback((id: number) => () => {
+    setAddressToDelete(id);
+    setDeleteModalOpen(true);
+  }, []);
+
+  const closeDeleteModal = useCallback(() => {
+    setDeleteModalOpen(false);
+    setAddressToDelete(null);
+  }, []);
+
+  const confirmDelete = useCallback(() => {
+    if (addressToDelete !== null) {
+      delMut.mutate(addressToDelete);
+    }
+  }, [addressToDelete, delMut]);
 
   const isFormActive = isAdding || editingId !== null;
   const isMutating = addMut.isPending || editMut.isPending || delMut.isPending;
@@ -224,11 +279,14 @@ export const AddressesTab: React.FC = () => {
                         </div>
                         <p className="text-gray-600 mb-3 leading-relaxed">
                           {address.province} - {address.city} - {address.address}
-                          {address.plate && ` - پلاک ${address.plate}`}
-                          {address.unit && ` - واحد ${address.unit}`}
+                          {address.plate && ` - پلاک ${digitsFaToEn(address.plate)}`}
+                          {address.unit && ` - واحد ${digitsFaToEn(address.unit)}`}
                         </p>
                         <div className="flex flex-wrap gap-4 text-sm text-gray-500">
-                          <span>کد پستی: {address.Postal_code}</span>
+                          <span>
+                            کد پستی:{' '}
+                            {digitsFaToEn(address.Postal_code || address.postal_code || '-')}
+                          </span>
                         </div>
                       </div>
 
@@ -244,7 +302,7 @@ export const AddressesTab: React.FC = () => {
                           <Edit2 className="w-4 h-4 text-gray-400 hover:text-amber-600" />
                         </Button>
                         <Button
-                          onClick={handleDelete(address.id)}
+                          onClick={openDeleteModal(address.id)}
                           disabled={isMutating}
                           variant="ghost"
                           size="icon"
@@ -262,6 +320,15 @@ export const AddressesTab: React.FC = () => {
           </div>
         )}
       </div>
+
+      <DeleteConfirmModal
+        open={deleteModalOpen}
+        onClose={closeDeleteModal}
+        onConfirm={confirmDelete}
+        submitting={delMut.isPending}
+        title="حذف آدرس"
+        message="آیا از حذف این آدرس اطمینان دارید؟"
+      />
     </div>
   );
 };

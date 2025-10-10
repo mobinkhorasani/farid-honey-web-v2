@@ -10,3 +10,4 @@ export { OrdersTab } from './tabs/Orders-Tab';
 export { FavoritesTab } from './tabs/Favorites-Tab';
 export { EditProfileModal } from './Edit-Profile-Modal';
 export { AddressForm } from './Address-Form';
+export { DeleteConfirmModal } from './Delete-Confirm-Modal';
