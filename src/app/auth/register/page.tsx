@@ -31,7 +31,7 @@ export default function RegisterPage() {
 
       setServerSuccess('ثبت‌نام با موفقیت انجام شد.')
       // اگر مسیر دیگری مثل تایید OTP دارید، همین‌جا تغییر دهید
-      router.push('/login?signup=success')
+      router.push('/auth/login?signup=success')
     } catch (err: any) {
       const message =
         err?.response?.data?.message || err?.message || 'خطایی رخ داد. لطفاً دوباره تلاش کنید.'
@@ -65,7 +65,6 @@ export default function RegisterPage() {
           serverSuccess={serverSuccess}
         />
 
-        {/* فوتر کوتاه با لینک لاگین */}
         <div className="mt-6 text-center">
           <span className="text-slate-600 text-sm">قبلاً حساب دارید؟ </span>
           <Link href="/auth/login" className="text-amber-600 hover:text-amber-700 font-semibold hover:underline">

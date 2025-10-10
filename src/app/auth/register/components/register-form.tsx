@@ -8,12 +8,10 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { motion } from 'framer-motion'
 import { User } from 'lucide-react'
-
 import type { RegisterFormValues } from './register-validation'
 import { registerValidationSchema } from './register-validation'
 import { Button } from '@/components/ui/button'
 import { fadeInUp, stagger } from '@/components/motion/variants'
-
 import { NameField } from './fields/name-field'
 import { PhoneField } from './fields/phone-field'
 import { PasswordField } from './fields/password-field'
@@ -83,6 +81,18 @@ export const RegisterForm = ({ onSubmit, isSubmitting, serverError, serverSucces
           showPassword={showPassword}
           onToggleShow={() => setShowPassword((v) => !v)}
         />
+      </motion.div>
+
+      <motion.div variants={fadeInUp} className="flex items-center gap-2">
+        <input
+          id="agree"
+          type="checkbox"
+          {...register('agree')}
+          className="w-5 h-5 accent-amber-500 cursor-pointer"
+        />
+        <label htmlFor="agree" className="text-sm sm:text-base text-gray-700 select-none">
+          قوانین و شرایط را می‌پذیرم
+        </label>
       </motion.div>
 
       {/* Server states */}

@@ -1,6 +1,4 @@
-// ============================================
-// File: utils/index.ts
-// ============================================
+
 export {
   validationPatterns,
   digitsFaToEn,
