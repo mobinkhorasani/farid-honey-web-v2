@@ -1,6 +1,3 @@
-// ============================================
-// File: components/tabs/Addresses-Tab.tsx
-// ============================================
 'use client';
 
 import React, { useState, useCallback } from 'react';
@@ -62,17 +59,21 @@ export const AddressesTab: React.FC = () => {
   }, [resetForm]);
 
   const addMut = useAddAddress(token ?? undefined, {
+    refetch,
     onSuccess: () => {
       toast.success('آدرس با موفقیت اضافه شد');
       cancelAll();
     },
     onError: (error: any) => {
-      const msg = error?.response?.data?.message || error?.message || 'خطایی نامشخص';
+      const msg =
+        error?.response?.data?.message || error?.message || 'خطایی نامشخص';
       toast.error(`خطا در افزودن آدرس: ${msg}`);
     },
   });
 
+
   const editMut = useEditAddress(token ?? undefined, {
+    refetch,
     onSuccess: () => {
       toast.success('آدرس با موفقیت ویرایش شد');
       cancelAll();
@@ -91,6 +92,7 @@ export const AddressesTab: React.FC = () => {
   });
 
   const delMut = useDeleteAddress(token ?? undefined, {
+    refetch,
     onSuccess: () => {
       toast.success('آدرس با موفقیت حذف شد');
       setDeleteModalOpen(false);
@@ -105,9 +107,9 @@ export const AddressesTab: React.FC = () => {
   const startEdit = useCallback((address: any) => {
     setEditingId(address.id);
     setIsAdding(false);
-    
+
     const postalCode = address.Postal_code || address.postal_code || '';
-    
+
     const editForm: Address = {
       province: address.province || '',
       city: address.city || '',
@@ -117,7 +119,7 @@ export const AddressesTab: React.FC = () => {
       Postal_code: digitsFaToEn(String(postalCode)),
       receiver: address.receiver || '',
     };
-    
+
     setForm(editForm);
   }, []);
 
@@ -132,7 +134,7 @@ export const AddressesTab: React.FC = () => {
       toast.error('لطفا تمام فیلدهای الزامی را پر کنید');
       return;
     }
-    
+
     const cleanData: Address = {
       province: form.province.trim(),
       city: form.city.trim(),
@@ -142,7 +144,7 @@ export const AddressesTab: React.FC = () => {
       Postal_code: digitsFaToEn(form.Postal_code.trim()),
       receiver: form.receiver.trim(),
     };
-    
+
     addMut.mutate(cleanData);
   }, [form, addMut]);
 
@@ -152,7 +154,7 @@ export const AddressesTab: React.FC = () => {
         toast.error('لطفا تمام فیلدهای الزامی را پر کنید');
         return;
       }
-      
+
       const cleanData: Partial<Address> = {
         province: form.province.trim(),
         city: form.city.trim(),
@@ -162,7 +164,7 @@ export const AddressesTab: React.FC = () => {
         Postal_code: digitsFaToEn(form.Postal_code.trim()),
         receiver: form.receiver.trim(),
       };
-      
+
       editMut.mutate({ id, data: cleanData });
     },
     [form, editMut]
