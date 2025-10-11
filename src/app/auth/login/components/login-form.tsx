@@ -45,7 +45,7 @@ export const LoginForm = ({ onSubmit, isSubmitting, serverError }: LoginFormProp
       variants={stagger}
       className="max-w-screen-sm w-full mx-auto px-3 sm:px-4 space-y-5 sm:space-y-6"
     >
-      {/* Phone */}
+      
       <motion.div variants={fadeInUp}>
         <PhoneField
           id="phone"
@@ -56,7 +56,7 @@ export const LoginForm = ({ onSubmit, isSubmitting, serverError }: LoginFormProp
         />
       </motion.div>
 
-      {/* Password */}
+     
       <motion.div variants={fadeInUp}>
         <PasswordField
           id="password"
@@ -69,14 +69,14 @@ export const LoginForm = ({ onSubmit, isSubmitting, serverError }: LoginFormProp
         />
       </motion.div>
 
-      {/* Server Error */}
+      
       {serverError && (
         <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}>
           <ServerError message={serverError} />
         </motion.div>
       )}
 
-      {/* Submit */}
+      
       <motion.div variants={fadeInUp}>
         <Button
           type="submit"
@@ -97,13 +97,14 @@ export const LoginForm = ({ onSubmit, isSubmitting, serverError }: LoginFormProp
         </Button>
       </motion.div>
 
-      {/* Links */}
+      
       <motion.div variants={fadeInUp} className="text-center">
+        حساب کاربری ندارید؟
         <Link
-          href="/forgot-password"
+          href="/auth/register"
           className="text-amber-600 hover:text-amber-700 text-sm font-medium hover:underline underline-offset-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:rounded"
         >
-          رمز عبور را فراموش کرده‌اید؟
+           ثبت نام
         </Link>
       </motion.div>
     </motion.form>

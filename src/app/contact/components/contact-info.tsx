@@ -26,7 +26,7 @@ export const ContactInfo = () => {
     { display: '۰۲۶-۳۶۲۱۰۸۸۲', link: '02636210882' },
   ];
 
-  const email = 'info@faridhoney.com';
+  const email = 'nooshavaranegolshan@gmail.com';
   const addressDisplay = 'کرج، بلوار طالقانی جنوبی، ابتدای خیابان قیام — فروشگاه عسل فرید';
 
   return (

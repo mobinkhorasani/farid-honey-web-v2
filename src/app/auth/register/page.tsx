@@ -8,7 +8,7 @@ import { signUp } from '@/api/users/userServices'
 import type { RegisterFormValues } from './components/register-validation'
 import { RegisterForm } from './components'
 import { fadeInUp, stagger } from '@/components/motion/variants'
-
+import { ArrowRight } from 'lucide-react'
 export default function RegisterPage() {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -30,11 +30,12 @@ export default function RegisterPage() {
       await signUp(payload)
 
       setServerSuccess('ثبت‌نام با موفقیت انجام شد.')
-      // اگر مسیر دیگری مثل تایید OTP دارید، همین‌جا تغییر دهید
       router.push('/auth/login?signup=success')
     } catch (err: any) {
       const message =
-        err?.response?.data?.message || err?.message || 'خطایی رخ داد. لطفاً دوباره تلاش کنید.'
+        err?.response?.data?.message ||
+        err?.message ||
+        'خطایی رخ داد. لطفاً دوباره تلاش کنید.'
       setServerError(message)
     } finally {
       setIsSubmitting(false)
@@ -45,15 +46,28 @@ export default function RegisterPage() {
     <motion.main
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-dvh bg-[#F9F7F2] flex items-center"
+      className="min-h-dvh bg-[#F9F7F2] flex items-center relative"
     >
+      
+      <button
+        onClick={() => router.push('/')}
+        className="absolute top-4 right-4 p-2"
+      >
+        <ArrowRight className="w-6 h-6 text-gray-700 hover:text-gray-900" />
+      </button>
+
       <div className="w-full mx-auto max-w-screen-sm px-3 sm:px-6 py-8 sm:py-12">
-        {/* هدر کوچک صفحه */}
         <motion.header variants={stagger} initial="hidden" animate="show" className="mb-6 sm:mb-8">
-          <motion.h1 variants={fadeInUp} className="text-2xl sm:text-3xl font-extrabold text-amber-700 text-center">
+          <motion.h1
+            variants={fadeInUp}
+            className="text-2xl sm:text-3xl font-extrabold text-amber-700 text-center"
+          >
             عضویت در خانواده عسل فرید
           </motion.h1>
-          <motion.p variants={fadeInUp} className="mt-2 text-center text-slate-600 text-sm sm:text-base">
+          <motion.p
+            variants={fadeInUp}
+            className="mt-2 text-center text-slate-600 text-sm sm:text-base"
+          >
             خوش آمدید! لطفاً اطلاعات خود را وارد کنید.
           </motion.p>
         </motion.header>

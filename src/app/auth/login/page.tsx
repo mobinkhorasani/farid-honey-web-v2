@@ -8,7 +8,7 @@ import { fadeInUp, stagger } from '@/components/motion/variants'
 import { LoginForm } from './components'
 import { useAuth } from '@/context/authContext'
 import { LoginFormValues } from './schema/login-schema'
-
+import { ArrowRight } from 'lucide-react' 
 
 export default function LoginPage() {
   const router = useRouter()
@@ -33,10 +33,6 @@ export default function LoginPage() {
         role: data.role,
       })
 
-
-      console.log(data.role);
-      
-      // ✅ بررسی نقش و ری‌دایرکت بعد از لاگین
       if (data.role === 'ADMIN') {
         router.push('/admin')
       } else {
@@ -57,8 +53,16 @@ export default function LoginPage() {
     <motion.main
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-dvh bg-[#F9F7F2] flex items-center"
+      className="min-h-dvh bg-[#F9F7F2] flex items-center relative"
     >
+     
+      <button
+        onClick={() => router.push('/')}
+        className="absolute top-4 right-4 p-2"
+      >
+        <ArrowRight className="w-6 h-6 text-gray-700 hover:text-gray-900" />
+      </button>
+
       <div className="w-full mx-auto max-w-screen-sm px-3 sm:px-6 py-8 sm:py-12">
         <motion.header
           variants={stagger}
