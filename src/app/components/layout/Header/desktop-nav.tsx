@@ -2,8 +2,10 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { mainNav, actionNav } from '@/lib/nav'
+import { ShoppingCart } from 'lucide-react'
+import { mainNav } from '@/lib/nav'
 import { cn } from '@/lib/utils'
+import { UserAuthButton } from '../userAuthButton'
 
 export const DesktopNav = () => {
   const pathname = usePathname()
@@ -28,28 +30,26 @@ export const DesktopNav = () => {
         )
       })}
 
-      {/* اکشن‌های آیکنی — بدون بردر دور آیکن‌ها */}
+      {/* اکشن‌های آیکنی */}
       <div className="flex items-center gap-2 ms-4 ps-4 border-s border-gray-200">
-        {actionNav.map(({ href, title, icon: Icon }) => {
-          const isActive = pathname === href
-          return (
-            <Link
-              key={href}
-              href={href}
-              aria-label={title}
-              className={cn(
-                'relative inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors',
-                'focus:outline-none focus:ring-2 focus:ring-orange-500/40',
-                isActive
-                  ? 'bg-orange-50 text-orange-600'
-                  : 'text-gray-700 hover:bg-gray-50 hover:text-orange-600'
-              )}
-            >
-              <Icon className="w-5 h-5" />
-              <span className="sr-only">{title}</span>
-            </Link>
-          )
-        })}
+        {/* دکمه سبد خرید */}
+        <Link
+          href="/cart"
+          aria-label="سبد خرید"
+          className={cn(
+            'relative inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors',
+            'focus:outline-none focus:ring-2 focus:ring-orange-500/40',
+            pathname === '/cart'
+              ? 'bg-orange-50 text-orange-600'
+              : 'text-gray-700 hover:bg-gray-50 hover:text-orange-600'
+          )}
+        >
+          <ShoppingCart className="w-5 h-5" />
+          <span className="sr-only">سبد خرید</span>
+        </Link>
+        
+        {/* دکمه کاربر */}
+        <UserAuthButton />
       </div>
     </nav>
   )
