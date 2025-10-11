@@ -20,21 +20,32 @@ export const login = async (Data: any) => {
 };
 
 
-export const getUserInfo = async () => {
-  const res = await Instance.get('/user/me');
-  return res.data;
+export const getUserInfo = async (token?: string) => {
+  const res = await Instance.get('/user/me', {
+    headers: {
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+  return res.data.user || res.data;
 };
 
+export type UpdateUserPayload = {
+  name: string;
+  phone_number: string;
+};
 
-export const editUser = async (updatedData: any) => {
-  const res = await Instance.patch(
-    `/user/edit`,
-    updatedData,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  return res.data;
+export type UserDto = {
+  id: number;
+  name: string;
+  phone_number: string;
+};
+
+export const editUser = async (updatedData: UpdateUserPayload, token?: string): Promise<UserDto> => {
+  const res = await Instance.patch('/user/edit', updatedData, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+  return res.data.user || res.data;
 };
