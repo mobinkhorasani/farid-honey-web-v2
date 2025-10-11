@@ -2,17 +2,24 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { PhoneCall, Clock } from "lucide-react";
+import {
+  PhoneCall,
+  Clock,
+  Instagram,
+  X,
+  Send,
+  MessageCircle,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { mainNav, actionNav } from "@/lib/nav";
 import { companyInfo, socials } from "@/lib/stores";
 import { Logo } from "./Header";
 
 const socialIcons = {
-  Instagram: require("lucide-react").Instagram,
-  X: require("lucide-react").X,
-  Send: require("lucide-react").Send,
-  MessageCircle: require("lucide-react").MessageCircle,
+  Instagram,
+  X,
+  Send,
+  MessageCircle,
 };
 
 type MobileSidebarProps = {
@@ -21,10 +28,14 @@ type MobileSidebarProps = {
   onClose: () => void;
 };
 
-export const MobileSidebar = ({ pathname, isOpen, onClose }: MobileSidebarProps) => {
+export const MobileSidebar = ({
+  pathname,
+  isOpen,
+  onClose,
+}: MobileSidebarProps) => {
   return (
     <>
-      {/* بک‌گراند تار با fade */}
+      {/* بک‌گراند تار */}
       <motion.div
         className="fixed inset-0 z-40 bg-black/50"
         onClick={onClose}
@@ -34,7 +45,7 @@ export const MobileSidebar = ({ pathname, isOpen, onClose }: MobileSidebarProps)
         style={{ pointerEvents: isOpen ? "auto" : "none" }}
       />
 
-      {/* سایدبار با انیمیشن نرم */}
+      {/* سایدبار */}
       <motion.aside
         className="fixed inset-y-0 right-0 z-50 w-80 max-w-sm bg-white shadow-xl"
         role="dialog"

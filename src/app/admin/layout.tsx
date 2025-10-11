@@ -19,7 +19,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     if (user.role !== "ADMIN") {
       router.push("/")
     }
-  }, [])
+  }, [router])
 
   return <>{children}</>
 }
