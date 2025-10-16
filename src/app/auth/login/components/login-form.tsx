@@ -98,7 +98,7 @@ export const LoginForm = ({ onSubmit, isSubmitting, serverError }: LoginFormProp
       </motion.div>
 
       
-      <motion.div variants={fadeInUp} className="text-center">
+      <motion.div variants={fadeInUp} className="text-center text-gray-600">
         حساب کاربری ندارید؟
         <Link
           href="/auth/register"

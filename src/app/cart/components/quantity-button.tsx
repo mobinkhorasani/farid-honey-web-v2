@@ -9,7 +9,7 @@ interface QuantityButtonProps {
   type: "increment" | "decrement";
   productId: string;
   currentQuantity: number;
-  onQuantityChange: (newQty: number) => void; // اضافه شد
+  onQuantityChange: (newQty: number) => void; 
 }
 
 export const QuantityButton = ({
@@ -27,10 +27,8 @@ export const QuantityButton = ({
 
     const newQty = isIncrease ? currentQuantity + 1 : currentQuantity - 1;
 
-    // آپدیت فوری UI
     onQuantityChange(newQty);
 
-    // ارسال به سرور
     mutate({
       productId,
       updatedData: { action: type },
@@ -41,7 +39,7 @@ export const QuantityButton = ({
     <Button
       onClick={handleClick}
       disabled={isPending || (!isIncrease && currentQuantity <= 1)}
-      className={`w-8 h-8 rounded transition flex items-center justify-center
+      className={`w-8 h-8 rounded transition flex items-center justify-center text-gray-700
         ${isPending || (!isIncrease && currentQuantity <= 1) ? "opacity-50 cursor-not-allowed" : "hover:bg-amber-100"}
       `}
     >
