@@ -12,7 +12,7 @@ import {
   Zap,
   Package,
 } from "lucide-react";
-import Image from "next/image";
+// import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { AddToCartButton } from "../components";
