@@ -48,7 +48,7 @@ export default function RegisterPage() {
       animate={{ opacity: 1 }}
       className="min-h-dvh bg-[#F9F7F2] flex items-center relative"
     >
-      
+
       <button
         onClick={() => router.push('/')}
         className="absolute top-4 right-4 p-2"
@@ -80,7 +80,7 @@ export default function RegisterPage() {
         />
 
         <div className="mt-6 text-center">
-          <span className="text-slate-600 text-sm">قبلاً حساب دارید؟ </span>
+          <span className=" text-sm  text-gray-600">قبلاً عضو شدید؟</span>
           <Link href="/auth/login" className="text-amber-600 hover:text-amber-700 font-semibold hover:underline">
             ورود
           </Link>

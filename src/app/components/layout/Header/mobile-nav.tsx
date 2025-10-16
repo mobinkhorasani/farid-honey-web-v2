@@ -39,7 +39,7 @@ export const MobileNav = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none"
       >
-        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        <Menu className="w-6 h-6" />
       </button>
 
       <MobileSidebar pathname={pathname} isOpen={isOpen} onClose={() => setIsOpen(false)} />
