@@ -17,7 +17,7 @@ export const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-100" role="contentinfo">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-       
+
         <div className="py-12 lg:py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
 
@@ -104,12 +104,21 @@ export const Footer = () => {
 
 
         <div className="border-t border-gray-800 py-6">
-          <div className="text-center">
+          <div className="flex flex-col items-center justify-center space-y-3">
+            {/* متن کپی‌رایت */}
             <p className="text-xs text-gray-500">
               © ۱۴۰۲–۱۴۰۴ عسل فرید — تمامی حقوق محفوظ است.
             </p>
+
+            {/* نماد اعتماد الکترونیکی */}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: `<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=984009&Code=PuYMX4XK8tTl9Nj3RWa8Rk4QM0IruFDI'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=984009&Code=PuYMX4XK8tTl9Nj3RWa8Rk4QM0IruFDI' alt='' style='cursor:pointer' code='PuYMX4XK8tTl9Nj3RWa8Rk4QM0IruFDI'></a>`,
+              }}
+            />
           </div>
         </div>
+
       </div>
     </footer>
   )
