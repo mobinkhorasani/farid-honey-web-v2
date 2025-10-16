@@ -104,7 +104,7 @@ export default function ProductDetail() {
                 <div className="absolute -inset-1 bg-gradient-to-r from-amber-300 to-orange-300 rounded-3xl blur opacity-25 group-hover:opacity-40 transition"></div>
                 <div className="relative bg-white rounded-3xl overflow-hidden shadow-2xl">
                   <div className="relative w-full h-[500px]">
-                    <Image
+                    {/* <Image
                       src={product.image_url || "/default-honey.jpg"}
                       alt={product.name}
                       fill
@@ -112,7 +112,16 @@ export default function ProductDetail() {
                       className="object-cover"
                       priority
                       quality={90}
-                    />
+                    /> */}
+
+                    {/* <div className="relative w-full h-64 overflow-hidden rounded-lg"> */}
+                      <img
+                        src={product.image_url || "/default-honey.jpg"}
+                        alt={product.name}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    {/* </div> */}
+
                   </div>
                   <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
                     {product.category}
@@ -202,11 +211,10 @@ export default function ProductDetail() {
                     <button
                       key={size.id}
                       onClick={() => setSelectedSize(index)}
-                      className={`relative p-4 rounded-xl border-2 transition-all ${
-                        selectedSize === index
-                          ? "border-amber-500 bg-amber-50 shadow-lg scale-105"
-                          : "border-gray-200 hover:border-amber-300 bg-white/50"
-                      }`}
+                      className={`relative p-4 rounded-xl border-2 transition-all ${selectedSize === index
+                        ? "border-amber-500 bg-amber-50 shadow-lg scale-105"
+                        : "border-gray-200 hover:border-amber-300 bg-white/50"
+                        }`}
                     >
                       {selectedSize === index && (
                         <div className="absolute top-2 right-2">
@@ -295,11 +303,10 @@ export default function ProductDetail() {
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`px-6 border-2 rounded-2xl font-medium transition text-center ${
-                    currentSize
-                      ? "bg-white border-amber-400 text-amber-600 hover:bg-amber-50"
-                      : "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed pointer-events-none"
-                  }`}
+                  className={`px-6 border-2 rounded-2xl font-medium transition text-center ${currentSize
+                    ? "bg-white border-amber-400 text-amber-600 hover:bg-amber-50"
+                    : "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed pointer-events-none"
+                    }`}
                 >
                   خرید عمده
                 </a>

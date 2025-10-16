@@ -26,7 +26,7 @@ export const AddToCartButton = ({
 
   const handleClick = () => {
     if (!token) {
-      toast.error("یه خطا رخ داد!")
+      toast.error("لطفا ابتدا وارد اکانت خود شوید")
       router.push("/auth/register");
       return;
     }

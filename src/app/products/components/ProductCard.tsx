@@ -24,14 +24,22 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className="relative bg-[#F9F7F2]">
           <div className="relative aspect-[4/3] sm:aspect-[5/4] overflow-hidden">
-            <Image
+            {/* <Image
               src={product?.image_url || "/images/honey-placeholder.jpg"}
               alt={product?.name || "محصول بدون نام"}
               fill
               sizes="(min-width: 1024px) 24vw, (min-width: 768px) 32vw, 50vw"
               className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
               loading="lazy"
+            /> */}
+
+            <img
+              src={product?.image_url || "/images/honey-placeholder.jpg"}
+              alt={product?.name || "محصول بدون نام"}
+              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-[1.04] rounded-2xl"
+              loading="lazy"
             />
+
 
           </div>
 
