@@ -1,48 +1,44 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Menu, X, ShoppingCart } from "lucide-react";
-import { MobileSidebar } from "../MobileSidebar";
-import { UserAuthButton } from "../userAuthButton";
+import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
+import { Menu } from 'lucide-react'
+import { MobileSidebar } from '../MobileSidebar'
+import { UserAuthButton } from '../userAuthButton'
+import { CartIcon } from '../../cart-icon'
 
 export const MobileNav = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
 
-  useEffect(() => setIsOpen(false), [pathname]);
+  useEffect(() => setIsOpen(false), [pathname])
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    document.body.style.overflow = isOpen ? 'hidden' : ''
     return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+      document.body.style.overflow = ''
+    }
+  }, [isOpen])
 
   return (
     <div className="md:hidden flex items-center gap-2">
-
-      <Link
-        href="/cart"
-        aria-label="سبد خرید"
-        className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none"
-      >
-        <ShoppingCart className="w-6 h-6" />
-      </Link>
-
+      <CartIcon variant="mobile" />
 
       <UserAuthButton />
 
       <button
         type="button"
-        aria-label={isOpen ? "بستن منو" : "باز کردن منو"}
+        aria-label={isOpen ? 'بستن منو' : 'باز کردن منو'}
         onClick={() => setIsOpen(!isOpen)}
         className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none"
       >
         <Menu className="w-6 h-6" />
       </button>
 
-      <MobileSidebar pathname={pathname} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <MobileSidebar 
+        pathname={pathname} 
+        isOpen={isOpen} 
+        onClose={() => setIsOpen(false)} 
+      />
     </div>
-  );
-};
+  )
+}
