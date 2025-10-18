@@ -1,17 +1,21 @@
 import type { ProductCardData } from "@/types/d.type";
 
+// 🆕 تابع کمکی برای تبدیل قیمت به عدد (بهبود یافته)
+const parsePrice = (price: string | number | undefined): number => {
+  if (typeof price === 'number') return price;
+  if (!price) return 0;
+  
+  // تبدیل قیمت string به number
+  const cleanPrice = price
+    .toString()
+    .replace(/[٬,]/g, '') // حذف کاما فارسی و انگلیسی
+    .replace(/[۰-۹]/g, (d) => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d).toString()); // تبدیل اعداد فارسی
+    
+  return parseInt(cleanPrice) || 0;
+};
+
 export const inPriceRange = (price: string | number = 0, range: string) => {
-  let numPrice: number;
-  if (typeof price === "number") {
-    numPrice = price;
-  } else {
-    numPrice = parseInt(
-      price
-        .replace(/٬/g, '') 
-        .replace(/,/g, '') 
-        .replace(/[۰-۹]/g, (d) => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d).toString()) 
-    ) || 0;
-  }
+  const numPrice = parsePrice(price); // 🆕 استفاده از تابع جدید
 
   switch (range) {
     case "زیر ۲۰۰ هزار":
@@ -59,19 +63,27 @@ export const filterProducts = (
   });
 };
 
-export const sortProducts = (items: ProductCardData[], sortBy: string) => {
+// 🆕 تابع مرتب‌سازی بهبود یافته
+export const sortProducts = (items: ProductCardData[], sortBy: string): ProductCardData[] => {
   const list = [...items];
+  
   switch (sortBy) {
     case "ارزان‌ترین":
-      return list.sort((a, b) => (a.price ?? Infinity) - (b.price ?? Infinity));
+      return list.sort((a, b) => {
+        const priceA = parsePrice(a.price);
+        const priceB = parsePrice(b.price);
+        return priceA - priceB;
+      });
+      
     case "گران‌ترین":
-      return list.sort((a, b) => (b.price ?? -Infinity) - (a.price ?? -Infinity));
-    case "محبوب‌ترین":
-      return list.sort((a, b) => a.name.localeCompare(b.name, "fa"));
-    case "پرفروش‌ترین":
-      return list;
-    case "جدیدترین":
+      return list.sort((a, b) => {
+        const priceA = parsePrice(a.price);
+        const priceB = parsePrice(b.price);
+        return priceB - priceA;
+      });
+      
+    case "مرتب‌سازی":
     default:
-      return list.sort((a, b) => Number(b.id) - Number(a.id));
+      return list; // بدون تغییر
   }
 };
