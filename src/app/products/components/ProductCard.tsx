@@ -34,7 +34,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             /> */}
 
             <img
-              src={product?.image_url || "/images/honey-placeholder.jpg"}
+              src={product?.image_url || "/imags/hoey-pot-4d7c98d.jpg"}
               alt={product?.name || "محصول بدون نام"}
               className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-[1.04] rounded-2xl"
               loading="lazy"

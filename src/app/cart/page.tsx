@@ -4,25 +4,31 @@ import { getCartInfo } from "@/api/cart/cartServices";
 import { useAuth } from "@/context/authContext";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { CartFeatures, CartItem, CartSummary } from "./components";
 import { LoadingPage } from "../components/loading-page";
 import { ErrorHandler } from "../components/error-handler";
-import {
-    ShoppingBag,
-    ArrowLeft,
-} from "lucide-react";
+import { ShoppingBag, ArrowLeft } from "lucide-react";
 
 export default function CartPage() {
+    const router = useRouter();
     const { token } = useAuth();
     const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
 
+    // ✅ ریدایرکت کاربر به صفحه لاگین اگر توکن نداشته باشد
+    useEffect(() => {
+        if (!token) {
+            router.push('/auth/login');
+        }
+    }, [token, router]);
+
+    // ✅ useQuery همیشه اجرا می‌شود، فقط وقتی token وجود نداشته باشد غیرفعال است
     const { data, isLoading, isError, refetch, isFetching } = useQuery({
         queryKey: ["Cart"],
         queryFn: () => getCartInfo(token ?? undefined),
         enabled: !!token
     });
-
 
     const convertPersianPrice = (price: string) => {
         if (!price) return 0;
@@ -63,13 +69,15 @@ export default function CartPage() {
             ...prev,
             [productId]: newQuantity
         }));
-
     };
 
+    // هنوز token وجود ندارد → نمایش Loading تا ریدایرکت انجام شود
+    if (!token) {
+        return <LoadingPage />;
+    }
+
     if (isLoading || isFetching) {
-        return (
-            <LoadingPage />
-        );
+        return <LoadingPage />;
     }
 
     if (isError || !data) {
@@ -106,9 +114,6 @@ export default function CartPage() {
         );
     }
 
-
-    console.log(data);
-
     const calculateTotal = () => {
         if (data?.total_price) {
             return convertPersianPrice(data.total_price);
@@ -119,7 +124,6 @@ export default function CartPage() {
             return total + (price * quantity);
         }, 0);
     };
-
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
@@ -158,6 +162,6 @@ export default function CartPage() {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 }
