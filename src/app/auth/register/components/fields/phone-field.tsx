@@ -7,21 +7,13 @@ import { Label } from '@radix-ui/react-label'
 import { PhoneFieldProps } from '@/types/d.type'
 import { ChangeEvent, KeyboardEvent, useCallback } from 'react'
 
-/* ----------------------------------------------------------- */
-/*  کمکی‌ها                                                    */
-/* ----------------------------------------------------------- */
+
 const toLatinDigits = (raw: string): string =>
   raw
-    // ۰-۹ فارسی ← 0-9
     .replace(/[\u06F0-\u06F9]/g, d => String.fromCharCode(d.charCodeAt(0) - 1728))
-    // ٠-٩ عربی ← 0-9
     .replace(/[\u0660-\u0669]/g, d => String.fromCharCode(d.charCodeAt(0) - 1584))
-    // حذف هرچیزی غیر از 0-9 لاتین
     .replace(/\D/g, '')
 
-/* ----------------------------------------------------------- */
-/*  کامپوننت اصلی                                              */
-/* ----------------------------------------------------------- */
 export const PhoneField = ({
   id = 'phone',
   label = 'شماره موبایل',
@@ -34,7 +26,6 @@ export const PhoneField = ({
     .filter(Boolean)
     .join(' ')
 
-  /* جلوگیری از تایپ کاراکتر غیرمجاز در لحظه */
   const handleKeyPress = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
     const ctlKeys = ['Backspace', 'Tab', 'Delete', 'ArrowLeft', 'ArrowRight']
     if (ctlKeys.includes(e.key)) return
@@ -43,7 +34,6 @@ export const PhoneField = ({
     }
   }, [])
 
-  /* تبدیل فوری ارقام فارسی/عربی ← لاتین + حذف باقی‌مانده‌ها */
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const cleaned = toLatinDigits(e.target.value)
