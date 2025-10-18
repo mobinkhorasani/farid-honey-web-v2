@@ -7,21 +7,12 @@ import { Label } from '@radix-ui/react-label'
 import { NameFieldProps } from '@/types/d.type'
 import { ChangeEvent, KeyboardEvent, useCallback } from 'react'
 
-/* ----------------------------------------------------------- */
-/*  کمکی‌ها                                                    */
-/* ----------------------------------------------------------- */
 const cleanPersianLetters = (raw: string): string =>
   raw
-    // فقط حروف فارسی، فاصله و نیم‌فاصله
     .replace(/[^آ-ی\s\u200C]+/g, '')
-    // حذف فاصله‌ی اضافی پیاپی
     .replace(/\s{2,}/g, ' ')
-    // تبدیل فاصله‌ی انگلیسی به فارسی (اختیاری)
     .replace(/\u0020/g, '\u2000')
 
-/* ----------------------------------------------------------- */
-/*  کامپوننت اصلی                                              */
-/* ----------------------------------------------------------- */
 export const NameField = ({
   id = 'name',
   label = 'نام',
@@ -33,7 +24,6 @@ export const NameField = ({
     .filter(Boolean)
     .join(' ')
 
-  /* جلوگیری از تایپ کاراکتر غیرمجاز در لحظه */
   const handleKeyPress = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
     const allowed = /[آ-ی\s\u200C]/
     if (!allowed.test(e.key) && !['Backspace', 'Tab', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
@@ -41,7 +31,6 @@ export const NameField = ({
     }
   }, [])
 
-  /* تمیز کردن فوری پس از Paste یا تغییر دستی */
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const cleaned = cleanPersianLetters(e.target.value)
