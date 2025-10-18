@@ -19,7 +19,7 @@ export const useAddToCart = () => {
       return await addToCart(data, token);
     },
     retry: false,
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("محصول به سبد خرید اضافه شد 🎉");
       queryClient.invalidateQueries({ queryKey: ['cart'] })
     },

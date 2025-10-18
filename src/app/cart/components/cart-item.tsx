@@ -24,13 +24,21 @@ export const CartItem = ({ product, currentQuantity, updateQuantity, refetch }: 
                 <div className="flex gap-3 mb-4">
                     <div className="relative">
                         <div className="relative w-24 h-24 bg-gradient-to-br from-amber-100 to-orange-50 rounded-2xl overflow-hidden shadow-md">
-                            <Image
+                            {/* <Image
                                 src={product.image_url || "/default-honey.jpg"}
                                 alt={product?.name}
                                 fill
                                 sizes="96px"
                                 className="object-cover"
+                            /> */}
+
+                            <img
+                                src={product?.image_url || "/default-honey.jpg"}
+                                alt={product?.name || "محصول بدون نام"}
+                                className="object-cover w-full h-full"
+                                loading="lazy"
                             />
+                            
                             {/* Size Badge */}
                             <div className="absolute bottom-1 right-1 bg-black/60 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded-full">
                                 {product.size}
