@@ -1,24 +1,28 @@
 import { Instance, InstanceAuth } from '@/lib/axiosInstance';
 
 export const signUp = async (Data: any) => {
-    const res = await Instance.post(`/user/register`, Data, {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-    return res.data;
+  const res = await Instance.post(`/user/register`, Data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return res.data;
 };
 
 
 export const login = async (Data: any) => {
-    const res = await InstanceAuth.post(`/auth/login`, Data, {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-    return res.data;
+  const res = await InstanceAuth.post(`/auth/login`, Data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return res.data;
 };
 
+export const refreshToken = async () => {
+  const res = await InstanceAuth.post(`/auth/refresh-token`);
+  return res.data;
+};
 
 export const getUserInfo = async (token?: string) => {
   const res = await Instance.get('/user/me', {

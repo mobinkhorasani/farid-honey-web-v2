@@ -129,7 +129,7 @@ export const ContactInfo = () => {
             </h3>
             <div className="flex items-center justify-between gap-3">
               <a
-                className="text-xs sm:text-sm text-[#6B7280] font-mono hover:text-[#E9B159] transition-colors"
+                className="text-xs md:text-md lg:text-lg text-[#6B7280] font-mono hover:text-[#E9B159] transition-colors"
                 href={`mailto:${email}`}
               >
                 {email}
