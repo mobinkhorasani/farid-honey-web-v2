@@ -7,8 +7,8 @@ import { useEditQuantity } from "../hooks";
 
 interface QuantityButtonProps {
   type: "increment" | "decrement";
-  productId: string;
-  currentQuantity: number;
+  productId: string | number;
+  currentQuantity: any;
   onQuantityChange: (newQty: number) => void; 
 }
 

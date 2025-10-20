@@ -7,7 +7,7 @@ import { Package, Sparkles } from "lucide-react";
 
 interface CartItemProps {
     product: any;
-    currentQuantity: number;
+    currentQuantity: string | number ;
     updateQuantity: (productId: string, newQty: number) => void;
     refetch: () => void;
 }
@@ -33,12 +33,12 @@ export const CartItem = ({ product, currentQuantity, updateQuantity, refetch }: 
                             /> */}
 
                             <img
-                                src={product?.image_url || "/default-honey.jpg"}
+                                src={product?.image_url || "/images/default/default.jpg"}
                                 alt={product?.name || "محصول بدون نام"}
                                 className="object-cover w-full h-full"
                                 loading="lazy"
                             />
-                            
+
                             {/* Size Badge */}
                             <div className="absolute bottom-1 right-1 bg-black/60 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded-full">
                                 {product.size}
@@ -73,7 +73,7 @@ export const CartItem = ({ product, currentQuantity, updateQuantity, refetch }: 
                             <QuantityButton
                                 type="decrement"
                                 productId={product?.id}
-                                currentQuantity={currentQuantity}
+                                currentQuantity={Number(currentQuantity)}
                                 onQuantityChange={(newQty) => updateQuantity(product.id, newQty)}
                             />
                             <span className="w-12 text-center font-bold text-gray-800 text-lg">
@@ -82,7 +82,7 @@ export const CartItem = ({ product, currentQuantity, updateQuantity, refetch }: 
                             <QuantityButton
                                 type="increment"
                                 productId={product?.id}
-                                currentQuantity={currentQuantity}
+                                currentQuantity={Number(currentQuantity)}
                                 onQuantityChange={(newQty) => updateQuantity(product.id, newQty)}
                             />
                         </div>
@@ -106,12 +106,11 @@ export const CartItem = ({ product, currentQuantity, updateQuantity, refetch }: 
 
                     <div className="relative">
                         <div className="relative w-32 h-32 bg-gradient-to-br from-amber-100 to-orange-50 rounded-2xl overflow-hidden shadow-lg group-hover:shadow-xl transition-shadow">
-                            <Image
-                                src={product.image_url || "/default-honey.jpg"}
+                            <img
+                                src={product.image_url || "/images/default/default.jpg"}
                                 alt={product?.name}
-                                fill
                                 sizes="128px"
-                                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                className="object-cover w-full h-full"
                             />
 
                             <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full">
@@ -141,7 +140,7 @@ export const CartItem = ({ product, currentQuantity, updateQuantity, refetch }: 
                                     <QuantityButton
                                         type="decrement"
                                         productId={product?.id}
-                                        currentQuantity={currentQuantity}
+                                        currentQuantity={Number(currentQuantity)}
                                         onQuantityChange={(newQty) => updateQuantity(product.id, newQty)}
                                     />
                                     <span className="w-14 text-center font-bold text-lg text-gray-800">
@@ -150,7 +149,7 @@ export const CartItem = ({ product, currentQuantity, updateQuantity, refetch }: 
                                     <QuantityButton
                                         type="increment"
                                         productId={product?.id}
-                                        currentQuantity={currentQuantity}
+                                        currentQuantity={Number(currentQuantity)}
                                         onQuantityChange={(newQty) => updateQuantity(product.id, newQty)}
                                     />
                                 </div>
