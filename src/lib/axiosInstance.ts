@@ -15,7 +15,7 @@ export const InstanceAuth = axios.create({
    baseURL: `${baseURL}`,
 });
 
-InstanceAuth.defaults.withCredentials = true;
+// InstanceAuth.defaults.withCredentials = true;
 
 let isRefreshing = false;
 let failedQueue: any[] = [];
