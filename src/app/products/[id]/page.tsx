@@ -19,6 +19,8 @@ import { AddToCartButton } from "../components";
 import { LoadingPage } from "@/app/components/loading-page";
 import { ErrorHandler } from "@/app/components/error-handler";
 import { companyInfo } from "@/lib/stores";
+import { convertPersianPrice } from "@/lib/convertPersianPrice";
+import { convertPersianToEnglish } from "@/lib/converEnglishToPersianNumber";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -42,37 +44,7 @@ export default function ProductDetail() {
   const product = data.product;
   const currentSize = product.sizes?.[selectedSize];
 
-  const convertPersianPrice = (price: string) => {
-    if (!price) return 0;
-    const englishNumbers = price
-      .replace(/۰/g, "0")
-      .replace(/۱/g, "1")
-      .replace(/۲/g, "2")
-      .replace(/۳/g, "3")
-      .replace(/۴/g, "4")
-      .replace(/۵/g, "5")
-      .replace(/۶/g, "6")
-      .replace(/۷/g, "7")
-      .replace(/۸/g, "8")
-      .replace(/۹/g, "9")
-      .replace(/٬/g, "")
-      .replace(/,/g, "");
-    return parseInt(englishNumbers);
-  };
 
-  const toEnglishNumbers = (str: string) => {
-    return str
-      .replace(/۰/g, "0")
-      .replace(/۱/g, "1")
-      .replace(/۲/g, "2")
-      .replace(/۳/g, "3")
-      .replace(/۴/g, "4")
-      .replace(/۵/g, "5")
-      .replace(/۶/g, "6")
-      .replace(/۷/g, "7")
-      .replace(/۸/g, "8")
-      .replace(/۹/g, "9");
-  };
 
   const formatPrice = (price: string) => {
     const numPrice = convertPersianPrice(price);
@@ -116,7 +88,7 @@ export default function ProductDetail() {
 
                     {/* <div className="relative w-full h-64 overflow-hidden rounded-lg"> */}
                       <img
-                        src={product.image_url || "/default-honey.jpg"}
+                        src={product.image_url ||  "/images/default/default.jpg"}
                         alt={product.name}
                         className="absolute inset-0 w-full h-full object-cover"
                       />
@@ -292,11 +264,11 @@ export default function ProductDetail() {
                 <AddToCartButton
                   disabled={!currentSize}
                   product_id={product.id}
-                  size={currentSize ? toEnglishNumbers(currentSize.size) : ""}
+                  size={currentSize ? convertPersianToEnglish(currentSize.size) : ""}
                   quantity={quantity}
                 />
                 <a
-                  href={`https://wa.me/${toEnglishNumbers(
+                  href={`https://wa.me/${convertPersianToEnglish(
                     companyInfo.whatsapp || "989359558289"
                   )}?text=${encodeURIComponent(
                     `سلام ، من می‌خوام سفارش عمده محصول "${product.name}" با سایز "${currentSize?.size}" ثبت کنم`

@@ -15,7 +15,7 @@ export default function NotFoundPage() {
 
                 <Button
                     onClick={() => router.push('/')}
-                    className='w-[200px] text-lg'
+                    className='w-[250px] text-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:shadow-xl transform hover:-translate-y-0.5 rounded-[20px]'
                 >
                     بازگشت به صفحه اصلی
                 </Button>

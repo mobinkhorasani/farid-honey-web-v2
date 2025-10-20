@@ -4,7 +4,7 @@ import { useAuth } from "@/context/authContext";
 import { toast } from "sonner";
 
 interface EditQuantityParams {
-  productId: string;
+  productId: string | number;
   updatedData: any;
 }
 

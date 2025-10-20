@@ -34,7 +34,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             /> */}
 
             <img
-              src={product?.image_url || "/imags/hoey-pot-4d7c98d.jpg"}
+              src={product?.image_url ||  "/images/default/default.jpg"}
               alt={product?.name || "محصول بدون نام"}
               className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-[1.04] rounded-2xl"
               loading="lazy"
@@ -66,7 +66,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             </div>
 
             <Button
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#E9B159] to-[#D4A574] text-white text-[11px] sm:text-sm font-bold px-3 py-1.5 sm:px-3.5 sm:py-2 hover:opacity-95 transition"
+              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[11px] sm:text-sm font-bold px-3 py-1.5 sm:px-3.5 sm:py-2 hover:opacity-95 transition"
             >
               مشاهده جزییات
             </Button>

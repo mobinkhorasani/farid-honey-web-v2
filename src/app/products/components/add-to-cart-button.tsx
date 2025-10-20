@@ -10,7 +10,7 @@ import { toast } from "sonner";
 interface AddToCartButtonProps {
   disabled?: boolean;
   product_id: string;
-  size: string;
+  size: string | number;
   quantity: number;
 }
 
