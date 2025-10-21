@@ -1,23 +1,34 @@
-
-
 // ============================================
 // File: components/Edit-Profile-Modal.tsx
 // ============================================
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { X } from 'lucide-react';
+import { X, Mail, Calendar } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { validateName, validatePhone, digitsFaToEn } from '../utils/validation';
+import { 
+  validateName, 
+  validatePhone, 
+  validateEmail,
+  validateBirthDate,
+  digitsFaToEn 
+} from '../utils/validation';
 
 type EditProfileModalProps = {
   open: boolean;
   onClose: () => void;
   initialName?: string;
   initialPhone?: string;
-  onSubmit: (payload: { name: string; phone_number: string }) => void;
+  initialEmail?: string;
+  initialBirthDate?: string;
+  onSubmit: (payload: { 
+    name: string; 
+    phone_number: string; 
+    email?: string; 
+    birth_date?: string; 
+  }) => void;
   submitting?: boolean;
 };
 
@@ -26,20 +37,31 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   onClose,
   initialName = '',
   initialPhone = '',
+  initialEmail = '',
+  initialBirthDate = '',
   onSubmit,
   submitting = false,
 }) => {
   const [name, setName] = useState(initialName);
   const [phone, setPhone] = useState(initialPhone);
-  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
+  const [email, setEmail] = useState(initialEmail);
+  const [birthDate, setBirthDate] = useState(initialBirthDate);
+  const [errors, setErrors] = useState<{ 
+    name?: string; 
+    phone?: string; 
+    email?: string;
+    birthDate?: string;
+  }>({});
 
   useEffect(() => {
     if (open) {
       setName(initialName);
       setPhone(initialPhone);
+      setEmail(initialEmail);
+      setBirthDate(initialBirthDate);
       setErrors({});
     }
-  }, [open, initialName, initialPhone]);
+  }, [open, initialName, initialPhone, initialEmail, initialBirthDate]);
 
   useEffect(() => {
     if (!open) return;
@@ -55,22 +77,32 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   const validate = useCallback(() => {
     const nameError = validateName(name);
     const phoneError = validatePhone(phone);
+    const emailError = email ? validateEmail(email) : undefined;
+    const birthDateError = birthDate ? validateBirthDate(birthDate) : undefined;
     
-    const newErrors: { name?: string; phone?: string } = {};
+    const newErrors: { 
+      name?: string; 
+      phone?: string; 
+      email?: string;
+      birthDate?: string;
+    } = {};
     
     if (nameError) newErrors.name = nameError;
     if (phoneError) newErrors.phone = phoneError;
+    if (emailError) newErrors.email = emailError;
+    if (birthDateError) newErrors.birthDate = birthDateError;
     
     setErrors(newErrors);
 
-    if (nameError || phoneError) {
+    if (nameError || phoneError || emailError || birthDateError) {
+      const firstError = nameError ?? phoneError ?? emailError ?? birthDateError;
       toast.error('خطای اعتبارسنجی', {
-        description: nameError ?? phoneError,
+        description: firstError,
       });
     }
 
     return Object.keys(newErrors).length === 0;
-  }, [name, phone]);
+  }, [name, phone, email, birthDate]);
 
   const handleSubmit = useCallback(() => {
     if (submitting) return;
@@ -79,10 +111,12 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
     const payload = {
       name: name.trim(),
       phone_number: digitsFaToEn(phone.trim()),
+      email: email ? email.trim() : undefined,
+      birth_date: birthDate ? birthDate.trim() : undefined,
     };
 
     onSubmit(payload);
-  }, [validate, submitting, name, phone, onSubmit]);
+  }, [validate, submitting, name, phone, email, birthDate, onSubmit]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !submitting) {
@@ -133,8 +167,9 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
         </div>
 
         <div className="space-y-4" onKeyDown={handleKeyDown}>
+          {/* نام و نام خانوادگی */}
           <div>
-            <label htmlFor="profile-name" className="block text-sm mb-2">
+            <label htmlFor="profile-name" className="block text-sm font-medium mb-2 text-gray-700">
               نام و نام خانوادگی
             </label>
             <Input
@@ -154,8 +189,9 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
             {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
           </div>
 
+          {/* شماره موبایل */}
           <div>
-            <label htmlFor="profile-phone" className="block text-sm mb-2">
+            <label htmlFor="profile-phone" className="block text-sm font-medium mb-2 text-gray-700">
               شماره موبایل
             </label>
             <Input
@@ -173,6 +209,54 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
               disabled={submitting}
             />
             {errors.phone && <p className="mt-1 text-xs text-red-600">{errors.phone}</p>}
+          </div>
+
+          {/* ایمیل */}
+          <div>
+            <label htmlFor="profile-email" className="block text-sm font-medium mb-2 text-gray-700 items-center gap-1">
+              <Mail className="w-4 h-4 text-amber-500" />
+              آدرس ایمیل
+            </label>
+            <Input
+              id="profile-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              inputMode="email"
+              dir="ltr"
+              className={`border ${
+                errors.email
+                  ? 'border-red-400 focus:border-red-400'
+                  : 'border-amber-200 focus:border-amber-400'
+              } rounded-lg`}
+              placeholder="example@gmail.com"
+              disabled={submitting}
+            />
+            {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
+            <p className="mt-1 text-xs text-gray-500">ایمیل اختیاری است</p>
+          </div>
+
+          {/* تاریخ تولد */}
+          <div>
+            <label htmlFor="profile-birthdate" className="block text-sm font-medium mb-2 text-gray-700 items-center gap-1">
+              <Calendar className="w-4 h-4 text-amber-500" />
+              تاریخ تولد
+            </label>
+            <Input
+              id="profile-birthdate"
+              type="text"
+              value={birthDate}
+              onChange={(e) => setBirthDate(e.target.value)}
+              className={`border ${
+                errors.birthDate
+                  ? 'border-red-400 focus:border-red-400'
+                  : 'border-amber-200 focus:border-amber-400'
+              } rounded-lg`}
+              placeholder="1370/01/01"
+              disabled={submitting}
+            />
+            {errors.birthDate && <p className="mt-1 text-xs text-red-600">{errors.birthDate}</p>}
+            <p className="mt-1 text-xs text-gray-500">تاریخ تولد اختیاری است</p>
           </div>
         </div>
 

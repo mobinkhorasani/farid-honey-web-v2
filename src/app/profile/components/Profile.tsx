@@ -45,7 +45,12 @@ export const HoneyShopProfile: React.FC = () => {
   });
 
   const handleEditSubmit = useCallback(
-    (payload: { name: string; phone_number: string }) => {
+    (payload: { 
+      name: string; 
+      phone_number: string; 
+      email?: string; 
+      birth_date?: string; 
+    }) => {
       editMut.mutate(payload);
     },
     [editMut]
@@ -74,13 +79,20 @@ export const HoneyShopProfile: React.FC = () => {
     );
   }
 
+
+  console.log(userData);
+  
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 text-black">
       <div className="fixed top-10 left-10 w-32 h-32 bg-amber-200/20 rounded-full blur-3xl" />
       <div className="fixed bottom-20 right-20 w-40 h-40 bg-orange-200/20 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <HeaderCard userName={userData?.name} phoneNumber={userData?.phone_number} />
+        <HeaderCard 
+          userName={userData?.name} 
+          phoneNumber={userData?.phone_number}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-1">
@@ -96,6 +108,8 @@ export const HoneyShopProfile: React.FC = () => {
               <ProfileTab
                 name={userData?.name ?? ''}
                 phoneNumber={userData?.phone_number ?? ''}
+                email={userData?.gmail}
+                birthDate={userData?.born_date}
                 onEditClick={handleEditOpen}
               />
             )}
@@ -112,6 +126,8 @@ export const HoneyShopProfile: React.FC = () => {
         onClose={handleEditClose}
         initialName={userData?.name}
         initialPhone={userData?.phone_number}
+        initialEmail={userData?.email}
+        initialBirthDate={userData?.birth_date}
         submitting={editMut.isPending}
         onSubmit={handleEditSubmit}
       />
