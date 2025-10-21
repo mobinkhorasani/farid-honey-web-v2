@@ -1,20 +1,30 @@
 import axios from 'axios';
 import { baseURL } from './baseUrl';
 import { urls } from '@/utils/urls';
+import { storage } from '@/app/auth/utils/storage';
 
 export const Instance = axios.create({
-   baseURL: `${baseURL}${urls.client}`,
+  baseURL: `${baseURL}${urls.client}`,
 });
 
 export const InstanceAdmin = axios.create({
-   baseURL: `${baseURL}${urls.admin}`,
+  baseURL: `${baseURL}${urls.admin}`,
+
 });
 
 export const InstanceAuth = axios.create({
-   baseURL: `${baseURL}`,
+  baseURL: `${baseURL}`,
+  withCredentials: true,
 });
 
+const attachAuthHeader = (config: any) => {
+  const token = storage.get<string>('auth_token');
+  if (token) {
+    config.headers = config.headers || {};
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+};
 
-// export const Instance = axios.create({
-//   baseURL,
-// });
+Instance.interceptors.request.use(attachAuthHeader);
+InstanceAdmin.interceptors.request.use(attachAuthHeader);

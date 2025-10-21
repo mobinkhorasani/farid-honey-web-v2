@@ -2,6 +2,7 @@
 
 import { storage } from "@/app/auth/utils/storage"
 import { createContext, useContext, useEffect, useState, ReactNode } from "react"
+import '@/api/users/interceptors';
 
 interface User {
     name: string
