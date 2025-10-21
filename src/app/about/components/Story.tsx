@@ -12,16 +12,13 @@ import {
 import { fadeInUp, scaleIn, stagger } from '@/components/motion/variants';
 import { StoryProps } from '@/constants/about-data';
 
-export const Story = ({ aboutText } : StoryProps) => {
+export const Story = ({ aboutText }: StoryProps) => {
   const paragraphs = aboutText.split('\n\n');
 
-  
   const prefersReduced = useReducedMotion();
   const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rx = useSpring(useTransform(y, [-1, 1], [6, -6]), { stiffness: 120, damping: 12 });
-  const ry = useSpring(useTransform(x, [-1, 1], [-6, 6]), { stiffness: 120, damping: 12 });
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = cardRef.current;
@@ -33,124 +30,152 @@ export const Story = ({ aboutText } : StoryProps) => {
     x.set(px * 2 - 1);
     y.set(py * 2 - 1);
   };
+
   const onLeave = () => {
     x.set(0);
     y.set(0);
   };
 
-  
   const [imgSrc, setImgSrc] = useState('/images/about/brand-jar.JPG');
 
   return (
-    <section className="relative py-12 md:py-16">
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(1200px 600px at 50% -10%, rgba(233,177,89,0.10), transparent 60%)',
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:radial-gradient(circle_at_25%_25%,#E9B159_1.2px,transparent_1.2px),radial-gradient(circle_at_75%_75%,#E9B159_1.2px,transparent_1.2px)] [background-size:36px_36px] [background-position:0_0,18px_18px]"
-      />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center mb-10 md:mb-12">
-          <h2 className="relative inline-block text-2xl md:text-3xl font-bold text-gray-900">
-            داستان برند
-            <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 block w-12 h-0.5 bg-[#E9B159]" />
+    <section className="relative py-8 md:py-16 bg-gradient-to-b from-amber-25 to-white overflow-hidden">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-5 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-8 md:mb-12"
+        >
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-amber-800 to-amber-600 bg-clip-text text-transparent mb-3 md:mb-4">
+            داستان برند ما
           </h2>
-        </div>
+          <div className="w-12 sm:w-16 md:w-20 h-1 bg-gradient-to-r from-amber-400 to-amber-300 rounded-full mx-auto" />
+          <p className="mt-3 md:mt-4 text-amber-700/80 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
+            از دل طبیعت بکر تا محصولی استثنایی
+          </p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-start">
+          {/* متن */}
           <motion.div
             variants={stagger}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.25 }}
-            className="order-2 lg:order-1"
+            viewport={{ once: true, amount: 0.15 }}
+            className="space-y-4 md:space-y-6 order-2 lg:order-1"
           >
             {paragraphs.map((p, i) => (
-              <motion.p
+              <motion.div
                 key={i}
                 variants={fadeInUp}
-                className={
-                  'text-gray-700 leading-8 mb-6 text-justify ' +
-                  (i === 0
-                    ? 'first-letter:text-[#E9B159] first-letter:font-extrabold first-letter:text-4xl first-letter:leading-[0] first-letter:ml-1'
-                    : '')
-                }
+                className="group"
               >
-                {p}
-              </motion.p>
+                <p
+                  className={`text-gray-800 leading-6 sm:leading-7 md:leading-8 text-right sm:text-right text-sm sm:text-base md:text-lg font-medium transition-all duration-300 group-hover:bg-amber-50/50 group-hover:shadow-sm group-hover:p-3 md:group-hover:p-4 group-hover:rounded-xl ${
+                    i === 0
+                      ? 'first-letter:text-2xl sm:first-letter:text-3xl md:first-letter:text-4xl first-letter:font-black first-letter:bg-gradient-to-r first-letter:from-amber-500 first-letter:to-amber-400 first-letter:bg-clip-text first-letter:text-transparent first-letter:float-right first-letter:ml-2 first-letter:mt-1'
+                      : ''
+                  }`}
+                >
+                  {p}
+                </p>
+              </motion.div>
             ))}
+
+            {/* ویژگی های برند */}
+            <motion.div
+              variants={fadeInUp}
+              className="grid grid-cols-2 gap-2 sm:gap-3 mt-4 md:mt-6"
+            >
+              {[
+                { icon: '🍯', text: 'عسل طبیعی' },
+                { icon: '⚡', text: 'تکنولوژی' },
+                { icon: '🌿', text: 'محیط زیست' },
+                { icon: '🎯', text: 'کیفیت' }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.02 }}
+                  className="flex items-center gap-2 p-2 sm:p-3 rounded-lg bg-amber-50/50 border border-amber-100/50 backdrop-blur-sm"
+                >
+                  <span className="text-base sm:text-lg">{item.icon}</span>
+                  <span className="text-amber-700 font-medium text-xs sm:text-sm leading-tight">
+                    {item.text}
+                  </span>
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.div>
 
+          {/* تصویر */}
           <motion.div
             variants={scaleIn}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.25 }}
-            className="order-1 lg:order-2"
+            viewport={{ once: true, amount: 0.15 }}
+            className="relative order-1 lg:order-2 mb-4 md:mb-0"
           >
             <motion.div
               ref={cardRef}
               onMouseMove={onMove}
               onMouseLeave={onLeave}
-              whileHover={prefersReduced ? undefined : { scale: 1.02 }}
+              whileHover={prefersReduced ? undefined : { scale: 1.01 }}
               transition={{ type: 'spring', stiffness: 180, damping: 16 }}
-              className="relative will-change-transform [perspective:900px]"
+              className="relative will-change-transform rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-xl shadow-amber-200/50 border border-amber-100/50"
             >
-              <motion.div
-                style={{
-                  rotateX: prefersReduced ? 0 : (rx as any),
-                  rotateY: prefersReduced ? 0 : (ry as any),
-                  transformStyle: 'preserve-3d',
-                }}
-                className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/5 bg-gray-100"
-              >
+              <div className="relative aspect-[3/4] sm:aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden bg-gradient-to-br from-amber-100/20 to-amber-50/10">
                 <Image
                   src={imgSrc}
                   alt="محصولات عسل فرید"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                  sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 40vw"
                   onError={() => setImgSrc('/images/about/brand-jar.jpg')}
-                  priority={false}
-                  loading='lazy'
+                  priority={true}
                 />
 
- 
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/25 via-black/10 to-transparent pointer-events-none"
-                />
-
-         
-                <motion.div
-                  aria-hidden="true"
-                  initial={{ x: '-120%' }}
-                  whileHover={prefersReduced ? undefined : { x: '120%' }}
-                  transition={{ duration: 1.2, ease: [0.2, 0.8, 0.2, 1] }}
-                  className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 skew-x-12 bg-gradient-to-r from-white/5 via-white/40 to-white/5 mix-blend-screen motion-reduce:hidden"
-                />
-
-
-                <motion.div
-                  aria-hidden="true"
-                  className="absolute inset-0 rounded-2xl ring-1 ring-transparent"
-                  whileHover={prefersReduced ? undefined : { boxShadow: '0 0 0 2px rgba(233,177,89,0.45) inset' }}
-                  transition={{ duration: 0.25 }}
-                />
-              </motion.div>
+                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/30 via-black/15 to-transparent pointer-events-none" />
+              </div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 }}
+              className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 bg-gradient-to-r from-amber-500 to-amber-400 text-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-lg font-medium text-xs sm:text-sm"
+            >
+              محصول ممتاز
             </motion.div>
           </motion.div>
         </div>
+
+        {/* آمار پایین */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-8 md:mt-12"
+        >
+          {[
+            { number: '۴۵+', label: 'سال تجربه' },
+            { number: '۱۰۰+', label: 'محصول طبیعی' },
+            { number: '۵۰+', label: 'اختراع ثبت شده' },
+            { number: '۹۹%', label: 'رضایت مشتری' },
+          ].map((stat, index) => (
+            <div
+              key={index}
+              className="text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/80 backdrop-blur-sm border border-amber-100/50 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
+            >
+              <div className="text-base sm:text-lg md:text-xl font-black bg-gradient-to-r from-amber-600 to-amber-500 bg-clip-text text-transparent">
+                {stat.number}
+              </div>
+              <div className="text-amber-700 font-medium mt-1 text-xs sm:text-sm leading-tight">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
