@@ -18,9 +18,9 @@ import { useState } from "react";
 import { AddToCartButton } from "../components";
 import { LoadingPage } from "@/app/components/loading-page";
 import { ErrorHandler } from "@/app/components/error-handler";
-import { companyInfo } from "@/lib/stores";
 import { convertPersianPrice } from "@/lib/convertPersianPrice";
 import { convertPersianToEnglish } from "@/lib/converEnglishToPersianNumber";
+import BulkOrderButton from "@/app/products/components/BulkOrderButton";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -43,8 +43,6 @@ export default function ProductDetail() {
 
   const product = data.product;
   const currentSize = product.sizes?.[selectedSize];
-
-
 
   const formatPrice = (price: string) => {
     const numPrice = convertPersianPrice(price);
@@ -87,13 +85,12 @@ export default function ProductDetail() {
                     /> */}
 
                     {/* <div className="relative w-full h-64 overflow-hidden rounded-lg"> */}
-                      <img
-                        src={product.image_url ||  "/images/default/default.jpg"}
-                        alt={product.name}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
+                    <img
+                      src={product.image_url || "/images/default/default.jpg"}
+                      alt={product.name}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
                     {/* </div> */}
-
                   </div>
                   <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
                     {product.category}
@@ -183,10 +180,11 @@ export default function ProductDetail() {
                     <button
                       key={size.id}
                       onClick={() => setSelectedSize(index)}
-                      className={`relative p-4 rounded-xl border-2 transition-all ${selectedSize === index
-                        ? "border-amber-500 bg-amber-50 shadow-lg scale-105"
-                        : "border-gray-200 hover:border-amber-300 bg-white/50"
-                        }`}
+                      className={`relative p-4 rounded-xl border-2 transition-all ${
+                        selectedSize === index
+                          ? "border-amber-500 bg-amber-50 shadow-lg scale-105"
+                          : "border-gray-200 hover:border-amber-300 bg-white/50"
+                      }`}
                     >
                       {selectedSize === index && (
                         <div className="absolute top-2 right-2">
@@ -264,24 +262,16 @@ export default function ProductDetail() {
                 <AddToCartButton
                   disabled={!currentSize}
                   product_id={product.id}
-                  size={currentSize ? convertPersianToEnglish(currentSize.size) : ""}
+                  size={
+                    currentSize ? convertPersianToEnglish(currentSize.size) : ""
+                  }
                   quantity={quantity}
                 />
-                <a
-                  href={`https://wa.me/${convertPersianToEnglish(
-                    companyInfo.whatsapp || "989359558289"
-                  )}?text=${encodeURIComponent(
-                    `سلام ، من می‌خوام سفارش عمده محصول "${product.name}" با سایز "${currentSize?.size}" ثبت کنم`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`px-6 border-2 rounded-2xl font-medium transition text-center ${currentSize
-                    ? "bg-white border-amber-400 text-amber-600 hover:bg-amber-50"
-                    : "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed pointer-events-none"
-                    }`}
-                >
-                  خرید عمده
-                </a>
+                <BulkOrderButton
+                  productName={product.name}
+                  currentSize={currentSize}
+                  disabled={!currentSize}
+                />
               </div>
             </div>
 
