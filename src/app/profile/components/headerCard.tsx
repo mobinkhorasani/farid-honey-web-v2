@@ -1,6 +1,3 @@
-// ============================================
-// File: components/Header-Card.tsx
-// ============================================
 'use client';
 
 import React from 'react';

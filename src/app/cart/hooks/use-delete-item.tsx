@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { deleteItem } from "@/api/cart/cartServices";
-import { useAuth } from "@/context/authContext";
+import { deleteItem } from "@/api/cart/cart-services";
+import { useAuth } from "@/context/auth-context";
 import { toast } from "sonner";
 
 export const useDeleteItem = (refetch:()=>void) => {

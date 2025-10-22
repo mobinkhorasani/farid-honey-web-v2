@@ -3,8 +3,8 @@
 import { motion } from 'framer-motion';
 import { containerStagger } from '@/components/motion/variants';
 import type { ProductCardData } from '@/types/d.type';
-import { ProductSkeleton } from './ProductSkeleton';
-import { ProductCard } from './ProductCard';
+import { ProductSkeleton } from './product-skeleton';
+import { ProductCard } from './product-card';
 
 interface ProductsGridProps {
   products: ProductCardData[];

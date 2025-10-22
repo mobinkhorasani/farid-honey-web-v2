@@ -1,4 +1,4 @@
-import { Instance, InstanceAuth } from '@/lib/axiosInstance';
+import { Instance, InstanceAuth } from '@/lib/axios-Instance';
 
 export const signUp = async (Data: any) => {
   const res = await Instance.post(`/user/register`, Data, {

@@ -4,13 +4,13 @@ import { useMemo, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
-import { getProductsList } from "@/api/products/productsServices";
+import { getProductsList } from "@/api/products/products-services";
 import { containerStagger, fadeInUp } from "@/components/motion/variants";
 import type { ProductsResponse, ProductCardData } from "@/types/d.type";
 import { ProductsToolbar } from "./components/toolbar";
 import { ProductsGrid } from "./components";
 // 🔴 مشکل اینجاست - باید sortProducts رو هم import کنی
-import { filterProducts, sortProducts } from "./utils/filterAndSort";
+import { filterProducts, sortProducts } from "./utils/filter-and-sort";
 
 const ProductsPage = () => {
   const searchParams = useSearchParams();

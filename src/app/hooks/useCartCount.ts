@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { useAuth } from '@/context/authContext'
-import { getCartInfo } from '@/api/cart/cartServices'
+import { useAuth } from '@/context/auth-context'
+import { getCartInfo } from '@/api/cart/cart-services'
 
 
 

@@ -2,19 +2,22 @@
 
 import React, { useState, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { useAuth } from '@/context/authContext';
-import { getUserInfo } from '@/api/users/userServices';
+import { useAuth } from '@/context/auth-context';
+import { getUserInfo } from '@/api/users/user-services';
 import { ErrorHandler } from '../../components/error-handler';
 import { LoadingPage } from '../../components/loading-page';
-import { SidebarMenu } from './Sidebar-Menu';
+import { SidebarMenu } from './sidebarMenu';
 import { ProfileTab } from './tabs/Profile-Tab';
 import { AddressesTab } from './tabs/Addresses-Tab';
 import { OrdersTab } from './tabs/Orders-Tab';
 import { FavoritesTab } from './tabs/Favorites-Tab';
-import { EditProfileModal } from './Edit-Profile-Modal';
-import { HeaderCard } from './Header-Card';
-import { useEditUser } from '../hooks/use-User-Mutations';
+import { EditProfileModal } from './editProfileModal';
+
+
 import { normalizeUser } from '../utils/helpers';
+import { useEditUser } from '../hooks';
+import { HeaderCard } from './headerCard';
+
 
 type TabId = 'profile' | 'addresses' | 'orders' | 'favorites';
 

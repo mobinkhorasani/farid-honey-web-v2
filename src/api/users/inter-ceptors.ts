@@ -1,6 +1,6 @@
 import { storage } from '@/app/auth/utils/storage';
-import { refreshTokenApi } from './userServices';
-import { Instance, InstanceAdmin } from '@/lib/axiosInstance';
+import { refreshTokenApi } from './user-services';
+import { Instance, InstanceAdmin } from '@/lib/axios-Instance';
 
 let isRefreshing = false;
 let pendingQueue: Array<(t: string | null) => void> = [];

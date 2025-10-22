@@ -6,7 +6,7 @@ import {
   editAddress,
   deleteAddress,
   type Address,
-} from '@/api/address/addressServices';
+} from '@/api/address/address-services';
 
 type MaybeToken = string | undefined;
 

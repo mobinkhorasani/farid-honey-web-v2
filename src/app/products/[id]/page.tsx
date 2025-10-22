@@ -1,6 +1,6 @@
 "use client";
 
-import { getProductsInfo } from "@/api/products/productsServices";
+import { getProductsInfo } from "@/api/products/products-services";
 import { useQuery } from "@tanstack/react-query";
 import {
   Star,
@@ -18,9 +18,9 @@ import { useState } from "react";
 import { AddToCartButton } from "../components";
 import { LoadingPage } from "@/app/components/loading-page";
 import { ErrorHandler } from "@/app/components/error-handler";
-import { convertPersianPrice } from "@/lib/convertPersianPrice";
-import { convertPersianToEnglish } from "@/lib/converEnglishToPersianNumber";
-import BulkOrderButton from "@/app/products/components/BulkOrderButton";
+import { convertPersianPrice } from "@/lib/convert-persian-price";
+import { convertPersianToEnglish } from "@/lib/conver-english-to-persian-number";
+import BulkOrderButton from "@/app/products/components/bulk-order-button";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();

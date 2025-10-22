@@ -1,4 +1,4 @@
-export {  ProductsGrid } from "./ProductsGrid";
-export { ProductSkeleton } from "./ProductSkeleton";
-export {ProductCard} from './ProductCard';
+export {  ProductsGrid } from "./products-grid";
+export { ProductSkeleton } from "./product-skeleton";
+export {ProductCard} from './product-card';
 export {AddToCartButton} from './add-to-cart-button'

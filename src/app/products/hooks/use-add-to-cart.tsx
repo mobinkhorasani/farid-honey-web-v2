@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addToCart } from "@/api/cart/cartServices";
+import { addToCart } from "@/api/cart/cart-services";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useAuth } from "@/context/authContext";
+import { useAuth } from "@/context/auth-context";
 
 export const useAddToCart = () => {
   const router = useRouter();

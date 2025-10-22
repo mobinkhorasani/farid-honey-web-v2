@@ -2,9 +2,9 @@
 
 import { OrdersTable } from "./components/dashboard";
 import { ShoppingCart } from "lucide-react";
-import { useAuth } from "@/context/authContext";
+import { useAuth } from "@/context/auth-context";
 import { useQuery } from "@tanstack/react-query";
-import { getOrders } from "@/api/admin/adminSevices";
+import { getOrders } from "@/api/admin/admin-sevices";
 import { ErrorHandler } from "../components/error-handler";
 
 export default function AdminDashboardPage() {

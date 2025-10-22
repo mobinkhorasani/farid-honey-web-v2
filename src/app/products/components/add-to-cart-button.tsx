@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { useAddToCart } from "../hooks";
-import { useAuth } from "@/context/authContext";
+import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 

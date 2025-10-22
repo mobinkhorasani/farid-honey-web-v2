@@ -1,4 +1,4 @@
-import { Instance } from '@/lib/axiosInstance';
+import { Instance } from '@/lib/axios-Instance';
 
 export const getProductsList = async () => {
   const res = await Instance.get('/products/get-products');

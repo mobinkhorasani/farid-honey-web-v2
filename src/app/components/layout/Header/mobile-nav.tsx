@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { Menu } from 'lucide-react'
-import { MobileSidebar } from '../MobileSidebar'
-import { UserAuthButton } from '../userAuthButton'
+import { MobileSidebar } from '../mobile-sidebar'
+import { UserAuthButton } from '../user-auth-button'
 import { CartIcon } from '../../cart-icon'
 
 export const MobileNav = () => {

@@ -1,3 +1,3 @@
-export { Hero } from './Hero';
-export {Categories } from './Categories';
-export {FeaturedProducts} from './FeaturedProducts';
+export { Hero } from './hero';
+export {Categories } from './categories';
+export {FeaturedProducts} from './featured-products';

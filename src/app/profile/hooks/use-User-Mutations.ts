@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { editUser } from '@/api/users/userServices';
+import { editUser } from '@/api/users/user-services';
 import { toast } from 'sonner';
 
 type MaybeToken = string | undefined;

@@ -1,14 +1,14 @@
 "use client"
 
-import { getCartInfo } from "@/api/cart/cartServices";
-import { useAuth } from "@/context/authContext";
+import { getCartInfo } from "@/api/cart/cart-services";
+import { useAuth } from "@/context/auth-context";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { CartFeatures, CartItem, CartSummary, EmptyCart } from "./components";
 import { LoadingPage } from "../components/loading-page";
 import { ErrorHandler } from "../components/error-handler";
-import { convertPersianPrice } from "@/lib/convertPersianPrice";
-import { convertPersianToEnglish } from "@/lib/converEnglishToPersianNumber";
+import { convertPersianPrice } from "@/lib/convert-persian-price";
+import { convertPersianToEnglish } from "@/lib/conver-english-to-persian-number";
 import { LoginRequired } from "../components/login-required";
 
 

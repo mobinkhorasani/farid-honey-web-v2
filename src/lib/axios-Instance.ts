@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { baseURL } from './baseUrl';
+import { baseURL } from './base-url';
 import { urls } from '@/utils/urls';
 import { storage } from '@/app/auth/utils/storage';
 

@@ -1,4 +1,4 @@
-import { Instance } from '@/lib/axiosInstance';
+import { Instance } from '@/lib/axios-Instance';
 
 export interface Address {
   id?: number;

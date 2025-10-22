@@ -1,4 +1,4 @@
-import { Instance } from '@/lib/axiosInstance';
+import { Instance } from '@/lib/axios-Instance';
 
 export const getCartInfo = async (token?: string) => {
   const res = await Instance.get('/cart/get-cart',

@@ -2,10 +2,10 @@ import './globals.css'
 import { Vazirmatn } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
 import { HeaderWrapper } from './components/layout/Header'
-import { FooterWrapper } from './components/layout/FooterWrapper'
-import ReactQueryProvider from '@/providers/ReactQueryProvider'
+import { FooterWrapper } from './components/layout/footer-wrapper'
+import ReactQueryProvider from '@/providers/react-query-provider'
 import { Toaster } from '@/components/ui/sonner'
-import { AuthProvider } from '@/context/authContext'
+import { AuthProvider } from '@/context/auth-context'
 
 
 const vazirmatn = Vazirmatn({

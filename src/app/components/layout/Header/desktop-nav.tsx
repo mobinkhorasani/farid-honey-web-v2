@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { mainNav } from '@/lib/nav'
 import { cn } from '@/lib/utils'
-import { UserAuthButton } from '../userAuthButton'
+import { UserAuthButton } from '../user-auth-button'
 import { CartIcon } from '../../cart-icon'
 
 export const DesktopNav = () => {

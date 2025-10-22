@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { Header } from './Header'
+import { Header } from './header'
 
 export const HeaderWrapper = () => {
   const pathname = usePathname()

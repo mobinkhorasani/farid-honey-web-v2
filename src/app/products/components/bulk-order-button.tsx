@@ -1,7 +1,7 @@
 "use client";
 
 import { companyInfo } from "@/lib/stores";
-import { convertPersianToEnglish } from "@/lib/converEnglishToPersianNumber";
+import { convertPersianToEnglish } from "@/lib/conver-english-to-persian-number";
 
 interface BulkOrderButtonProps {
   productName: string;

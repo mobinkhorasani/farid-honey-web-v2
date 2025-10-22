@@ -3,10 +3,10 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { login } from '@/api/users/userServices'
+import { login } from '@/api/users/user-services'
 import { fadeInUp, stagger } from '@/components/motion/variants'
 import { LoginForm } from './components'
-import { useAuth } from '@/context/authContext'
+import { useAuth } from '@/context/auth-context'
 import { LoginFormValues } from './schema/login-schema'
 import { ArrowRight } from 'lucide-react' 
 

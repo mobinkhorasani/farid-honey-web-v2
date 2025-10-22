@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteOrder as deleteOrderApi } from '@/api/admin/adminSevices'
+import { deleteOrder as deleteOrderApi } from '@/api/admin/admin-sevices'
 
 export const useDeleteOrder = (token?: string) => {
     const queryClient = useQueryClient()

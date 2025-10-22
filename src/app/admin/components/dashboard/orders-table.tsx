@@ -8,7 +8,7 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import { DeleteOrderModal } from "../delete-order-modal";
-import { OrderDetailsRow } from "./OrderDetailsRow";
+import { OrderDetailsRow } from "./order-details-row";
 
 export interface Order {
   id: string;

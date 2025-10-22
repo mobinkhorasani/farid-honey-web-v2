@@ -1,4 +1,4 @@
-export { AboutHero } from './About-Hero';
-export { AboutVideo } from './About-Video';
-export { Timeline } from './Time-line';
-export { Story } from './Story';
+export { AboutHero } from './about-hero';
+export { AboutVideo } from './about-video';
+export { Timeline } from './time-line';
+export { Story } from './story';

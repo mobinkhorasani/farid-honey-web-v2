@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { directionsLink, LAT, LNG, mapEmbedUrl, PLACE_NAME, PLACE_URL } from './map-embed/constants';
 import { copyToClipboard } from './map-embed/utils';
-import { MapHeader } from './map-embed/Map-Header';
-import { MapActions } from './map-embed/Map-Actions';
-import { MapCanvas } from './map-embed/Map-Canvas';
+import { MapHeader } from './map-embed/map-header';
+import { MapActions } from './map-embed/map-actions';
+import { MapCanvas } from './map-embed/map-canvas';
 
 
 export const MapEmbed = () => {

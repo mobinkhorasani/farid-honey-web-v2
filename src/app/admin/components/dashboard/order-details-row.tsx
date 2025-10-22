@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getOrderDeteil } from "@/api/admin/adminSevices";
+import { getOrderDeteil } from "@/api/admin/admin-sevices";
 
 interface OrderDetailsRowProps {
   orderId: string;

@@ -1,4 +1,4 @@
-import { InstanceAdmin } from "@/lib/axiosInstance";
+import { InstanceAdmin } from "@/lib/axios-Instance";
 
 export const getOrders = async (token?: string) => {
   const res = await InstanceAdmin.get('/order/get-orders',

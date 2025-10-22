@@ -1,19 +1,19 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { useAuth } from '@/context/authContext';
+import { useAuth } from '@/context/auth-context';
 import { useQuery } from '@tanstack/react-query';
-import { getMyAddresses, type Address } from '@/api/address/addressServices';
+import { getMyAddresses, type Address } from '@/api/address/address-services';
 import { MapPin, Home, Edit2, Trash2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ErrorHandler } from '@/app/components/error-handler';
-import { AddressForm } from '../Address-Form';
-import { DeleteConfirmModal } from '../Delete-Confirm-Modal';
+import { AddressForm } from '../address-form';
+import { DeleteConfirmModal } from '../delete-confirm-modal';
 import {
   useAddAddress,
   useDeleteAddress,
   useEditAddress,
-} from '../../hooks/use-Address-Mutations';
+} from '../../hooks/use-address-mutations';
 import { validateAddress, digitsFaToEn } from '../../utils/validation';
 import { toast } from 'sonner';
 
