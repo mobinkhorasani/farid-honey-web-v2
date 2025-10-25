@@ -27,8 +27,8 @@ export const useAddToCart = () => {
       if (error?.response?.status === 401 || error.message === "No token found") {
         toast.error("لطفا ابتدا وارد شوید");
         router.push("/auth/register");
-      } else {        
-        toast.error(error?.response?.data ||"مشکلی در افزودن محصول پیش آمد ❌");
+      } else {
+        toast.error(error?.response?.data || "مشکلی در افزودن محصول پیش آمد ❌");
       }
     },
   });

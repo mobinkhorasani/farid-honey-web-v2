@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editCart } from "@/api/cart/cartServices";
 import { useAuth } from "@/context/authContext";
 import { toast } from "sonner";
@@ -10,12 +10,14 @@ interface EditQuantityParams {
 
 export const useEditQuantity = () => {
   const { token } = useAuth();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ productId, updatedData }: EditQuantityParams) =>
-      editCart(updatedData, token ?? undefined , productId),
+      editCart(updatedData, token ?? undefined, productId),
     onSuccess: () => {
       toast.success("مقدار با موفقیت ویرایش شد");
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message || "خطا در ویرایش سبد خرید");

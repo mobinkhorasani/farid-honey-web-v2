@@ -18,11 +18,10 @@ export default function CartPage() {
 
 
     const { data, isLoading, isError, refetch, isFetching } = useQuery({
-        queryKey: ["Cart"],
+        queryKey: ['cart'],
         queryFn: () => getCartInfo(token ?? undefined),
-        enabled: !!token
+        enabled: !!token,
     });
-
 
     const formatPrice = (price: number) => {
         return price.toLocaleString('fa-IR');
@@ -58,16 +57,15 @@ export default function CartPage() {
     }
 
     const calculateTotal = () => {
-        if (data?.total_price) {
-            return convertPersianPrice(data.total_price);
-        }
+        if (!Array.isArray(data?.products)) return 0;
 
-        return data?.products.reduce((total: number, product: any) => {
-            const quantity = Number(
-                quantities[product.id] ?? convertPersianToEnglish(product.quantity, true)
+        return data.products.reduce((total: number, product: any) => {
+            const qtyFromState = quantities[product.id];
+            const qty = Number(
+                qtyFromState ?? convertPersianToEnglish(product.quantity, true)
             );
             const price = Number(convertPersianPrice(product.price));
-            return total + price * quantity;
+            return total + price * (Number.isFinite(qty) ? qty : 0);
         }, 0);
     };
 
