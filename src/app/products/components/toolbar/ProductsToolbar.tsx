@@ -12,20 +12,20 @@ interface ProductsToolbarProps {
   onQueryDebouncedChange?: (v: string) => void;
   onPriceRangeChange?: (range: string) => void;
   onCategoryChange?: (category: string) => void;
-  onSortChange?: (sort: string) => void; // 🆕 اضافه شد
+  onSortChange?: (sort: string) => void;
   initialPriceRange?: string;
   initialCategory?: string;
-  initialSort?: string; // 🆕 اضافه شد
+  initialSort?: string;
 }
 
-const priceRanges = ["فیلتر بر اساس قیمت", 'زیر ۲۰۰ هزار', '۲۰۰-۴۰۰ هزار', 'بالای ۴۰۰ هزار'];
-
-// 🆕 آپشن‌های مرتب‌سازی
-const sortOptions = [
-  "مرتب‌سازی",
-  "ارزان‌ترین",
-  "گران‌ترین", 
+const priceRanges = [
+  'فیلتر بر اساس قیمت',
+  'زیر ۲۰۰ هزار',
+  '۲۰۰-۴۰۰ هزار',
+  'بالای ۴۰۰ هزار',
 ];
+
+const sortOptions = ['مرتب‌سازی', 'ارزان‌ترین', 'گران‌ترین'];
 
 export const ProductsToolbar = ({
   query,
@@ -33,14 +33,14 @@ export const ProductsToolbar = ({
   onQueryDebouncedChange,
   onPriceRangeChange,
   onCategoryChange,
-  onSortChange, // 🆕 اضافه شد
-  initialPriceRange = "فیلتر بر اساس قیمت",
-  initialCategory = "همه محصولات",
-  initialSort = "مرتب‌سازی", // 🆕 اضافه شد
+  onSortChange,
+  initialPriceRange = 'فیلتر بر اساس قیمت',
+  initialCategory = 'همه محصولات',
+  initialSort = 'مرتب‌سازی',
 }: ProductsToolbarProps) => {
   const [activePriceRange, setActivePriceRange] = useState(initialPriceRange);
   const [activeCategory, setActiveCategory] = useState(initialCategory);
-  const [activeSort, setActiveSort] = useState(initialSort); // 🆕 اضافه شد
+  const [activeSort, setActiveSort] = useState(initialSort);
 
   useEffect(() => {
     setActivePriceRange(initialPriceRange);
@@ -50,7 +50,6 @@ export const ProductsToolbar = ({
     setActiveCategory(initialCategory);
   }, [initialCategory]);
 
-  // 🆕 اضافه شد
   useEffect(() => {
     setActiveSort(initialSort);
   }, [initialSort]);
@@ -65,19 +64,19 @@ export const ProductsToolbar = ({
         }}
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-[1fr,auto,auto] gap-3">
+      {/* 🆕 چینش جدید: هر سه فیلد کنار هم در دسکتاپ */}
+      <div className="flex flex-col sm:flex-row gap-3">
         <SearchField
           value={query}
           onChange={onQueryChange}
           onDebouncedChange={onQueryDebouncedChange}
           placeholder="جستجو در محصولات..."
           size="md"
-          className="w-full"
+          className="w-full sm:w-[400px]"
         />
 
-        {/* 🆕 Dropdown مرتب‌سازی */}
         <SmartDropdown
-          className="w-full sm:w-auto sm:min-w-[180px]"
+          className="w-full sm:w-[160px]"
           label="مرتب‌سازی"
           items={sortOptions}
           selected={activeSort}
@@ -91,7 +90,7 @@ export const ProductsToolbar = ({
         />
 
         <SmartDropdown
-          className="w-full sm:w-auto sm:min-w-[200px]"
+          className="w-full sm:w-[200px]"
           label="فیلتر قیمت"
           items={priceRanges}
           selected={activePriceRange}

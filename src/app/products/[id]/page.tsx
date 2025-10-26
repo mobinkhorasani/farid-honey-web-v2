@@ -12,6 +12,7 @@ import {
   Zap,
   Package,
 } from "lucide-react";
+import Link from "next/link";
 // import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -55,18 +56,30 @@ export default function ProductDetail() {
       <div className="fixed bottom-20 left-20 w-40 h-40 bg-orange-200/20 rounded-full blur-3xl"></div>
 
       <div className="max-w-7xl mx-auto px-4 py-8 relative">
-        <nav className="flex items-center gap-2 text-sm mb-8">
-          <span className="text-amber-600 hover:text-amber-700 cursor-pointer">
-            خانه
-          </span>
-          <span className="text-amber-400">/</span>
-          <span className="text-amber-600 hover:text-amber-700 cursor-pointer">
-            محصولات
-          </span>
-          <span className="text-amber-400">/</span>
-          <span className="text-amber-800 font-medium">{product.name}</span>
-        </nav>
+         <nav className="flex items-center gap-2 text-sm mb-8">
+        {/* خانه */}
+        <Link
+          href="/"
+          className="text-amber-600 hover:text-amber-700 cursor-pointer"
+        >
+          خانه
+        </Link>
 
+        <span className="text-amber-400">/</span>
+
+        {/* محصولات */}
+        <Link
+          href="/products"
+          className="text-amber-600 hover:text-amber-700 cursor-pointer"
+        >
+          محصولات
+        </Link>
+
+        <span className="text-amber-400">/</span>
+
+        {/* نام محصول */}
+        <span className="text-amber-800 font-medium">{product.name}</span>
+      </nav>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="relative">
             <div className="sticky top-24">

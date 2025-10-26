@@ -1,5 +1,5 @@
 import { DesktopNav } from "./desktop-nav";
-import { Logo } from "./Logo";
+import { Logo } from "./logo";
 import { MobileNav } from "./mobile-nav";
 
 export const Header = () => {
